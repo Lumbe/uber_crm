@@ -23,13 +23,8 @@ The Cloud9 IDE team
 Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE. 
 To watch some training videos, visit http://www.youtube.com/user/c9ide
 
-Закончил на http://guides.rubyonrails.org/getting_started.html#adding-a-second-model
+http://guides.rubyonrails.org/getting_started.html#adding-a-second-model
 
 Перед началом работы:
-1. запустить postgresql
-
-sudo service postgresql start
-
-2. Запустить сервер rails
-
-rails s -p $PORT -b $IP
+1. запустить postgresql ```sudo service postgresql start```
+2. Запустить сервер rails ```rails s -p $PORT -b $IP```
