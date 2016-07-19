@@ -1,0 +1,109 @@
+/ Main navbar
+.navbar.navbar-default.navbar-fixed-top.header-highlight
+  .navbar-header
+    %a.navbar-brand{:href => "index.html"}
+      = image_tag('logo_light', alt: "Uber CRM")
+    %ul.nav.navbar-nav.pull-right.visible-xs-block
+      %li
+        %a{"data-target" => "#navbar-mobile", "data-toggle" => "collapse"}
+          %i.icon-tree5
+      %li
+        %a.sidebar-mobile-main-toggle
+          %i.icon-paragraph-justify3
+  #navbar-mobile.navbar-collapse.collapse
+    %ul.nav.navbar-nav
+      %li
+        %a.sidebar-control.sidebar-main-toggle.hidden-xs
+          %i.icon-paragraph-justify3
+    %ul.nav.navbar-nav.navbar-right
+      %li
+        %a{:href => "#"} Text link
+      %li
+        %a{:href => "#"}
+          %i.icon-cog3
+          %span.visible-xs-inline-block.position-right Icon link
+      %li.dropdown.dropdown-user
+        %a.dropdown-toggle{"data-toggle" => "dropdown"}
+          = image_tag('face11', alt: 'user profile')
+          %span Victoria
+          %i.caret
+        %ul.dropdown-menu.dropdown-menu-right
+          %li
+            %a{:href => "#"}
+              %i.icon-user-plus
+              My profile
+          %li
+            %a{:href => "#"}
+              %i.icon-coins
+              My balance
+          %li
+            %a{:href => "#"}
+              %span.badge.badge-warning.pull-right 58
+              %i.icon-comment-discussion
+              Messages
+          %li.divider
+          %li
+            %a{:href => "#"}
+              %i.icon-cog5
+              Account settings
+          %li
+            %a{:href => "#"}
+              %i.icon-switch2
+              Logout
+/ /main navbar
+/ Page container
+.page-container
+  / Page content
+  .page-content
+    / Main sidebar
+    .sidebar.sidebar-main.sidebar-fixed
+      .sidebar-content
+        / User menu
+        .sidebar-user
+          .category-content
+            .media
+              %a.media-left{:href => "#"}
+                = image_tag('face11', class: ['img-circle', 'img-sm'])
+              .media-body
+                %span.media-heading.text-semibold Victoria Baker
+                .text-size-mini.text-muted
+                  %i.icon-pin.text-size-small
+                  \&nbsp;Santa Ana, CA
+              .media-right.media-middle
+                %ul.icons-list
+                  %li
+                    %a{:href => "#"}
+                      %i.icon-cog3
+        / /user menu
+        / Main navigation
+        .sidebar-category.sidebar-category-visible
+          .category-content.no-padding
+            %ul.navigation.navigation-main.navigation-accordion
+              / Main
+              %li.navigation-header
+                %span Меню
+                %i.icon-menu{:title => "Main pages"}
+              %li
+                = link_to root_path do
+                  %i.icon-home4
+                  %span Главная
+              %li
+                = link_to leads_path do
+                  %i.icon-user
+                  %span Лиды
+              %li
+                %a{:href => "#"}
+                  %i.icon-user-plus
+                  %span Контакты
+              %li
+                %a{:href => "#"}
+                  %i.icon-user-check
+                  %span Клиенты
+              %li
+                %a{:href => "../changelog.html"}
+                  %i.icon-user-minus
+                  %span Конкуренты
+              / /main
+        / /main navigation
+    / /main sidebar
+    = yield

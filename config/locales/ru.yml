@@ -1,0 +1,7 @@
+---
+ru:
+  activerecord:
+    attributes:
+      lead:
+        name: "Имя"
+        phone: "Телефон"
