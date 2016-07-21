@@ -57,15 +57,11 @@
           - @leads.each do |lead|
             %tr
               %td 
-                // - if lead.status.nil?
-                //   %span.label.label-default Закрыт
-                // - if lead.status == 'newly'
-                //   %span.label.label-warning Новый
-                // - if lead.status == 'converted'
-                //   %span.label.label-success Конвертирован
                 - case lead.status
                 - when 'newly'
                   %span.label.label-warning Новый
+                - when 'repeated'
+                  %span.label.label-warning Повторно
                 - when 'closed'
                   %span.label.label-default Закрыт
                 - when 'converted'
