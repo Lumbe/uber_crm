@@ -14,9 +14,12 @@ $(function() {
 
     // Table setup
     // ------------------------------
-
     // Setting datatable defaults
     $.extend( $.fn.dataTable.defaults, {
+        processing: true,
+        serverSide: true,
+        ajax: $('.datatable-lead').data('source'),
+        pagingType: 'full_numbers',
         autoWidth: false,
         columnDefs: [{ 
             orderable: false,
@@ -39,43 +42,43 @@ $(function() {
         }
     });
 
-    $('.datatable-basic').DataTable();
+    $('.datatable-lead').DataTable();
 
 
-    // Alternative pagination
-    $('.datatable-pagination').DataTable({
-        pagingType: "simple",
-        language: {
-            paginate: {'next': 'Next &rarr;', 'previous': '&larr; Prev'}
-        },
+    // // Alternative pagination
+    // $('.datatable-pagination').DataTable({
+    //     pagingType: "simple",
+    //     language: {
+    //         paginate: {'next': 'Next &rarr;', 'previous': '&larr; Prev'}
+    //     },
         
-    });
+    // });
 
 
-    // Datatable with saving state
-    $('.datatable-save-state').DataTable({
-        stateSave: true
-    });
+    // // Datatable with saving state
+    // $('.datatable-save-state').DataTable({
+    //     stateSave: true
+    // });
 
 
-    // Scrollable datatable
-    $('.datatable-scroll-y').DataTable({
-        autoWidth: true,
-        scrollY: 300
-    });
+    // // Scrollable datatable
+    // $('.datatable-scroll-y').DataTable({
+    //     autoWidth: true,
+    //     scrollY: 300
+    // });
     
 
-    // External table additions
-    // ------------------------------
+    // // External table additions
+    // // ------------------------------
 
-    // Add placeholder to the datatable filter option
-    $('.dataTables_filter input[type=search]').attr('placeholder','Введите имя, телефон...');
+    // // Add placeholder to the datatable filter option
+    // $('.dataTables_filter input[type=search]').attr('placeholder','Введите имя, телефон...');
 
 
-    // Enable Select2 select for the length option
-    $('.dataTables_length select').select2({
-        minimumResultsForSearch: Infinity,
-        width: 'auto'
-    });
+    // // Enable Select2 select for the length option
+    // $('.dataTables_length select').select2({
+    //     minimumResultsForSearch: Infinity,
+    //     width: 'auto'
+    // });
     
 });

@@ -29,6 +29,12 @@ gem 'hamlit'
 gem 'less-rails', '~> 2.7', '>= 2.7.1'
 gem 'pg'
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-4-x'
+
+# Powerful html tables with JQuery DataTables https://datatables.net
+gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git', branch: 'master'
+gem 'ajax-datatables-rails', '~> 0.3.1'
+gem "kaminari"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,7 +1,11 @@
 class LeadsController < ApplicationController
     
     def index
-      @leads = Lead.all.order('created_at DESC')
+      # @leads = Lead.all.order('created_at DESC')
+      respond_to do |format|
+        format.html
+        format.json { render json: ::LeadDatatable.new(view_context) }
+      end
     end
     
     def show
