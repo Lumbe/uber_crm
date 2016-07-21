@@ -29,7 +29,7 @@ $(function() {
             lengthMenu: '<span>Показать:</span> _MENU_',
             paginate: { 'first': 'Первая', 'last': 'Последняя', 'next': '&rarr;', 'previous': '&larr;' },
             info: "Записи с _START_ до _END_ из _TOTAL_ записей",
-            infoEmpty: "Записи с 0 до 0 из 0 записей"
+            infoEmpty: "Нет ни одной записи"
         },
         drawCallback: function () {
             $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
@@ -39,8 +39,6 @@ $(function() {
         }
     });
 
-
-    // Basic datatable
     $('.datatable-basic').DataTable();
 
 
@@ -49,7 +47,8 @@ $(function() {
         pagingType: "simple",
         language: {
             paginate: {'next': 'Next &rarr;', 'previous': '&larr; Prev'}
-        }
+        },
+        
     });
 
 
@@ -64,8 +63,7 @@ $(function() {
         autoWidth: true,
         scrollY: 300
     });
-
-
+    
 
     // External table additions
     // ------------------------------

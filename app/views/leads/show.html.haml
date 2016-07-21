@@ -10,6 +10,7 @@
               %span.text-semibold Карточка лида - #{@lead.name}
           .heading-elements
             = link_to 'Редактировать', edit_lead_path, class: 'btn btn-success'
+            = link_to 'Удалить', lead_path(@lead), method: :delete, data: {confirm: "Удалить этот лид навсегда?"}, class: 'btn btn-danger'
         .breadcrumb-line
           %ul.breadcrumb
             %li

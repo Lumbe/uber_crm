@@ -25,12 +25,12 @@
 //= require 'limitless/core/libraries/jquery_ui/effects.min.js'
 
 //= require 'limitless/plugins/datatables/datatables.min.js'
+//= require 'limitless/plugins/datatables/extensions/buttons.min.js'
 //= require 'limitless/plugins/forms/selects/select2.min.js'
 //= require 'limitless/plugins/forms/styling/uniform.min.js'
 //= require 'limitless/plugins/ui/moment/moment-with-locales.js'
 //= require 'limitless/plugins/pickers/daterangepicker.js'
 //= require 'limitless/plugins/datatables/datatables_basic.js'
-//= require 'limitless/plugins/datatables/datatables_sorting.js'
 //= require 'limitless/plugins/notifications/pnotify.min.js'
 
 //= require 'limitless/core//app.min.js'
