@@ -1,7 +1,7 @@
 class LeadsController < ApplicationController
     
     def index
-      @leads = Lead.all.order('created_at DESC')
+      @datatable = Effective::Datatables::Leads.new
     end
     
     def show

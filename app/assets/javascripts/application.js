@@ -25,7 +25,6 @@
 //= require 'limitless/core/libraries/jquery_ui/effects.min.js'
 
 //= require effective_datatables
-//= require 'limitless/plugins/datatables/datatables.min.js'
 //= require 'limitless/plugins/forms/selects/select2.min.js'
 //= require 'limitless/plugins/forms/styling/uniform.min.js'
 //= require 'limitless/plugins/ui/moment/moment-with-locales.js'

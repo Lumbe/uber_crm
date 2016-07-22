@@ -43,57 +43,72 @@
             %li
               %a{"data-action" => "close"}
       .panel-body
-      %table.table.datatable-basic
-        %thead
-          %tr
-            %th Статус
-            %th Имя
-            %th Номер телефона
-            %th e-mail
-            %th Регион
-            %th Добавлен
-            %th.text-center Действия
-        %tbody
-          - @leads.each do |lead|
-            %tr
-              %td 
-                - case lead.status
-                - when 'newly'
-                  %span.label.label-warning Новый
-                - when 'repeated'
-                  %span.label.label-warning Повторно
-                - when 'closed'
-                  %span.label.label-default Закрыт
-                - when 'converted'
-                  %span.label.label-success Конвертирован
-                - when 'sended'
-                  %span.label.label-info Передан в ГО
-              %td 
-                = link_to "#{lead.name}", lead_path(lead)
-              %td #{lead.phone}
-              %td #{lead.email}
-              %td #{lead.location}
-              %td #{time_ago_in_words(lead.created_at)} назад
-              %td.text-center
-                %ul.icons-list
-                  %li.dropdown
-                    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                      %i.icon-menu9
-                    %ul.dropdown-menu.dropdown-menu-right
-                      %li
-                        %a{:href => "#"}
-                          %i.icon-spinner11
-                          Конвертировать
-                      %li
-                        %a{:href => "#"}
-                          %i.icon-cross2
-                          Закрыть
-                      %li
-                        %a{:href => "#"}
-                          %i.icon-users2
-                          Делегировать
-                      %li
-                        %a{:href => "#"}
-                          %i.icon-envelope
-                          Отправить почтой
-      / /basic datatable
+      = render_datatable(@datatable, {                                                                            |
+        autoWidth: false,                                                                                         |
+        columnDefs: [{                                                                                            |
+            orderable: false,                                                                                     |
+            width: '100px',                                                                                       |
+            targets: [ 5 ]                                                                                        |
+        }],                                                                                                       |
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',                                 |
+        language: {                                                                                               |
+            lengthMenu: '<span>Показать:</span> _MENU_',                                                          |
+            paginate: { 'first': 'Первая', 'last': 'Последняя', 'next': '&rarr;', 'previous': '&larr;' },         |
+            info: "Записи с _START_ до _END_ из _TOTAL_ записей",                                                 |
+            infoEmpty: "Нет ни одной записи"                                                                      |
+        }                                                                                                         |
+        })                                                                                                        |
+      // %table.table.datatable-basic
+      //   %thead
+      //     %tr
+      //       %th Статус
+      //       %th Имя
+      //       %th Номер телефона
+      //       %th e-mail
+      //       %th Регион
+      //       %th Добавлен
+      //       %th.text-center Действия
+      //   %tbody
+      //     - @leads.each do |lead|
+      //       %tr
+      //         %td 
+      //           - case lead.status
+      //           - when 'newly'
+      //             %span.label.label-warning Новый
+      //           - when 'repeated'
+      //             %span.label.label-warning Повторно
+      //           - when 'closed'
+      //             %span.label.label-default Закрыт
+      //           - when 'converted'
+      //             %span.label.label-success Конвертирован
+      //           - when 'sended'
+      //             %span.label.label-info Передан в ГО
+      //         %td 
+      //           = link_to "#{lead.name}", lead_path(lead)
+      //         %td #{lead.phone}
+      //         %td #{lead.email}
+      //         %td #{lead.location}
+      //         %td #{time_ago_in_words(lead.created_at)} назад
+      //         %td.text-center
+      //           %ul.icons-list
+      //             %li.dropdown
+      //               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+      //                 %i.icon-menu9
+      //               %ul.dropdown-menu.dropdown-menu-right
+      //                 %li
+      //                   %a{:href => "#"}
+      //                     %i.icon-spinner11
+      //                     Конвертировать
+      //                 %li
+      //                   %a{:href => "#"}
+      //                     %i.icon-cross2
+      //                     Закрыть
+      //                 %li
+      //                   %a{:href => "#"}
+      //                     %i.icon-users2
+      //                     Делегировать
+      //                 %li
+      //                   %a{:href => "#"}
+      //                     %i.icon-envelope
+      //                     Отправить почтой
+      // / /basic datatable
