@@ -1,7 +1,9 @@
 class LeadsController < ApplicationController
     
     def index
-      @leads = Lead.all.order('created_at DESC')
+      # @leads = Lead.all.order('created_at DESC')
+      @q = Lead.all.order(created_at: :desc).search(params[:q])
+      @leads = @q.result()
     end
     
     def show
