@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   resources :articles
   # You can have the root of your site routed with "root"
-  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

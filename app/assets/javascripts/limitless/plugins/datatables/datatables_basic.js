@@ -39,7 +39,14 @@ $(function() {
         }
     });
 
-    $('.datatable-basic').DataTable();
+    $('.datatable-basic').DataTable( {
+        serverSide: true,
+        sAjaxSource: location.pathname, // current page url '/leads'
+        columnDefs: [
+          {aTargets: [0, 1, 2, 3, 4, 5, 6], bSortable: false},
+          {aTargets: [6], sClass: 'text-center'}
+        ]
+      });
 
 
     // Alternative pagination
