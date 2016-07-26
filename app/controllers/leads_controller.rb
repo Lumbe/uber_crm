@@ -4,9 +4,8 @@ class LeadsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @filtered_statuses = params[:statuses]
         # load leads with filtered statuses
-        @leads = Lead.where("status IN (?)", @filtered_statuses).order(created_at: :desc)
+        @leads = Lead.where(status: params[:statuses]).order(created_at: :desc)
         # total count for datatable view
         total_count = @leads.count
         # count fo datatable view

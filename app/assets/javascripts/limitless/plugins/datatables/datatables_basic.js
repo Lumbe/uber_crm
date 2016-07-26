@@ -43,30 +43,34 @@ $(function() {
         serverSide: true,
         sAjaxSource: location.pathname, // current page url '/leads'
         stateSave: true,
-        "fnServerParams": function (aoData) {
-          var statuses = [];
-          var filter_new_status = $("#newly").is(":checked");
-          var filter_closed_status = $("#closed").is(":checked");
-          var filter_converted_status = $("#converted").is(":checked");
-          var filter_sended_status = $("#sended").is(":checked");
-          var filter_repeated_status = $("#repeated").is(":checked");
+        fnServerParams: function (aoData) {
+          // var statuses = [];
+          // var filter_new_status = $("#newly").is(":checked");
+          // var filter_closed_status = $("#closed").is(":checked");
+          // var filter_converted_status = $("#converted").is(":checked");
+          // var filter_sended_status = $("#sended").is(":checked");
+          // var filter_repeated_status = $("#repeated").is(":checked");
 
-          // if checkbox is checked - push status code to array
-          if (filter_new_status == true) {
-            statuses.push(0) // new status code is 0
-          }
-          if (filter_closed_status == true) {
-            statuses.push(1) // closed status code is 1
-          }
-          if (filter_converted_status == true) {
-            statuses.push(2) // converted status code is 2
-          }
-          if (filter_sended_status == true) {
-            statuses.push(3) // sended status code is 3
-          }
-          if (filter_repeated_status == true) {
-            statuses.push(4) // repeated status code is 4
-          }
+          // // if checkbox is checked - push status code to array
+          // if (filter_new_status == true) {
+          //   statuses.push(0) // new status code is 0
+          // }
+          // if (filter_closed_status == true) {
+          //   statuses.push(1) // closed status code is 1
+          // }
+          // if (filter_converted_status == true) {
+          //   statuses.push(2) // converted status code is 2
+          // }
+          // if (filter_sended_status == true) {
+          //   statuses.push(3) // sended status code is 3
+          // }
+          // if (filter_repeated_status == true) {
+          //   statuses.push(4) // repeated status code is 4
+          // }
+          
+          var statuses = $('.lead_status').map(function(){
+            return $(this).prop('checked') ? parseInt($(this).val()) : null;
+          });
           // send to leads index controller - statuses: [0, 1, 2, 3, 4], where [0, 1, 2, 3, 4] is status codes
           aoData.push({name: "statuses", value: statuses});
         },
@@ -77,10 +81,9 @@ $(function() {
       });
 
     // when statuses checkbox is checked or unchecked - redraw the table with filtered statuses
-    $("#newly, #closed, #converted, #sended, #repeated").on("change", function() {
+    $('.lead_status').on("change", function() {
       table.draw();
     });
-
 
     // Alternative pagination
     $('.datatable-pagination').DataTable({
