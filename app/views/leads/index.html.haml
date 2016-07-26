@@ -43,4 +43,23 @@
             %li
               %a{"data-action" => "close"}
       .panel-body
+        = params[:statuses]
+        = form_tag leads_path, method: :get do
+          .form-group
+            = label :status, 'Статус', class: 'display-block text-semibold'
+            = label_tag :newly, class: 'checkbox-inline' do
+              = check_box_tag 'statuses[]', '0', true, class: 'styled', id: 'newly'
+              Новый статус
+            = label_tag :closed, class: 'checkbox-inline' do
+              = check_box_tag 'statuses[]', '1', true, class: 'styled', id: 'closed'
+              Закрыт
+            = label_tag :converted, class: 'checkbox-inline' do
+              = check_box_tag 'statuses[]', '2', true, class: 'styled', id: 'converted'
+              Конвертирован
+            = label_tag :sended, class: 'checkbox-inline' do
+              = check_box_tag 'statuses[]', '3', true, class: 'styled', id: 'sended'
+              Передан в ГО
+            = label_tag :repeated, class: 'checkbox-inline' do
+              = check_box_tag 'statuses[]', '4', true, class: 'styled', id: 'repeated'
+              Повторно
         = render 'leads_table'

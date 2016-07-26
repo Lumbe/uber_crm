@@ -1,9 +1,12 @@
 class LeadsController < ApplicationController
+
   def index
     respond_to do |format|
       format.html
       format.json do
-        @leads = Lead.all.order(created_at: :desc)
+        @filtered_statuses = params[:statuses]
+        # load leads with filtered statuses
+        @leads = Lead.where("status IN (?)", @filtered_statuses).order(created_at: :desc)
         # total count for datatable view
         total_count = @leads.count
         # count fo datatable view
