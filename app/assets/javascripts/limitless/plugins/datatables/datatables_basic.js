@@ -69,10 +69,14 @@ $(function() {
           // }
           
           var statuses = $('.lead_status').map(function(){
-            return $(this).prop('checked') ? parseInt($(this).val()) : null;
+            var result = $(this).prop('checked') ? parseInt($(this).val()) : null;
+            return result;
           });
           // send to leads index controller - statuses: [0, 1, 2, 3, 4], where [0, 1, 2, 3, 4] is status codes
-          aoData.push({name: "statuses", value: statuses});
+          aoData.push({name: "statuses", value: statuses.toArray()}); // not returning proper array, to fix added .toArray()
+          
+          aoData.push({name: "start", value: $('.datatables-datapicker').data('start')});
+          aoData.push({name: "end", value: $('.datatables-datapicker').data('end')});
         },
         columnDefs: [
           {aTargets: [0, 1, 2, 3, 4, 5, 6], bSortable: false},

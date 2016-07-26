@@ -104,6 +104,9 @@ $(function() {
 
             // Format date
             $('.daterange-ranges span').html(start.format('D MMM YYYY') + ' - ' + end.format('D MMM YYYY'));
+            $('.datatables-datapicker').data('start', start.format('YYYY-MM-DD'));
+            $('.datatables-datapicker').data('end', end.format('YYYY-MM-DD'));
+            $('.datatable-basic').DataTable().draw();
         }
     );
 

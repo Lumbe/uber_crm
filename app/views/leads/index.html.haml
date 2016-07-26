@@ -15,7 +15,7 @@
             %button.btn.btn-success.heading-btn{:type => "button"}
               %i.icon-plus3.position-left
               Создать лид
-          %button.btn.btn-info.daterange-ranges.heading-btn{:type => "button"}
+          %button.btn.btn-info.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d'), end: Time.zone.now.strftime('%Y-%m-%d') }}
             %i.icon-calendar2.position-left
             %span
             %b.caret
