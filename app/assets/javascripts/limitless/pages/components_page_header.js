@@ -104,8 +104,10 @@ $(function() {
 
             // Format date
             $('.daterange-ranges span').html(start.format('D MMM YYYY') + ' - ' + end.format('D MMM YYYY'));
+            // get START and END date of datatapicker from data-start: and data-end: HTML-attributes
             $('.datatables-datapicker').data('start', start.format('YYYY-MM-DD'));
             $('.datatables-datapicker').data('end', end.format('YYYY-MM-DD'));
+            // redraw table after changing datapicker dates
             $('.datatable-basic').DataTable().draw();
         }
     );
