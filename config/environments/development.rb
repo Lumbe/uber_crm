@@ -42,4 +42,7 @@ Rails.application.configure do
   # Whitelist IP adress just to remove warning message when running rails server
   config.web_console.whitelisted_ips = %w(188.163.33.207 94.230.198.15)
   config.web_console.whiny_requests = false
+  
+  # devise gem config
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
