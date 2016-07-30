@@ -1,0 +1,61 @@
+/ /main navbar
+/ Page container
+.page-container
+  / Page content
+  .page-content
+    / Main sidebar
+    .sidebar.sidebar-main.sidebar-fixed
+      .sidebar-content
+        / User menu
+        .sidebar-user
+          .category-content
+            .media
+              %a.media-left{:href => "#"}
+                = image_tag('face11', class: ['img-circle', 'img-sm'])
+              .media-body
+                %span.media-heading.text-semibold Victoria Baker
+                .text-size-mini.text-muted
+                  %i.icon-pin.text-size-small
+                  \&nbsp;Santa Ana, CA
+              .media-right.media-middle
+                %ul.icons-list
+                  %li
+                    %a{:href => "#"}
+                      %i.icon-cog3
+        / /user menu
+        / Main navigation
+        .sidebar-category.sidebar-category-visible
+          .category-content.no-padding
+            %ul.navigation.navigation-main.navigation-accordion
+              / Main
+              %li.navigation-header
+                %span Меню
+                %i.icon-menu{:title => "Main pages"}
+              %li
+                = link_to root_path do
+                  %i.icon-home4
+                  %span Главная
+              %li
+                = link_to leads_path do
+                  %i.icon-user
+                  %span Лиды
+              %li
+                %a{:href => "#"}
+                  %i.icon-user-plus
+                  %span Контакты
+              %li
+                %a{:href => "#"}
+                  %i.icon-user-check
+                  %span Клиенты
+              %li
+                %a{:href => "../changelog.html"}
+                  %i.icon-user-minus
+                  %span Конкуренты
+              / /main
+        / /main navigation
+    / /main sidebar
+    .container
+      - flash.each do |key, value|
+        %div{:class => "alert bg-danger alert-styled-left"}
+          = value
+    = yield

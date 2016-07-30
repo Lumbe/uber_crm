@@ -1,7 +1,7 @@
 .content-wrapper
   / Page header
   .page-header  
-    .content-group.border-top-lg.border-top-primary
+    .content-group
       .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
         .page-header-content
           .page-title
@@ -9,41 +9,6 @@
               %i.icon-vcard.position-left
               %span.text-semibold Создать лид
           .heading-elements
-        .breadcrumb-line
-          %ul.breadcrumb
-            %li
-              %a{:href => "index.html"}
-                %i.icon-home2.position-left
-                Home
-            %li
-              %a{:href => "components_page_header.html"} Current
-            %li.active Location
-          %ul.breadcrumb-elements
-            %li.dropdown
-              %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#"}
-                %i.icon-cog5.position-left
-                Actions
-                %span.caret
-              %ul.dropdown-menu.dropdown-menu-right
-                %li
-                  %a{:href => "#"}
-                    %i.icon-inbox.pull-right
-                    Action
-                %li
-                  %a{:href => "#"}
-                    %i.icon-googleplus5.pull-right
-                    Another action
-                %li
-                  %a{:href => "#"}
-                    %i.icon-grid-alt.pull-right
-                    Something else
-                %li.divider
-                %li
-                  %a{:href => "#"}
-                    %i.icon-spinner2.spinner.pull-right
-                    One more line
-          %a.breadcrumb-elements-toggle
-            %i.icon-menu-open
     .content
       / 2 columns form
       = form_for @lead do |f|
