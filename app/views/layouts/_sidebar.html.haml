@@ -54,8 +54,22 @@
               / /main
         / /main navigation
     / /main sidebar
-    .container
+    / Main content
+    .content-wrapper
       - flash.each do |key, value|
-        %div{:class => "alert bg-danger alert-styled-left"}
-          = value
-    = yield
+        .content
+          - if key.to_s == 'alert'
+            .alert.bg-danger.alert-styled-left
+              %button.close{ data: { dismiss: 'alert' } }
+                %span &times;
+                %span.sr-only Закрыть
+              %span.text-semibold
+                = value
+          - else
+            .alert.bg-info.alert-styled-left
+              %button.close{ data: { dismiss: 'alert' } }
+                %span &times;
+                %span.sr-only Закрыть
+              %span.text-semibold
+                = value
+      = yield
