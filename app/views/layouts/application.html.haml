@@ -10,4 +10,4 @@
     - if current_user
       = render partial: 'layouts/sidebar'
     - else
-      = render partial: 'layouts/login'
+      = render template:  'devise/sessions/new'

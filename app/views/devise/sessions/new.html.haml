@@ -1,3 +1,19 @@
+- flash.each do |key, value|
+  .content
+    - if key.to_s == 'alert'
+      .alert.bg-danger.alert-styled-left
+        %button.close{ data: { dismiss: 'alert' } }
+          %span &times;
+          %span.sr-only Закрыть
+        %span.text-semibold
+          = value
+    - else
+      .alert.bg-info.alert-styled-left
+        %button.close{ data: { dismiss: 'alert' } }
+          %span &times;
+          %span.sr-only Закрыть
+        %span.text-semibold
+          = value
 %div.login-container
   / Page container
   .page-container
@@ -32,7 +48,7 @@
               .form-group
                 = f.submit 'Войти', class: ' btn btn-primary btn-block'
             .text-center
-              %a{:href => "login_password_recover.html"} Forgot password?
+              = render "devise/shared/links"
           / /simple login form
         / Footer
         .footer.text-muted.text-center
