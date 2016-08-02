@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801213439) do
+ActiveRecord::Schema.define(version: 20160802134414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,79 @@ ActiveRecord::Schema.define(version: 20160801213439) do
     t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.string   "title"
+    t.text     "comment"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+
+  create_table "competitors", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "assigned_to"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "location"
+    t.string   "project"
+    t.string   "square"
+    t.string   "floor"
+    t.string   "question"
+    t.string   "region"
+    t.string   "source"
+    t.boolean  "online_request"
+    t.boolean  "come_in_office"
+    t.boolean  "phone_call"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "customer_id"
+    t.integer  "assigned_to"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "location"
+    t.string   "project"
+    t.string   "square"
+    t.string   "floor"
+    t.string   "question"
+    t.string   "region"
+    t.string   "source"
+    t.boolean  "online_request"
+    t.boolean  "come_in_office"
+    t.boolean  "phone_call"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "assigned_to"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "location"
+    t.string   "project"
+    t.string   "square"
+    t.string   "floor"
+    t.string   "question"
+    t.string   "region"
+    t.string   "source"
+    t.boolean  "online_request"
+    t.boolean  "come_in_office"
+    t.boolean  "phone_call"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "leads", force: :cascade do |t|
@@ -40,6 +113,10 @@ ActiveRecord::Schema.define(version: 20160801213439) do
     t.boolean  "come_in_office", default: false
     t.boolean  "phone_call",     default: false
     t.integer  "status",         default: 0
+    t.integer  "user_id"
+    t.integer  "contact_id"
+    t.integer  "customer_id"
+    t.integer  "assigned_to"
   end
 
   create_table "users", force: :cascade do |t|
