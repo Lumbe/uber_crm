@@ -29,16 +29,10 @@ gem 'less-rails', '~> 2.7', '>= 2.7.1'
 gem 'pg'
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-4-x'
 
-# Pagination with Kaminari
 gem 'kaminari'
-# Search with Ransack
 gem 'ransack'
-# Authentication with Devise
 gem 'devise'
-# Authorization with Pundit
 gem 'pundit'
-# сщьишту users into groups
-gem 'groupify'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
