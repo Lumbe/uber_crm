@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  belongs_to :department
   has_many :leads
   has_many :contacts
   has_many :customers
