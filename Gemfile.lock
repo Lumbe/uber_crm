@@ -71,6 +71,7 @@ GEM
     execjs (2.7.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    groupify (0.8.0)
     hamlit (2.5.0)
       temple (~> 0.7.6)
       thor
@@ -203,6 +204,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   devise
+  groupify
   hamlit
   jbuilder (~> 2.0)
   jquery-rails

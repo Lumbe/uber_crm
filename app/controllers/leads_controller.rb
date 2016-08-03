@@ -83,7 +83,7 @@ class LeadsController < ApplicationController
 
   def create
     @lead = Lead.new(lead_params)
-
+    authorize @lead
     if @lead.save
       redirect_to @lead
     else
