@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   resources :leads
+  get 'admin' => 'admin_dashboard#index', :as => :admin
   # You can have the root of your site routed with "root"
 
   # Example of regular route:
