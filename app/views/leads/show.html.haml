@@ -1,136 +1,101 @@
-.content-wrapper
-  / Page header
-  .page-header  
-    .content-group.border-top-lg.border-top-primary
-      .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
-        .page-header-content
-          .page-title
-            %h4
-              %i.icon-user.position-left
-              %span.text-semibold Карточка лида - #{@lead.name}
+/ Page header
+.page-header  
+  .content-group
+    .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-user.position-left
+            %span.text-semibold Карточка лида - #{@lead.name}
+        .heading-elements
+          = link_to 'Редактировать', edit_lead_path, class: 'btn btn-success'
+          = link_to 'Удалить', lead_path(@lead), method: :delete, data: {confirm: "Удалить этот лид навсегда?"}, class: 'btn btn-danger'
+.content
+  .row
+    .col-md-12
+      .panel.panel-flat
+        .panel-heading
           .heading-elements
-            = link_to 'Редактировать', edit_lead_path, class: 'btn btn-success'
-        .breadcrumb-line
-          %ul.breadcrumb
-            %li
-              %a{:href => "index.html"}
-                %i.icon-home2.position-left
-                Home
-            %li
-              %a{:href => "components_page_header.html"} Current
-            %li.active Location
-          %ul.breadcrumb-elements
-            %li.dropdown
-              %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#"}
-                %i.icon-cog5.position-left
-                Actions
-                %span.caret
-              %ul.dropdown-menu.dropdown-menu-right
-                %li
-                  %a{:href => "#"}
-                    %i.icon-inbox.pull-right
-                    Action
-                %li
-                  %a{:href => "#"}
-                    %i.icon-googleplus5.pull-right
-                    Another action
-                %li
-                  %a{:href => "#"}
-                    %i.icon-grid-alt.pull-right
-                    Something else
-                %li.divider
-                %li
-                  %a{:href => "#"}
-                    %i.icon-spinner2.spinner.pull-right
-                    One more line
-          %a.breadcrumb-elements-toggle
-            %i.icon-menu-open
-  .content
-    .row
-      .col-md-12
-        .panel.panel-flat
-          .panel-heading
-            .heading-elements
-              %ul.icons-list
-                %li
-                  %a{"data-action" => "collapse"}
-                %li
-                  %a{"data-action" => "reload"}
-                %li
-                  %a{"data-action" => "close"}
-          .panel-body
-            .jui-tabs-basic
-              %ul
-                %li
-                  %a{:href => "#tabs-basic-1"}
-                    Информация
-                %li
-                  %a{:href => "#tabs-basic-2"}
-                    Подробнее
-                %li
-                  %a{:href => "#tabs-basic-3"}
-                    Связанные карточки
-                    %span.label.bg-blue 3
-              #tabs-basic-1
-                .row
-                  .col-md-12
-                    %table.table.table-framed.table-lead-info
-                      %tbody
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Имя:
-                          %td.col-md-2 #{@lead.name}
-                          %th.col-md-1.text-right.success
-                            %strong Телефон:
-                          %td.col-md-2 #{@lead.phone}
-                          %th.col-md-1.text-right.success
-                            %strong e-mail:
-                          %td.col-md-2 #{@lead.email}
-              #tabs-basic-2
-                .row
-                  .col-md-6
-                    %table.table.table-framed
-                      %tbody
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Сообщение клиента:
-                          %td.col-md-2 #{@lead.question}
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Проект:
-                          %td.col-md-2 #{@lead.project}
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Площадь:
-                          %td.col-md-2 #{@lead.square}
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Этажность:
-                          %td.col-md-2 #{@lead.floor}
-                  .col-md-6
-                    %table.table.table-framed
-                      %tbody
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Как вышел на связь:
-                          %td.col-md-2
-                            - if @lead.online_request
-                              Сайт запрос
-                            - if @lead.phone_call
-                              Позвонил
-                            - if @lead.come_in_office
-                              Пришел в офис
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Откуда узнал:
-                          %td.col-md-2 #{@lead.source}
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Место строительства:
-                          %td.col-md-2 #{@lead.location}
-                        %tr
-                          %th.col-md-1.text-right.success
-                            %strong Регион:
-                          %td.col-md-2 #{@lead.region}
-              #tabs-basic-3
-                Aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthet.
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+          .jui-tabs-basic
+            %ul
+              %li
+                %a{:href => "#tabs-basic-1"}
+                  Информация
+              %li
+                %a{:href => "#tabs-basic-2"}
+                  Подробнее
+              %li
+                %a{:href => "#tabs-basic-3"}
+                  Связанные карточки
+                  %span.label.bg-blue 3
+            #tabs-basic-1
+              .row
+                .col-md-12
+                  %table.table.table-framed.table-lead-info
+                    %tbody
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Имя:
+                        %td.col-md-2 #{@lead.name}
+                        %th.col-md-1.text-right.success
+                          %strong Телефон:
+                        %td.col-md-2 #{@lead.phone}
+                        %th.col-md-1.text-right.success
+                          %strong e-mail:
+                        %td.col-md-2 #{@lead.email}
+            #tabs-basic-2
+              .row
+                .col-md-6
+                  %table.table.table-framed
+                    %tbody
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Сообщение клиента:
+                        %td.col-md-2 #{@lead.question}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Проект:
+                        %td.col-md-2 #{@lead.project}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Площадь:
+                        %td.col-md-2 #{@lead.square}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Этажность:
+                        %td.col-md-2 #{@lead.floor}
+                .col-md-6
+                  %table.table.table-framed
+                    %tbody
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Как вышел на связь:
+                        %td.col-md-2
+                          - if @lead.online_request
+                            Сайт запрос
+                          - if @lead.phone_call
+                            Позвонил
+                          - if @lead.come_in_office
+                            Пришел в офис
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Откуда узнал:
+                        %td.col-md-2 #{@lead.source}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Место строительства:
+                        %td.col-md-2 #{@lead.location}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Регион:
+                        %td.col-md-2 #{@lead.region}
+            #tabs-basic-3
+              Aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthet.

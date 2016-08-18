@@ -1,0 +1,59 @@
+- flash.each do |key, value|
+  .content
+    - if key.to_s == 'alert'
+      .alert.bg-danger.alert-styled-left
+        %button.close{ data: { dismiss: 'alert' } }
+          %span &times;
+          %span.sr-only Закрыть
+        %span.text-semibold
+          = value
+    - else
+      .alert.bg-info.alert-styled-left
+        %button.close{ data: { dismiss: 'alert' } }
+          %span &times;
+          %span.sr-only Закрыть
+        %span.text-semibold
+          = value
+%div.login-container
+  / Page container
+  .page-container
+    / Page content
+    .page-content
+      / Main content
+      .content-wrapper
+        / Content area
+        .content
+          = devise_error_messages!
+          / Simple login form
+          .panel.panel-body.login-form
+            .text-center
+              .icon-object.border-slate-300.text-slate-300
+                %i.icon-reading
+              %h5.content-group
+                Войдите в свой аккаунт
+            = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+              .form-group.has-feedback.has-feedback-left 
+                = f.email_field :email, class: "form-control", placeholder: "Электронная почта"
+                .form-control-feedback
+                  %i.icon-envelop5.text-muted
+              .form-group.has-feedback.has-feedback-left
+                = f.password_field :password, class: "form-control", placeholder: "Пароль"
+                .form-control-feedback
+                  %i.icon-lock2.text-muted
+              .form-group
+                - if devise_mapping.rememberable?
+                  = f.label :remember_me, class: 'checkbox-inline' do
+                    = f.check_box :remember_me, class: 'styled'
+                    Запомнить меня
+              .form-group
+                = f.submit 'Войти', class: ' btn btn-primary btn-block'
+            .text-center
+              = render "devise/shared/links"
+          / /simple login form
+        / Footer
+        .footer.text-muted.text-center
+          © #{Date.today.year.to_s + "."}
+          = link_to 'Uber CRM', root_path
+          by
+          = link_to 'Lumbee', 'https://github.com/Lumbe', target: "_blank"
+

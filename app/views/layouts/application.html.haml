@@ -7,3 +7,7 @@
     = csrf_meta_tags
   %body.navbar-top
     = render partial: 'layouts/header'
+    - if current_user
+      = render partial: 'layouts/sidebar'
+    - else
+      = render template:  'devise/sessions/new'

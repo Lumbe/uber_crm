@@ -1,8 +1,14 @@
 class Lead < ActiveRecord::Base
-    
-    validates :name, presence: true
-    validates :phone, presence: true
-    
-    enum status: [:newly, :closed, :converted, :sended]
-    
+  belongs_to :user
+  belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
+  belongs_to :contact
+  belongs_to :customer
+  belongs_to :department
+  has_many :comments, as: :commentable
+  validates :name, presence: true
+  validates :phone, presence: true
+
+  enum status: [:newly, :closed, :converted, :sended, :repeated]
+  
+  
 end

@@ -24,3 +24,10 @@ en:
     attributes:
       lead:
         name: "Имя"
+  lead:
+    status:
+      newly: Новый
+      closed: Закрыт
+      converted: Конвертирован
+      sended: Передан в ГО
+      repeated: Повторно

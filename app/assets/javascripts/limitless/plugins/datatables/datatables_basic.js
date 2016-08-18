@@ -29,7 +29,7 @@ $(function() {
             lengthMenu: '<span>Показать:</span> _MENU_',
             paginate: { 'first': 'Первая', 'last': 'Последняя', 'next': '&rarr;', 'previous': '&larr;' },
             info: "Записи с _START_ до _END_ из _TOTAL_ записей",
-            infoEmpty: "Записи с 0 до 0 из 0 записей"
+            infoEmpty: "Нет ни одной записи"
         },
         drawCallback: function () {
             $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
@@ -39,17 +39,39 @@ $(function() {
         }
     });
 
+    var table = $('.datatable-basic').DataTable( {
+        serverSide: true,
+        sAjaxSource: location.pathname, // current page url '/leads'
+        stateSave: true,
+        fnServerParams: function (aoData) {
+          var statuses = $('.lead_status').map(function(){ // array of lead status codes
+            var result = $(this).prop('checked') ? parseInt($(this).val()) : null; // if status is checked, push it to array result[]
+            return result; // statuses[] = result[]
+          });
+          // send to leads index controller array statuses[] with status codes, e.g. [0, 1, 2, 3, 4]
+          aoData.push({name: "statuses", value: statuses.toArray()}); // not returning proper array, to fix added .toArray()
+          // send to leads controller START and END date for datapicker
+          aoData.push({name: "start", value: $('.datatables-datapicker').data('start')});
+          aoData.push({name: "end", value: $('.datatables-datapicker').data('end')});
+        },
+        columnDefs: [
+          {aTargets: [0, 1, 2, 3, 4, 5, 6], bSortable: false},
+          {aTargets: [6], sClass: 'text-center'}
+        ]
+      });
 
-    // Basic datatable
-    $('.datatable-basic').DataTable();
-
+    // redraw datatable with filtered statuses, when status checkbox is checked or unchecked
+    $('.lead_status').on("change", function() {
+      table.draw();
+    });
 
     // Alternative pagination
     $('.datatable-pagination').DataTable({
         pagingType: "simple",
         language: {
             paginate: {'next': 'Next &rarr;', 'previous': '&larr; Prev'}
-        }
+        },
+        
     });
 
 
@@ -64,8 +86,7 @@ $(function() {
         autoWidth: true,
         scrollY: 300
     });
-
-
+    
 
     // External table additions
     // ------------------------------

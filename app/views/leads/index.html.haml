@@ -1,103 +1,44 @@
-/ Main content
-.content-wrapper
-  / Page header
-  / Basic daterange picker
-  .content-group.border-top-lg.border-top-primary
-    .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
-      .page-header-content
-        .page-title
-          %h5
-            %i.icon-users.position-left
-            %span.text-semibold Лиды
-            %small.display-block Холодные контакты
-        .heading-elements
-          = link_to new_lead_path do
-            %button.btn.btn-success.heading-btn{:type => "button"}
-              %i.icon-plus3.position-left
-              Создать лид
-          %button.btn.btn-info.daterange-ranges.heading-btn{:type => "button"}
-            %i.icon-calendar2.position-left
-            %span
-            %b.caret
-      .breadcrumb-line
-        %ul.breadcrumb
+/ Page header
+.content-group
+  .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+    .page-header-content
+      .page-title
+        %h5
+          %i.icon-users.position-left
+          %span.text-semibold Лиды
+          %small.display-block Холодные контакты
+      .heading-elements
+        = link_to new_lead_path do
+          %button.btn.btn-success.heading-btn{:type => "button"}
+            %i.icon-plus3.position-left
+            Добавить лид
+.content
+  / Basic datatable
+  .panel.panel-flat
+    .panel-heading
+      %h5.panel-title Список лидов
+      .heading-elements
+        %ul.icons-list
           %li
-            %a{:href => "index.html"}
-              %i.icon-home2.position-left
-              Home
+            %a{"data-action" => "collapse"}
           %li
-            %a{:href => "components_page_header.html"} Current
-          %li.active Location
-    /basic daterange picker
-  .content
-    / Basic datatable
-    .panel.panel-flat
-      .panel-heading
-        %h5.panel-title Список лидов
-        .heading-elements
-          %ul.icons-list
-            %li
-              %a{"data-action" => "collapse"}
-            %li
-              %a{"data-action" => "reload"}
-            %li
-              %a{"data-action" => "close"}
-      .panel-body
-      %table.table.datatable-basic
-        %thead
-          %tr
-            %th Статус
-            %th Имя
-            %th Номер телефона
-            %th e-mail
-            %th Регион
-            %th Добавлен
-            %th.text-center Действия
-        %tbody
-          - @leads.each do |lead|
-            %tr
-              %td 
-                // - if lead.status.nil?
-                //   %span.label.label-default Закрыт
-                // - if lead.status == 'newly'
-                //   %span.label.label-warning Новый
-                // - if lead.status == 'converted'
-                //   %span.label.label-success Конвертирован
-                - case lead.status
-                - when 'newly'
-                  %span.label.label-warning Новый
-                - when 'closed'
-                  %span.label.label-default Закрыт
-                - when 'converted'
-                  %span.label.label-success Конвертирован
-                - when 'sended'
-                  %span.label.label-info Передан в ГО
-              %td 
-                = link_to "#{lead.name}", lead_path(lead)
-              %td #{lead.phone}
-              %td #{lead.email}
-              %td #{lead.location}
-              %td #{time_ago_in_words(lead.created_at)} назад
-              %td.text-center
-                %ul.icons-list
-                  %li.dropdown
-                    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                      %i.icon-menu9
-                    %ul.dropdown-menu.dropdown-menu-right
-                      %li
-                        %a{:href => "#"}
-                          %i.icon-spinner11
-                          Конвертировать
-                      %li
-                        %a{:href => "#"}
-                          %i.icon-cross2
-                          Закрыть
-                      %li
-                        %a{:href => "#"}
-                          %i.icon-users2
-                          Делегировать
-                      %li
-                        %a{:href => "#"}
-                          %i.icon-envelope
-                          Отправить почтой
-      / /basic datatable
+            %a{"data-action" => "reload"}
+          %li
+            %a{"data-action" => "close"}
+    .panel-body
+      .row
+        .col-md-9
+          .form-group
+            = label_tag :status, 'Статус', class: 'display-block text-semibold'
+            - Lead.statuses.each do |key, value|
+              = label_tag key, class: 'checkbox-inline' do
+                = check_box_tag nil, value, true, class: 'styled lead_status', id: key
+                = t("lead.status.#{key}")
+        .col-md-3
+          .content-group.pull-right
+            %span.display-block.text-semibold.text-right.mb-5 Дата создания
+            %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d'), end: Time.zone.now.strftime('%Y-%m-%d') }}
+              %i.icon-calendar2.position-left
+              %span
+              %b.caret
+      = render 'leads_table'

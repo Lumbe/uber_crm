@@ -5,3 +5,10 @@ ru:
       lead:
         name: "Имя"
         phone: "Телефон"
+  lead:
+    status:
+      newly: Новый
+      closed: Закрыт
+      converted: Конвертирован
+      sended: Передан в ГО
+      repeated: Повторно
