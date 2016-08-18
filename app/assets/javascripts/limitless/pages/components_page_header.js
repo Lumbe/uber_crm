@@ -116,14 +116,4 @@ $(function() {
     $('.daterange-ranges span').html(moment().subtract('days', 29).format('D MMM YYYY') + ' - ' + moment().format('D MMM YYYY'));
 
 
-
-    // Form components
-    // ------------------------------
-
-    // Select2 selects
-    $('.select').select2({
-        minimumResultsForSearch: Infinity,
-        width: 220
-    });
-
 });
