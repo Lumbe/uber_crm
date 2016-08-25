@@ -5,7 +5,13 @@
       .page-title
         %h5
           %i.icon-users.position-left
-          %span.text-semibold Лиды
+          %span.text-semibold
+            Лиды отдела -
+            - if current_user.departments.count < 2
+              %span.text-size-large
+                = current_user.departments.first.name
+            - else
+              = select_tag(:department, options_from_collection_for_select(current_user.departments, :id, :name, 1), class: 'select-departments' )
           %small.display-block Холодные контакты
       .heading-elements
         = link_to new_lead_path do

@@ -179,7 +179,7 @@
                                           ['Закрыт', 'closed'],
                                           ['Конвертирован', 'converted'],
                                           ['Передан в ГО', 'sended']]
-                        = f.select(:status, statuses, {}, {class: 'select-search', data: { placeholder: 'Please select the category you want' }} )
+                        = f.select(:status, statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
           .text-left
             = f.submit 'Создать лид', class: 'btn btn-success'
     / /2 columns form

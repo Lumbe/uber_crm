@@ -9,6 +9,5 @@ class Lead < ActiveRecord::Base
   validates :phone, presence: true
 
   enum status: [:newly, :closed, :converted, :sended, :repeated]
-  
-  
+
 end

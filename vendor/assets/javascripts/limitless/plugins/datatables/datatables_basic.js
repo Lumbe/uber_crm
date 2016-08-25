@@ -48,11 +48,13 @@ $(function() {
             var result = $(this).prop('checked') ? parseInt($(this).val()) : null; // if status is checked, push it to array result[]
             return result; // statuses[] = result[]
           });
-          // send to leads index controller array statuses[] with status codes, e.g. [0, 1, 2, 3, 4]
+          // send to leads controller(index action) array - statuses[] with status codes, e.g. [0, 1, 2, 3, 4]
           aoData.push({name: "statuses", value: statuses.toArray()}); // not returning proper array, to fix added .toArray()
           // send to leads controller START and END date for datapicker
           aoData.push({name: "start", value: $('.datatables-datapicker').data('start')});
           aoData.push({name: "end", value: $('.datatables-datapicker').data('end')});
+          // send to leads controller selected department value(:id)
+          aoData.push({name: "department", value: $('.select-departments').val()});
         },
         columnDefs: [
           {aTargets: [0, 1, 2, 3, 4, 5, 6], bSortable: false},
@@ -62,6 +64,10 @@ $(function() {
 
     // redraw datatable with filtered statuses, when status checkbox is checked or unchecked
     $('.lead_status').on("change", function() {
+      table.draw();
+    });
+    
+    $('.select-departments').on("change", function() {
       table.draw();
     });
 
