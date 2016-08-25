@@ -37,7 +37,7 @@
         .col-md-3
           .content-group.pull-right
             %span.display-block.text-semibold.text-right.mb-5 Дата создания
-            %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d'), end: Time.zone.now.strftime('%Y-%m-%d') }}
+            %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d %T'), end: Time.zone.now.strftime('%Y-%m-%d %T') }}
               %i.icon-calendar2.position-left
               %span
               %b.caret

@@ -105,8 +105,8 @@ $(function() {
             // Format date
             $('.daterange-ranges span').html(start.format('D MMM YYYY') + ' - ' + end.format('D MMM YYYY'));
             // get START and END date of datepicker from 'data-start' and 'data-end' HTML-attributes
-            $('.datatables-datapicker').data('start', start.format('YYYY-MM-DD'));
-            $('.datatables-datapicker').data('end', end.format('YYYY-MM-DD'));
+            $('.datatables-datapicker').data('start', start.format('YYYY-MM-DD HH:mm:ss'));
+            $('.datatables-datapicker').data('end', end.format('YYYY-MM-DD HH:mm:ss'));
             // redraw table after changing datepicker dates
             $('.datatable-basic').DataTable().draw();
         }
@@ -115,15 +115,5 @@ $(function() {
     // Format date
     $('.daterange-ranges span').html(moment().subtract('days', 29).format('D MMM YYYY') + ' - ' + moment().format('D MMM YYYY'));
 
-
-
-    // Form components
-    // ------------------------------
-
-    // Select2 selects
-    $('.select').select2({
-        minimumResultsForSearch: Infinity,
-        width: 220
-    });
 
 });
