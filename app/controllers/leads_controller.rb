@@ -5,7 +5,7 @@ class LeadsController < ApplicationController
       format.html
       format.json do
         # load leads with filtered statuses and dates from datapicker
-        @leads = Lead.where(status: params[:statuses], created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+        @leads = Lead.where(status: params[:statuses], department: params[:department], created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
         # total count for datatable view
         total_count = Lead.all.count
         # count fo datatable view
