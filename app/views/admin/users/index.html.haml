@@ -1,0 +1,57 @@
+/ Page header
+.content-group
+  .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+    .page-header-content
+      .page-title
+        %h5
+          %i.icon-users.position-left
+          %span.text-semibold
+            Пользователи 
+          %small.display-block Все пользователи Uber CRM
+      .heading-elements
+        = link_to new_admin_user_path do
+          %button.btn.btn-success.heading-btn{:type => "button"}
+            %i.icon-plus3.position-left
+            Добавить пользователя
+.content
+  / Basic datatable
+  .panel.panel-flat
+    .panel-heading
+      %h5.panel-title Список пользователей
+      .heading-elements
+        %ul.icons-list
+          %li
+            %a{"data-action" => "collapse"}
+          %li
+            %a{"data-action" => "reload"}
+          %li
+            %a{"data-action" => "close"}
+    .panel-body
+      .row
+        .col-md-12
+          .table-responsive
+            %table.table
+              %thead
+                %tr.bg-green
+                  %th #
+                  %th Пользователь
+                  %th Эл. почта
+                  %th Состоит в отделе
+                  %th.text-center Действия
+              %tbody
+                - @users.each_with_index do |user, index|
+                  %tr
+                    %td
+                      = index + 1
+                    %td #{user.first_name} #{user.last_name}
+                    %td #{user.email}
+                    %td
+                      - user.memberships.each do |membership|
+                        .mb-5
+                          %i.icon-office.position-left
+                          = membership.department.name
+                          %br
+                    %td
+                      = link_to become_user_path(user.id) do
+                        %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Войти как пользователь"}
+                          %i.icon-play3

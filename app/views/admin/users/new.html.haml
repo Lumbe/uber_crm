@@ -1,0 +1,85 @@
+/ Page header
+.page-header  
+  .content-group
+    .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-vcard.position-left
+            %span.text-semibold Создание пользователя
+        .heading-elements
+  .content
+    / 2 columns form
+    = form_for(@user, url: admin_users_path) do |f|
+      - if @user.errors.any?
+        .alert.bg-danger.alert-styled-left
+          %button.close{ data: { dismiss: 'alert' } }
+            %span &times;
+            %span.sr-only Закрыть
+          %h4
+            Исправьте ошибки и попробуйте снова. Ошибок: 
+            = @user.errors.count
+          %ul
+            - @user.errors.full_messages.each do |msg|
+              %li= msg
+      .panel.panel-flat
+        .panel-heading
+          %h5.panel-title
+          .heading-elements
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+          .row
+            .col-md-3
+              %fieldset
+                %legend.text-semibold
+                  %i.icon-reading.position-left
+                  Регистрационные данные
+                .row
+                  .col-md-12
+                    .form-group
+                      = f.label :first_name, 'Имя'
+                      .input-group
+                        %span.input-group-addon.bg-green-600
+                          .icon-user
+                        = f.text_field :first_name, class: 'form-control', placeholder: 'Иван'
+                .row
+                  .col-md-12
+                    .form-group
+                      = f.label :last_name, 'Телефон'
+                      .input-group
+                        %span.input-group-addon.bg-green-600
+                          .icon-user
+                        = f.text_field :last_name, class: 'form-control', placeholder: 'Иванов'
+                .row
+                  .col-md-12
+                    .form-group
+                      = f.label :email, 'Email'
+                      .input-group
+                        %span.input-group-addon.bg-green-600
+                          .icon-mail5
+                        = f.email_field :email, class: 'form-control', placeholder: 'example@exaple.com'
+                .row
+                  .col-md-12
+                    .form-group
+                      = f.label :password, 'Пароль'
+                      .input-group
+                        %span.input-group-addon.bg-green-600
+                          .icon-key
+                        = f.password_field :password, class: 'form-control', placeholder: 'Не меньше 6 знаков...'
+                .row
+                  .col-md-12
+                    .form-group
+                      = f.label :password_confirmation, 'Подтверждение пароля'
+                      .input-group
+                        %span.input-group-addon.bg-green-600
+                          .icon-lock2
+                        = f.password_field :password_confirmation, class: 'form-control', placeholder: 'Введите пароль повторно'
+          .text-left
+            = f.submit 'Создать пользователя', class: 'btn btn-success'
+    / /2 columns form

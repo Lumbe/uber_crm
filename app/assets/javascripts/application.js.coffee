@@ -6,24 +6,23 @@
 #
 # It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 # compiled file.
-#
 # Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 # about supported directives.
-#
+
+# Limitless template files
+# ------------------------
 #= require 'limitless/plugins/loaders/pace.min.js'
 #= require jquery
 #= require jquery.turbolinks
 #= require jquery_ujs
 #= require turbolinks
 
-# Limitless template files
-# ------------------------
-#= require 'limitless/core/libraries/bootstrap.min'
-#= require 'limitless/plugins/loaders/blockui.min.js'
-#= require 'limitless/plugins/ui/nicescroll.min.js'
 #= require 'limitless/core/libraries/jquery_ui/interactions.min.js'
 #= require 'limitless/core/libraries/jquery_ui/widgets.min.js'
 #= require 'limitless/core/libraries/jquery_ui/effects.min.js'
+#= require 'limitless/core/libraries/bootstrap.min'
+#= require 'limitless/plugins/loaders/blockui.min.js'
+#= require 'limitless/plugins/ui/nicescroll.min.js'
 #= require 'limitless/plugins/datatables/datatables.min.js'
 #= require 'limitless/plugins/forms/selects/select2.min.js'
 #= require 'limitless/plugins/forms/styling/uniform.min.js'

@@ -18,7 +18,8 @@
             %i.icon-paragraph-justify3
       %ul.nav.navbar-nav.navbar-right
         %li
-          %a{:href => "#"} Text link
+          - if current_user.admin?
+            = link_to 'Admin', admin_path
         %li
           %a{:href => "#"}
             %i.icon-cog3
