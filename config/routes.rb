@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :leads
 
   get 'admin' => 'admin/dashboard#index', :as => :admin
-    # sign_in as user
+  # sign_in as user
   get 'admin/users/become/:id' => 'admin/users#become', :as => :become_user
   namespace :admin do
     resources :users
