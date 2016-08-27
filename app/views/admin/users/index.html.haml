@@ -48,3 +48,6 @@
                       = link_to become_user_path(user.id) do
                         %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Войти как пользователь"}
                           %i.icon-play3
+                      = link_to admin_user_path(user.id), method: :delete, data: { confirm: "Удалить пользователя навсегда?"} do
+                        %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Удалить пользователя"}
+                          %i.icon-trash
