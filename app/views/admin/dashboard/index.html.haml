@@ -1,0 +1,15 @@
+= render 'header'
+.content
+  / Basic datatable
+  .panel.panel-flat
+    .panel-heading
+      %h5.panel-title Статистика входов
+      .heading-elements
+        %ul.icons-list
+          %li
+            %a{"data-action" => "collapse"}
+          %li
+            %a{"data-action" => "reload"}
+          %li
+            %a{"data-action" => "close"}
+    .panel-body

@@ -76,11 +76,7 @@ class LeadsController < ApplicationController
   def new
     @lead = Lead.new
   end
-
-  def edit
-    @lead = Lead.find(params[:id])
-  end
-
+  
   def create
     @lead = Lead.new(lead_params)
 
@@ -89,6 +85,10 @@ class LeadsController < ApplicationController
     else
       render 'new'
     end
+  end
+  
+  def edit
+    @lead = Lead.find(params[:id])
   end
 
   def update

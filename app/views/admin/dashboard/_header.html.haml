@@ -1,0 +1,18 @@
+/ Page header
+.content-group
+  .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+    .page-header-content
+      .page-title
+        %h5
+          %i.icon-stats-bars.position-left
+          %span.text-semibold Dashboard
+          %small.display-block Админка
+      .heading-elements
+        = link_to admin_users_path do
+          %button.btn.btn-success.heading-btn{:type => "button"}
+            %i.icon-users.position-left
+            Пользователи
+        = link_to admin_departments_path do
+          %button.btn.btn-success.heading-btn{:type => "button"}
+            %i.icon-office.position-left
+            Отделы

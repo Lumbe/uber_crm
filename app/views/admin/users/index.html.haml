@@ -1,18 +1,4 @@
-/ Page header
-.content-group
-  .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
-    .page-header-content
-      .page-title
-        %h5
-          %i.icon-users.position-left
-          %span.text-semibold
-            Пользователи 
-          %small.display-block Все пользователи Uber CRM
-      .heading-elements
-        = link_to new_admin_user_path do
-          %button.btn.btn-success.heading-btn{:type => "button"}
-            %i.icon-plus3.position-left
-            Добавить пользователя
+= render 'admin/dashboard/header'
 .content
   / Basic datatable
   .panel.panel-flat
@@ -27,6 +13,13 @@
           %li
             %a{"data-action" => "close"}
     .panel-body
+      .row
+        .col-md-12
+          .btn-group.mb-20
+            = link_to new_admin_user_path do
+              %button.btn.btn-success.heading-btn{:type => "button"}
+                %i.icon-plus3.position-left
+                Добавить пользователя
       .row
         .col-md-12
           .table-responsive
