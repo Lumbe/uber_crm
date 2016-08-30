@@ -9,10 +9,13 @@ Rails.application.routes.draw do
   get 'admin' => 'admin/dashboard#index', :as => :admin
   # sign_in as user
   get 'admin/users/become/:id' => 'admin/users#become', :as => :become_user
+  
   namespace :admin do
     resources :users
     resources :departments
   end
+  
+  get 'users/:id', to: 'admin/users#show', :as => :user_profile
   # You can have the root of your site routed with "root"
 
   # Example of regular route:

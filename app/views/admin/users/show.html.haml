@@ -1,0 +1,64 @@
+/ Page header
+.content-group
+  .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+    .page-header-content
+      .page-title
+        %h5
+          %i.icon-user.position-left.text-green
+          %span.text-semibold #{@user.first_name} #{@user.last_name}
+          %small.display-block Профиль пользователя
+.content
+  / User profile
+  .row
+    .col-lg-3
+      / User thumbnail
+      .thumbnail
+        .thumb.thumb-rounded.thumb-slide
+          = image_tag('face11', alt: 'user profile')
+        .caption.text-center
+          %h6.text-semibold.no-margin
+            #{@user.first_name} #{@user.last_name}
+            %small.display-block UX/UI designer
+      / /user thumbnail
+      / Navigation
+      .panel.panel-flat
+        .panel-heading
+          %h6.panel-title Меню
+        .list-group.no-border.no-padding-top
+          %a.list-group-item{:href => "#"}
+            %i.icon-user
+            Мой профиль
+          %a.list-group-item{:href => "#"}
+            %i.icon-office
+            Отделы
+          %a.list-group-item{:href => "#"}
+            %i.icon-envelop3
+            Сообщения
+            %span.badge.bg-info.pull-right в разработке
+          %a.list-group-item{:href => "#"}
+            %i.icon-task
+            Задачи
+            %span.badge.bg-info.pull-right в разработке
+          .list-group-divider
+          %a.list-group-item{:href => "#"}
+            %i.icon-calendar3
+            События
+            %span.badge.bg-info.pull-right в разработке
+          %a.list-group-item{:href => "#"}
+            %i.icon-cog3
+            Настройки аккаунта
+      / /navigation
+    .col-lg-9
+      .panel.panel-flat
+        .panel-heading
+          %h5.panel-title Контактные данные
+          .heading-elements
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+  / /user profile
