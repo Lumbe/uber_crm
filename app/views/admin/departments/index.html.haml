@@ -1,0 +1,48 @@
+= render 'admin/dashboard/header'
+.content
+  / Basic datatable
+  .panel.panel-flat
+    .panel-heading
+      %h5.panel-title Список пользователей
+      .heading-elements
+        %ul.icons-list
+          %li
+            %a{"data-action" => "collapse"}
+          %li
+            %a{"data-action" => "reload"}
+          %li
+            %a{"data-action" => "close"}
+    .panel-body
+      .row
+        .col-md-12
+          .btn-group.mb-20
+            = link_to new_admin_department_path do
+              %button.btn.btn-success.heading-btn{:type => "button"}
+                %i.icon-plus3.position-left
+                Создать отдел
+      .row
+        .col-md-12
+          .table-responsive
+            %table.table
+              %thead
+                %tr.bg-green
+                  %th #
+                  %th Отдел
+                  %th Пользователи
+                  %th.text-center Действия
+              %tbody
+                - @departments.each_with_index do |department, index|
+                  %tr
+                    %td
+                      = index + 1
+                    %td #{department.name}
+                    %td
+                      - department.memberships.each do |membership|
+                        .mb-5
+                          %i.icon-user.position-left
+                          #{membership.user.first_name} #{membership.user.last_name} - #{membership.role}
+                          %br
+                    %td
+                      = link_to admin_department_path(department.id), method: :delete, data: { confirm: "Удалить отдел навсегда?"} do
+                        %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Удалить отдел"}
+                          %i.icon-trash
