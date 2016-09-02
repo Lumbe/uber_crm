@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   
   get 'users/:id/profile', to: 'admin/users#profile', :as => :user_profile
   get 'users/:id/departments', to: 'admin/users#departments', :as => :user_departments
+  
+  get 'admin/departments/:id/new_membership' => 'admin/departments#new_membership', :as => :new_membership
+  post 'admin/departments/:id/new_membership' => 'admin/departments#add_membership'
   # You can have the root of your site routed with "root"
 
   # Example of regular route:

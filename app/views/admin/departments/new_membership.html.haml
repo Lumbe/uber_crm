@@ -1,0 +1,60 @@
+/ Page header
+.page-header  
+  .content-group
+    .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-vcard.position-left
+            %span.text-semibold Добавить пользователя в отдел "#{@department.name}"
+        .heading-elements
+  .content
+    / 2 columns form
+    = form_for(@membership, url: new_membership_path) do |f|
+      - if @membership.errors.any?
+        .alert.bg-danger.alert-styled-left
+          %button.close{ data: { dismiss: 'alert' } }
+            %span &times;
+            %span.sr-only Закрыть
+          %h4
+            Исправьте ошибки и попробуйте снова. Ошибок: 
+            = @membership.errors.count
+          %ul
+            - @membership.errors.full_messages.each do |msg|
+              %li= msg
+      .panel.panel-flat
+        .panel-heading
+          %h5.panel-title
+          .heading-elements
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+          .row
+            .col-md-3
+              %fieldset
+                %legend.text-semibold
+                  %i.icon-reading.position-left
+                  Регистрационные данные
+                .row
+                  .col-md-12
+                    = f.hidden_field(:department_id, value: "#{@department.id}")
+                    .form-group
+                      = f.label :user_id, 'Пользователь'
+                      .input-group
+                        %span.input-group-addon
+                          .icon-versions
+                        = f.select(:user_id, @users, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                    .form-group
+                      = f.label :role, 'Роль'
+                      .input-group
+                        %span.input-group-addon
+                          .icon-versions
+                        = f.select(:role, @roles, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+          .text-left
+            = f.submit 'Добавить пользователя', class: 'btn btn-success'
+    / /2 columns form
