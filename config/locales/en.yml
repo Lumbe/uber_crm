@@ -24,6 +24,16 @@ en:
     attributes:
       lead:
         name: "Имя"
+      membership:
+        role:
+          visitor: Гость
+          chief: Директор
+          marketer: Маркетолог
+          senior_manager: Старший менеджер
+          manager: Менеджер
+          tech_designer: Архитектор
+          estimator: Сметчик
+          accountant: Бухгалтер
   lead:
     status:
       newly: Новый

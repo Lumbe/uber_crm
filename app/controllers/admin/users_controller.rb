@@ -3,10 +3,6 @@ class Admin::UsersController < ApplicationController
     @users = User.all.order(created_at: :asc)
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
-
   def new
     @user = User.new
   end
@@ -38,6 +34,16 @@ class Admin::UsersController < ApplicationController
     return unless current_user.admin?
     sign_in(:user, User.find(params[:id]))
     redirect_to root_url # or user_root_url
+  end
+  
+  def departments
+    @user = User.find(params[:id])
+    @memberships = @user.memberships.order(created_at: :asc)
+  end
+  
+  def profile
+    @user = User.find(params[:id])
+    @memberships = @user.memberships.order(created_at: :asc)
   end
   
   private

@@ -5,6 +5,16 @@ ru:
       lead:
         name: "Имя"
         phone: "Телефон"
+      membership:
+        role:
+          visitor: Гость
+          chief: Директор
+          marketer: Маркетолог
+          senior_manager: Старший менеджер
+          manager: Менеджер
+          tech_designer: Архитектор
+          estimator: Сметчик
+          accountant: Бухгалтер
   lead:
     status:
       newly: Новый
@@ -12,3 +22,4 @@ ru:
       converted: Конвертирован
       sended: Передан в ГО
       repeated: Повторно
+

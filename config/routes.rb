@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     resources :departments
   end
   
-  get 'users/:id', to: 'admin/users#show', :as => :user_profile
+  get 'users/:id/profile', to: 'admin/users#profile', :as => :user_profile
+  get 'users/:id/departments', to: 'admin/users#departments', :as => :user_departments
   # You can have the root of your site routed with "root"
 
   # Example of regular route:

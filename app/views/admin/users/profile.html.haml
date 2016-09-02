@@ -1,12 +1,3 @@
-/ Page header
-.content-group
-  .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
-    .page-header-content
-      .page-title
-        %h5
-          %i.icon-user.position-left.text-green
-          %span.text-semibold #{@user.first_name} #{@user.last_name}
-          %small.display-block Профиль пользователя
 .content
   / User profile
   .row
@@ -18,7 +9,10 @@
         .caption.text-center
           %h6.text-semibold.no-margin
             #{@user.first_name} #{@user.last_name}
-            %small.display-block UX/UI designer
+            %small.display-block
+              - @memberships.each do |membership|
+                #{membership.role} в #{membership.department.name}
+                %br
       / /user thumbnail
       / Navigation
       .panel.panel-flat
@@ -28,7 +22,7 @@
           = link_to user_profile_path(@user.id), class: "list-group-item" do
             %i.icon-user
             Мой профиль
-          %a.list-group-item{:href => "#"}
+          = link_to user_departments_path(@user.id), class: "list-group-item" do
             %i.icon-office
             Отделы
           %a.list-group-item{:href => "#"}
@@ -50,16 +44,6 @@
       / /navigation
     .col-lg-9
       .panel.panel-flat
-        .panel-heading
-          %h5.panel-title Мой профиль
-          .heading-elements
-            %ul.icons-list
-              %li
-                %a{"data-action" => "collapse"}
-              %li
-                %a{"data-action" => "reload"}
-              %li
-                %a{"data-action" => "close"}
         .panel-body
           .row
             .col-md-12
