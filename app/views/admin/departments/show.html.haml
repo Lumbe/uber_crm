@@ -1,0 +1,63 @@
+.content
+  / Department profile
+  .row
+    .col-lg-3
+      / Department thumbnail
+      .thumbnail
+        .thumb.thumb-rounded.thumb-slide
+          = image_tag('face11', alt: 'user profile')
+        .caption.text-center
+          %h6.text-semibold.no-margin
+            #{@department.name}
+      / /user thumbnail
+      / Navigation
+      .panel.panel-flat
+        .panel-heading
+          %h6.panel-title Меню
+        .list-group.no-border.no-padding-top
+          = link_to admin_department_path(@department.id), class: "list-group-item" do
+            %i.icon-user
+            Пользователи
+          %a.list-group-item{:href => "#"}
+            %i.icon-office
+            Отделы
+          %a.list-group-item{:href => "#"}
+            %i.icon-envelop3
+            Сообщения
+            %span.badge.bg-info.pull-right в разработке
+          %a.list-group-item{:href => "#"}
+            %i.icon-task
+            Задачи
+            %span.badge.bg-info.pull-right в разработке
+          .list-group-divider
+          %a.list-group-item{:href => "#"}
+            %i.icon-calendar3
+            События
+            %span.badge.bg-info.pull-right в разработке
+          %a.list-group-item{:href => "#"}
+            %i.icon-cog3
+            Настройки аккаунта
+      / /navigation
+    .col-lg-9
+      .panel.panel-flat
+        .panel-body
+          .row
+            .col-md-12
+              .table-responsive
+                %table.table
+                  %thead
+                    %tr.alpha-grey
+                      %th.col-md-3.text-uppercase Имя
+                      %th.col-md-3.text-uppercase Роль
+                      %th.col-md-3.text-uppercase Лиды
+                      %th.col-md-3.text-uppercase Действия
+                  - @department.memberships.each do |membership|
+                    %tbody
+                      %tr
+                        %td.col-md-3 #{membership.user.first_name} #{membership.user.last_name}
+                        %td.col-md-3 #{membership.role}
+                        %td.col-md-3
+                        %td.col-md-3
+                          = link_to retire_user_path(retire_membership_id: membership.id), data: { confirm: "Уволить пользователя с этого отдела?"} do
+                            %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Уволить пользователя"}
+                              %i.icon-trash

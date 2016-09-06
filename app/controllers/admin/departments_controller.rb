@@ -4,6 +4,7 @@ class Admin::DepartmentsController < ApplicationController
   end
 
   def show
+    @department = Department.find(params[:id])
   end
 
   def new
@@ -33,6 +34,13 @@ class Admin::DepartmentsController < ApplicationController
     redirect_to admin_departments_path
   end
   
+  def retire_user
+    @membership = Membership.find(params[:retire_membership_id])
+    @membership.retired!
+    
+    redirect_to :back
+  end
+  
   def new_membership
     @membership = Membership.new
     @roles = Membership.roles.keys
@@ -51,6 +59,13 @@ class Admin::DepartmentsController < ApplicationController
     end
   end
   
+   def destroy_membership
+    @membership = Membership.find(params[:id])
+    @membership.destroy
+
+    redirect_back fallback_location: admin_departments_path
+  end
+
   private
   
   def department_params

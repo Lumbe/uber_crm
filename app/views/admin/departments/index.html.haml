@@ -35,7 +35,8 @@
                   %tr
                     %td
                       = index + 1
-                    %td #{department.name}
+                    %td
+                      = link_to department.name, admin_department_path(department.id)
                     %td
                       - department.memberships.each do |membership|
                         .mb-5
