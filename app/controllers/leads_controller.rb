@@ -13,7 +13,7 @@ class LeadsController < ApplicationController
         # paginate with kaminari gem
         @leads = @leads.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if params[:iDisplayLength].to_i > 0
         # search with ransack gem
-        @leads = params[:sSearch].present? ? @leads.search(name_or_email_cont: params[:sSearch]).result : @leads
+        @leads = params[:sSearch].present? ? @leads.search(name_or_phone_or_email_cont: params[:sSearch]).result : @leads
         # render json on ajax request
         render json: {
           sEcho: params[:sEcho].to_i + 1,
