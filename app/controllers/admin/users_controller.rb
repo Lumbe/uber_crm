@@ -48,6 +48,7 @@ class Admin::UsersController < ApplicationController
   
   def settings
     @user = User.find(params[:id])
+    @memberships = @user.memberships.order(created_at: :asc)
   end
   
   private
