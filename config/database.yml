@@ -13,7 +13,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: crm_db_test
+  database: 
   pool: 5
   username: ubuntu
   password:
@@ -21,7 +21,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: crm_db_production
+  database: 
   pool: 5
   username: ubuntu
   password:

@@ -35,3 +35,4 @@
 #= require layouts/main_layout
 #= require layouts/form_elements
 #= require leads
+#= require admin/users

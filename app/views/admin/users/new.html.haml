@@ -80,6 +80,11 @@
                         %span.input-group-addon.bg-green-600
                           .icon-lock2
                         = f.password_field :password_confirmation, class: 'form-control', placeholder: 'Введите пароль повторно'
+                .row
+                  .col-md-12
+                    .form-group
+                      = f.label :avatar, 'Аватар'
+                      = f.file_field :avatar, class: 'file-styled-primary'
           .text-left
             = f.submit 'Создать пользователя', class: 'btn btn-success'
     / /2 columns form

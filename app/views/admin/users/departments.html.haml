@@ -5,7 +5,7 @@
       / User thumbnail
       .thumbnail
         .thumb.thumb-rounded.thumb-slide
-          = image_tag('face11', alt: 'user profile')
+          = image_tag(@user.avatar.url(:medium), alt: 'user profile')
         .caption.text-center
           %h6.text-semibold.no-margin
             #{@user.first_name} #{@user.last_name}
