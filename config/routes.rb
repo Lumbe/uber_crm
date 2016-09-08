@@ -13,14 +13,17 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :departments
+    
+    get 'departments/:id/membership/:retire_membership_id' => 'departments#retire_user', :as => :retire_user
+    get 'departments/:id/new_membership' => 'departments#new_membership', :as => :new_membership
+    post 'departments/:id/new_membership' => 'departments#add_membership' # creates new membership in database
   end
   
   get 'users/:id/profile', to: 'admin/users#profile', :as => :user_profile
   get 'users/:id/departments', to: 'admin/users#departments', :as => :user_departments
+  get 'users/:id/settings', to: 'admin/users#settings', :as => :user_settings
   
-  get 'admin/departments/:id/membership/:retire_membership_id' => 'admin/departments#retire_user', :as => :retire_user
-  get 'admin/departments/:id/new_membership' => 'admin/departments#new_membership', :as => :new_membership
-  post 'admin/departments/:id/new_membership' => 'admin/departments#add_membership' # creates new membership in database
+  
   # You can have the root of your site routed with "root"
 
   # Example of regular route:

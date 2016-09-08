@@ -58,6 +58,6 @@
                         %td.col-md-3 #{membership.role}
                         %td.col-md-3
                         %td.col-md-3
-                          = link_to retire_user_path(retire_membership_id: membership.id), data: { confirm: "Уволить пользователя с этого отдела?"} do
+                          = link_to admin_retire_user_path(retire_membership_id: membership.id), data: { confirm: "Уволить пользователя с этого отдела?"} do
                             %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Уволить пользователя"}
                               %i.icon-trash
