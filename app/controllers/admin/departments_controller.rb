@@ -58,13 +58,6 @@ class Admin::DepartmentsController < ApplicationController
       render 'new_membership'
     end
   end
-  
-   def destroy_membership
-    @membership = Membership.find(params[:id])
-    @membership.destroy
-
-    redirect_back fallback_location: admin_departments_path
-  end
 
   private
   

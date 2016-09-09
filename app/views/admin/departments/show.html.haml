@@ -5,7 +5,7 @@
       / Department thumbnail
       .thumbnail
         .thumb.thumb-rounded.thumb-slide
-          = image_tag('face11', alt: 'user profile')
+          = image_tag(@department.avatar.url(:medium), alt: 'department profile')
         .caption.text-center
           %h6.text-semibold.no-margin
             #{@department.name}
