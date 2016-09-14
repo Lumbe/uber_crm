@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   root 'home#index'
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'users/sessions', confirmations: 'users/confirmations', passwords: 'users/passwords', registrations: 'users/registrations', unlocks: 'users/unlocks' }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   resources :leads
+  resources :users
+  get 'users/:id/departments', to: 'users#departments', :as => :user_departments
+  get 'users/:id/profile', to: 'users#profile', :as => :user_profile
+  get 'users/:id/settings', to: 'users#settings', :as => :user_settings
 
   get 'admin' => 'admin/dashboard#index', :as => :admin
   # sign_in as user
@@ -18,11 +22,6 @@ Rails.application.routes.draw do
     get 'departments/:id/new_membership' => 'departments#new_membership', :as => :new_membership
     post 'departments/:id/new_membership' => 'departments#add_membership' # creates new membership in database
   end
-  
-  get 'users/:id/profile', to: 'admin/users#profile', :as => :user_profile
-  get 'users/:id/departments', to: 'admin/users#departments', :as => :user_departments
-  get 'users/:id/settings', to: 'admin/users#settings', :as => :user_settings
-  
   
   # You can have the root of your site routed with "root"
 

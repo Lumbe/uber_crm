@@ -2,7 +2,7 @@
   / Main navbar
   .navbar.navbar-default.navbar-fixed-top.header-highlight
     .navbar-header
-      %a.navbar-brand{:href => "index.html"}
+      = link_to root_path, class: "navbar-brand" do
         = image_tag('logo_light', alt: "Uber CRM")
       %ul.nav.navbar-nav.pull-right.visible-xs-block
         %li
@@ -32,9 +32,9 @@
             %i.caret
           %ul.dropdown-menu.dropdown-menu-right
             %li
-              = link_to edit_user_registration_path do
-                %i.icon-user-plus
-                Профиль
+              = link_to user_path(current_user.id) do
+                %i.icon-cabinet
+                Кабинет
             %li
               %a{:href => "#"}
                 %i.icon-coins
@@ -46,9 +46,9 @@
                 Messages
             %li.divider
             %li
-              %a{:href => "#"}
+              = link_to user_settings_path(current_user.id) do
                 %i.icon-cog5
-                Account settings
+                Настройки
             %li
               = link_to destroy_user_session_path, method: :delete do
                 %i.icon-switch2

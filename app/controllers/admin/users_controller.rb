@@ -36,21 +36,6 @@ class Admin::UsersController < ApplicationController
     redirect_to root_url # or user_root_url
   end
   
-  def departments
-    @user = User.find(params[:id])
-    @memberships = @user.memberships.order(created_at: :asc)
-  end
-  
-  def profile
-    @user = User.find(params[:id])
-    @memberships = @user.memberships.order(created_at: :asc)
-  end
-  
-  def settings
-    @user = User.find(params[:id])
-    @memberships = @user.memberships.order(created_at: :asc)
-  end
-  
   private
   
   def user_params

@@ -1,0 +1,28 @@
+= render layout: 'user_sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Настройки аккаунта 
+        .heading-elements 
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = render template: "users/registrations/edit"
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Настройки аккаунта 
+        .heading-elements 
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = render template: "devise/registrations/edit"

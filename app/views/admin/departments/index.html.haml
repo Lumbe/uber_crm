@@ -44,9 +44,9 @@
                           #{membership.user.first_name} #{membership.user.last_name} - #{membership.role}
                           %br
                     %td
-                      = link_to admin_department_path(department.id), method: :delete, data: { confirm: "Удалить отдел навсегда?"} do
-                        %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Удалить отдел"}
-                          %i.icon-trash
                       = link_to admin_new_membership_path(department.id) do
                         %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Добавить пользователя"}
                           %i.icon-user-plus
+                      = link_to admin_department_path(department.id), method: :delete, data: { confirm: "Удалить отдел навсегда?"} do
+                        %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Удалить отдел"}
+                          %i.icon-trash

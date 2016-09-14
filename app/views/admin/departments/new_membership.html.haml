@@ -48,13 +48,13 @@
                       .input-group
                         %span.input-group-addon
                           .icon-versions
-                        = f.select(:user_id, @users, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                        = f.select(:user_id, @users, {}, {class: 'select-search', data: { placeholder: 'Please select the category you want' }} )
                     .form-group
                       = f.label :role, 'Роль'
                       .input-group
                         %span.input-group-addon
                           .icon-versions
-                        = f.select(:role, @roles, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                        = f.select(:role, @roles, {}, {class: 'select-search', data: { placeholder: 'Please select the category you want' }} )
           .text-left
             = f.submit 'Добавить пользователя', class: 'btn btn-success'
     / /2 columns form
