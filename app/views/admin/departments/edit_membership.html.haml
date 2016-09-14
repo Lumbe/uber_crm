@@ -1,0 +1,27 @@
+= render layout: 'department_sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .panel-body
+        .row
+          .col-md-12
+            .table-responsive
+              %table.table
+                %thead
+                  %tr.alpha-grey
+                    %th.col-md-3.text-uppercase Имя
+                    %th.col-md-3.text-uppercase Текущая роль
+                    %th.col-md-3.text-uppercase Новая роль
+                    %th.col-md-3.text-uppercase Действия
+                - @department.memberships.each do |membership|
+                  %tbody
+                    = form_for membership, url: admin_edit_membership_path(membership_id: membership.id) do |f|
+                      %tr
+                        %td.col-md-3 #{membership.user.first_name} #{membership.user.last_name}
+                        %td.col-md-3 #{membership.role}
+                        %td.col-md-3
+                          .input-group
+                            %span.input-group-addon
+                              .icon-versions
+                            = f.select(:role, @roles, {}, {class: 'select-search', data: { placeholder: 'Please select the category you want' }} )
+                        %td.col-md-3
+                          = f.submit 'Сохранить', class: 'btn btn-success'

@@ -4,8 +4,6 @@
       = devise_error_messages!
       %fieldset
         %legend.text-bold
-          Изменение пароля для: #{@user.first_name} #{@user.last_name}
-          %br
           Логин: #{@user.email} 
         .form-group
           = f.label :password, 'Новый пароль'
@@ -32,4 +30,4 @@
             = f.password_field :current_password, autocomplete: "off", class: 'form-control', placeholder: 'Текущий пароль'
         .form-group
           .text-left
-            = f.submit 'Изменить пароль', class: 'btn btn-success'
+            = f.submit 'Сохранить новый пароль', class: 'btn btn-success'

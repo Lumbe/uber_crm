@@ -66,6 +66,25 @@ class Admin::DepartmentsController < ApplicationController
       render 'new_membership'
     end
   end
+  
+  def edit_membership
+    @department = Department.find(params[:id])
+    @roles = Membership.roles.keys
+  end
+  
+  def update_membership
+    @department = Department.find(params[:id])
+    @membership = Membership.find(params[:membership_id])
+    @roles = Membership.roles.keys
+
+    if @membership.update(membership_params)
+      flash[:notice] = "Роль пользователя #{@membership.user.first_name} #{@membership.user.last_name} изменена на #{@membership.role}"
+      redirect_to :back
+    else
+      flash.now[:alert] = "Роль пользователя #{@membership.user.first_name} #{@membership.user.last_name} не изменена."
+      render 'edit_membership'
+    end
+  end
 
   private
   

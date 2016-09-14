@@ -22,6 +22,9 @@
           = link_to @user, class: "list-group-item" do
             %i.icon-cabinet
             Мой кабинет
+          = link_to user_profile_path, class: "list-group-item" do
+            %i.icon-user
+            Профиль
           = link_to user_departments_path(@user.id), class: "list-group-item" do
             %i.icon-office
             Отделы

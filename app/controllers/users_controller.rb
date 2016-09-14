@@ -14,7 +14,13 @@ class UsersController < ApplicationController
   end
   
   def update
-    
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render 'settings'
+    end
   end
   
   def departments
@@ -30,6 +36,12 @@ class UsersController < ApplicationController
   def settings
     @user = User.find(params[:id])
     @memberships = @user.memberships.order(created_at: :asc)
+  end
+  
+  private
+  
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
   end
   
 end
