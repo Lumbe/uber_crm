@@ -22,9 +22,17 @@ class Admin::DepartmentsController < ApplicationController
   end
 
   def edit
+    @department = Department.find(params[:id])
   end
 
   def update
+    @department = Department.find(params[:id])
+
+    if @department.update(department_params)
+      redirect_to admin_department_url(@department)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -62,7 +70,7 @@ class Admin::DepartmentsController < ApplicationController
   private
   
   def department_params
-    params.require(:department).permit(:name)
+    params.require(:department).permit(:name, :avatar)
   end
   
   def membership_params

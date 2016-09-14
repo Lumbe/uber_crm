@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :departments
-    
     get 'departments/:id/membership/:retire_membership_id' => 'departments#retire_user', :as => :retire_user
     get 'departments/:id/new_membership' => 'departments#new_membership', :as => :new_membership
     post 'departments/:id/new_membership' => 'departments#add_membership' # creates new membership in database

@@ -1,16 +1,6 @@
-/ Page header
-.page-header  
-  .content-group
-    .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
-      .page-header-content
-        .page-title
-          %h4
-            %i.icon-vcard.position-left
-            %span.text-semibold Создание пользователя
-        .heading-elements
-  .content
-    / 2 columns form
-    = form_for(@department, url: admin_departments_path) do |f|
+= render layout: 'department_sidebar' do
+  .col-lg-9
+    = form_for [:admin, @department] do |f|
       - if @department.errors.any?
         .alert.bg-danger.alert-styled-left
           %button.close{ data: { dismiss: 'alert' } }
@@ -39,18 +29,18 @@
               %fieldset
                 %legend.text-semibold
                   %i.icon-reading.position-left
-                  Регистрационные данные
+                  Редактирование данных
                 .row
                   .col-md-12
                     .form-group
-                      = f.label :name, 'Название'
+                      = f.label :name, 'Название отдела'
                       .input-group
                         %span.input-group-addon.bg-green-600
                           .icon-user
-                        = f.text_field :name, class: 'form-control', placeholder: 'Сервус Поділля'
+                        = f.text_field :name, class: 'form-control', placeholder: 'Введите новое название отдела'
                     .form-group
                       = f.label :avatar, 'Аватар (300х300px)'
                       = f.file_field :avatar, class: 'file-styled-primary'
           .text-left
-            = f.submit 'Создать отдел', class: 'btn btn-success'
+            = f.submit 'Сохранить', class: 'btn btn-success'
     / /2 columns form
