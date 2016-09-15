@@ -10,7 +10,7 @@
         .heading-elements
   .content
     / 2 columns form
-    = form_for(@membership, url: admin_new_membership_path) do |f|
+    = form_for [:admin, :department, @membership] do |f|
       - if @membership.errors.any?
         .alert.bg-danger.alert-styled-left
           %button.close{ data: { dismiss: 'alert' } }

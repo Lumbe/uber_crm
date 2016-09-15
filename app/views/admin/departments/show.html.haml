@@ -1,24 +1,17 @@
 = render layout: 'department_sidebar' do
   .col-lg-9
     .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Информация об отделе
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
       .panel-body
         .row
           .col-md-12
-            .table-responsive
-              %table.table
-                %thead
-                  %tr.alpha-grey
-                    %th.col-md-3.text-uppercase Имя
-                    %th.col-md-3.text-uppercase Роль
-                    %th.col-md-3.text-uppercase Лиды
-                    %th.col-md-3.text-uppercase Действия
-                - @department.memberships.each do |membership|
-                  %tbody
-                    %tr
-                      %td.col-md-3 #{membership.user.first_name} #{membership.user.last_name}
-                      %td.col-md-3 #{membership.role}
-                      %td.col-md-3
-                      %td.col-md-3
-                        = link_to admin_retire_user_path(retire_membership_id: membership.id), data: { confirm: "Уволить пользователя с этого отдела?"} do
-                          %button.btn.bg-grey.btn-sm.btn-icon{"type" => "button", "data-popup" => "tooltip", "data-placement" => "left", "title" => "Уволить пользователя"}
-                            %i.icon-trash
+            Описание, юридический и физический адрес, номера офисных телефонов, email, время работы...

@@ -17,13 +17,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :departments do
-      resources :membership
+      resources :memberships
     end
     get 'departments/:id/membership/:retire_membership_id' => 'departments#retire_user', :as => :retire_user
-    get 'departments/:id/new_membership' => 'departments#new_membership', :as => :new_membership
-    post 'departments/:id/new_membership' => 'departments#add_membership' # creates new membership in database
-    get 'departments/:id/edit_membership' => 'departments#edit_membership', :as => :edit_membership
-    patch 'departments/:id/edit_membership' => 'departments#update_membership' # updates membership role in database
   end
   
   # You can have the root of your site routed with "root"

@@ -1,4 +1,4 @@
-= render layout: 'department_sidebar' do
+= render layout: 'admin/departments/department_sidebar' do
   .col-lg-9
     .panel.panel-flat
       .panel-body
@@ -14,7 +14,7 @@
                     %th.col-md-3.text-uppercase Действия
                 - @department.memberships.each do |membership|
                   %tbody
-                    = form_for membership, url: admin_edit_membership_path(membership_id: membership.id) do |f|
+                    = form_for [:admin, @department, membership] do |f|
                       %tr
                         %td.col-md-3 #{membership.user.first_name} #{membership.user.last_name}
                         %td.col-md-3 #{membership.role}
