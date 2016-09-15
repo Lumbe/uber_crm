@@ -3,7 +3,8 @@
     .panel.panel-flat
       .panel-heading
         %h5.panel-title Все пользователи
-        %small.display-block Редактировать роли
+        = link_to admin_department_edit_memberships_path do
+          %small.display-block Редактировать роли
         .heading-elements
           %ul.icons-list
             %li

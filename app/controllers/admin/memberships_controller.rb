@@ -1,13 +1,13 @@
 class Admin::MembershipsController < ApplicationController
   before_filter :load_department
-  before_filter :load_membership, :except => [:new, :create, :index]
+  before_filter :load_membership, :except => [:new, :create, :index, :edit]
   before_filter :load_roles
-
+  
   def new
     @membership = @department.memberships.new
     @users = User.all.collect {|p| [ p.first_name + " " + p.last_name, p.id ] }
   end
-  
+
   def create
     @membership = @department.memberships.new(membership_params)
     

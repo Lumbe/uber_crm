@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :departments do
+      get 'memberships/edit' => 'memberships#edit', :as => :edit_memberships
       resources :memberships
     end
     get 'departments/:id/membership/:retire_membership_id' => 'departments#retire_user', :as => :retire_user
