@@ -1,11 +1,21 @@
 class LeadsController < ApplicationController
+  before_filter :load_statuses, only: :new
+  
 
   def index
+    @user = current_user
+    if !@user.departments.any?
+      flash[:alert] = "У Вас нет доступа ни к одному отделу. Запросите доступ у администратора"
+    end
     respond_to do |format|
       format.html
       format.json do
-        # load leads with filtered statuses and dates from datapicker
-        @leads = Lead.where(status: params[:statuses], department: params[:department], created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+                # load leads with filtered statuses and dates from datapicker
+        @leads =  if params[:department].present?
+                    Lead.where(status: params[:statuses], department: params[:department], created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+                  elsif @user.departments.any?
+                    Lead.where(status: params[:statuses], department: current_user.departments.first, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+                  end
         # total count for datatable view
         total_count = Lead.all.count
         # count fo datatable view
@@ -114,6 +124,10 @@ class LeadsController < ApplicationController
     params.require(:lead).permit(:name, :phone, :email, :location,
                                  :project, :square, :floor, :question,
                                  :region, :source, :online_request,
-                                 :come_in_office, :phone_call, :status)
+                                 :come_in_office, :phone_call, :status, :department_id)
+  end
+  
+  def load_statuses
+    @statuses = Lead.statuses.keys
   end
 end

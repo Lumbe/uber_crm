@@ -175,11 +175,16 @@
                       .input-group
                         %span.input-group-addon
                           .icon-versions
-                        - statuses = [['Новый', 'newly'],
-                                          ['Закрыт', 'closed'],
-                                          ['Конвертирован', 'converted'],
-                                          ['Передан в ГО', 'sended']]
-                        = f.select(:status, statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                        = f.select(:status, @statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                    - if current_user.departments.count == 1
+                      = f.hidden_field :department_id, value: current_user.departments.first.id
+                    - else
+                      .form-group
+                        = f.label :department_id, 'В какой отдел добавить лид?'
+                        .input-group
+                          %span.input-group-addon
+                            .icon-versions
+                          = f.select(:department_id, options_from_collection_for_select(current_user.departments, :id, :name), {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
           .text-left
             = f.submit 'Создать лид', class: 'btn btn-success'
     / /2 columns form
