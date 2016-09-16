@@ -38,19 +38,59 @@
                   %span.label.bg-blue 3
             #tabs-basic-1
               .row
-                .col-md-12
-                  %table.table.table-framed.table-lead-info
+                .col-md-4
+                  %table.table.table-lead-info.table-sm
                     %tbody
                       %tr
-                        %th.col-md-1.text-right.success
-                          %strong Имя:
+                        %td.col-md-1.text-bold Имя:
                         %td.col-md-2 #{@lead.name}
-                        %th.col-md-1.text-right.success
-                          %strong Телефон:
+                      %tr
+                        %td.col-md-1.text-bold Телефон:
                         %td.col-md-2 #{@lead.phone}
-                        %th.col-md-1.text-right.success
-                          %strong e-mail:
+                      %tr.border-bottom.border-bottom-green-300
+                        %td.col-md-1.text-bold e-mail:
                         %td.col-md-2 #{@lead.email}
+                .col-md-3
+                .col-md-5
+                  %table.table.table-lead-info.table-sm.table-borderless
+                    %tbody
+                      - if @lead.user.present?
+                        %tr
+                          %td.text-right Добавил
+                          %td
+                            %ul.media-list
+                              %li.media
+                                .media-left.media-middle
+                                  = link_to user_profile_path(@lead.user) do
+                                    = image_tag @lead.user.avatar.url(:thumb), class: "img-circle"
+                                .media-body
+                                  .media-heading.text-semibold #{@lead.user.first_name} #{@lead.user.last_name}
+                                  = link_to user_profile_path(@lead.user) do
+                                    %span.text-muted Профиль
+                                .media-right.media-middle
+                                  %ul.icons-list.icons-list-extended.text-nowrap
+                                    %li
+                                    %li
+                                      %a{"data-popup" => "tooltip", "data-target" => "#chat", "data-toggle" => "modal", :href => "#", :title => "Сообщение"}
+                                        %i.icon-comment
+                      - if @lead.assignee.present?
+                        %tr
+                          %td.text-right Ответственный
+                          %td
+                            %ul.media-list
+                              %li.media
+                                .media-left.media-middle
+                                  = link_to user_profile_path(@lead.assignee) do
+                                    = image_tag @lead.assignee.avatar.url(:thumb), class: "img-circle"
+                                .media-body
+                                  .media-heading.text-semibold #{@lead.assignee.first_name} #{@lead.assignee.last_name}
+                                  = link_to user_profile_path(@lead.assignee) do
+                                    %span.text-muted Профиль
+                                .media-right.media-middle
+                                  %ul.icons-list.icons-list-extended.text-nowrap
+                                    %li
+                                      %a{"data-popup" => "tooltip", "data-target" => "#chat", "data-toggle" => "modal", :href => "#", :title => "Сообщение"}
+                                        %i.icon-comment
             #tabs-basic-2
               .row
                 .col-md-6

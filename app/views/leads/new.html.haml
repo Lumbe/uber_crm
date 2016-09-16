@@ -185,6 +185,7 @@
                           %span.input-group-addon
                             .icon-versions
                           = f.select(:department_id, options_from_collection_for_select(current_user.departments, :id, :name), {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                = f.hidden_field :user_id, value: current_user.id
           .text-left
             = f.submit 'Создать лид', class: 'btn btn-success'
     / /2 columns form

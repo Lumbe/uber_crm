@@ -81,6 +81,7 @@ class LeadsController < ApplicationController
 
   def show
     @lead = Lead.find(params[:id])
+    @user = @lead.user
   end
 
   def new
@@ -124,7 +125,8 @@ class LeadsController < ApplicationController
     params.require(:lead).permit(:name, :phone, :email, :location,
                                  :project, :square, :floor, :question,
                                  :region, :source, :online_request,
-                                 :come_in_office, :phone_call, :status, :department_id)
+                                 :come_in_office, :phone_call, :status,
+                                 :user_id, :department_id)
   end
   
   def load_statuses
