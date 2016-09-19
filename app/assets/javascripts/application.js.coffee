@@ -28,11 +28,12 @@
 #= require 'limitless/plugins/forms/styling/uniform.min.js'
 #= require 'limitless/plugins/ui/moment/moment-with-locales.js'
 #= require 'limitless/plugins/pickers/daterangepicker.js'
-#= require 'limitless/plugins/datatables/datatables_basic.js'
 #= require 'limitless/plugins/notifications/pnotify.min.js'
 #= require 'limitless/core/app.min.js'
 
 #= require layouts/main_layout
 #= require layouts/form_elements
+#= require layouts/datapicker
 #= require leads
+#= require contacts
 #= require admin/users
