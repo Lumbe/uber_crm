@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   resources :leads
+  get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead
   resources :contacts
   resources :users
   get 'users/:id/departments', to: 'users#departments', :as => :user_departments

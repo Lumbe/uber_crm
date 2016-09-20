@@ -49,7 +49,7 @@ class LeadsController < ApplicationController
                   end +
                   view_context.content_tag(:ul, class: 'dropdown-menu dropdown-menu-right') do
                     view_context.content_tag(:li) do
-                      view_context.link_to('#') do
+                      view_context.link_to(convert_lead_path(lead.id)) do
                         view_context.content_tag(:i, '', class: 'icon-spinner11') + 'Конвертировать'
                       end
                     end +
@@ -116,6 +116,12 @@ class LeadsController < ApplicationController
     @lead.destroy
 
     redirect_to leads_path
+  end
+  
+  def convert
+    Lead.find(params[:id]).converted!
+    contact_attributes = Lead.find(params[:id]).attributes.select { |key, value| Contact.new.attributes.except("id", "created_at", "updated_at").keys.include? key }
+    @contact = Contact.new(contact_attributes)
   end
 
   private
