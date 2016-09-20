@@ -26,7 +26,7 @@
             %span.visible-xs-inline-block.position-right Icon link
         %li.dropdown.dropdown-user
           %a.dropdown-toggle{"data-toggle" => "dropdown"}
-            = image_tag('face11', alt: 'user profile')
+            = image_tag(current_user.avatar.url(:thumb), alt: 'user profile')
             %span
               = current_user.first_name
             %i.caret
