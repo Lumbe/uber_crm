@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   resources :leads
   get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead
-  resources :contacts
+  resources :contacts do
+    resources :comments
+  end
   resources :users
   get 'users/:id/departments', to: 'users#departments', :as => :user_departments
   get 'users/:id/profile', to: 'users#profile', :as => :user_profile

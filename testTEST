@@ -1,6 +1,0 @@
-contact_attributes = Lead.last.attributes.select { |key, value| (Contact.new.attributes.keys - ["id", "created_at", "updated_at"]).include? key }
-Contact.create(contact_attributes)
-
-
-contact_attributes = Lead.last.attributes.select { |key, value| Contact.new.attributes.except("id", "created_at", "updated_at").keys.include? key }
-Contact.create(contact_attributes)
