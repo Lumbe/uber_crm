@@ -73,6 +73,9 @@ class ContactsController < ApplicationController
   def show
     @contact = Contact.find(params[:id])
     @user = @contact.user
+    @commentable = @contact
+    @comments = @commentable.comments
+    @comment = Comment.new
   end
 
   def new

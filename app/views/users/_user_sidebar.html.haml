@@ -9,6 +9,8 @@
         .caption.text-center
           %h6.text-semibold.no-margin
             #{@user.first_name} #{@user.last_name}
+            - if @user.admin?
+              %span.label.label-primary Admin
             %small.display-block
               - @memberships.each do |membership|
                 #{membership.role} в #{membership.department.name}

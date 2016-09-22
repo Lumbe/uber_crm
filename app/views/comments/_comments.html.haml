@@ -1,0 +1,23 @@
+- @comments.each do |comment|
+  .timeline-row
+    .timeline-icon
+      .bg-info-400
+        %i.icon-comment
+    .panel.panel-flat.timeline-content
+      .panel-heading
+        .panel-title
+          Комментарий от
+          = image_tag(comment.user.avatar(:thumb), class: "img-circle")
+          = link_to user_profile_path(comment.user) do
+            #{comment.user.first_name} #{comment.user.last_name}
+        .heading-elements
+          %span.heading-text
+            %i.icon-history.position-left.text-success
+            Добавлен
+            = time_ago_in_words(comment.created_at)
+            назад
+          %ul.icons-list
+            %li
+              %a{"data-action" => "reload"}
+      .panel-body.text-semibold
+        = comment.body
