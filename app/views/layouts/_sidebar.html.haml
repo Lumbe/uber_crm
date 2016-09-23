@@ -10,17 +10,12 @@
           .category-content
             .media
               %a.media-left{:href => "#"}
-                = image_tag('face11', class: ['img-circle', 'img-sm'])
+                = image_tag(current_user.avatar.url(:medium), class: ['img-circle', 'img-sm'])
               .media-body
-                %span.media-heading.text-semibold Victoria Baker
-                .text-size-mini.text-muted
-                  %i.icon-pin.text-size-small
-                  \&nbsp;Santa Ana, CA
-              .media-right.media-middle
-                %ul.icons-list
-                  %li
-                    %a{:href => "#"}
-                      %i.icon-cog3
+                %span.media-heading.text-semibold
+                  #{current_user.first_name} #{current_user.last_name}
+                = link_to user_path(current_user.id), class: "label label-flat border-grey-300 text-size-small text-muted" do
+                  Мой кабинет
         / /user menu
         / Main navigation
         .sidebar-category.sidebar-category-visible

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  root 'home#index'
-  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  root 'home#index'
+  devise_for :users
 
   resources :leads
   get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead # convert lead to contact
