@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :leads
+  get 'leads/:id/claim', to: 'leads#claim', :as => :claim_lead # convert lead to contact
   get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead # convert lead to contact
   
   resources :contacts do

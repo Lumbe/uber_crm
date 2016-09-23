@@ -31,11 +31,16 @@ class LeadsController < ApplicationController
           aaData: @leads.map do |lead| 
             [
               case lead.status
-              when 'newly' then view_context.content_tag :span, 'Новый', class: 'label label-warning'
-              when 'repeated' then view_context.content_tag :span, 'Повторно', class: 'label label-warning'
+              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
+                " " +
+                (view_context.link_to '+ Взять в работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
+              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning') +
+                " " +
+                (view_context.link_to '+ Взять в работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
               when 'closed' then view_context.content_tag :span, 'Закрыт', class: 'label label-default'
               when 'converted' then view_context.content_tag :span, 'Конвертирован', class: 'label label-success'
               when 'sended' then view_context.content_tag :span, 'Передан в ГО', class: 'label label-info'
+              when 'claimed' then view_context.content_tag :span, 'В работе', class: 'label bg-orange'
               end,
               view_context.link_to(lead.name, lead_path(lead)),
               lead.phone,
@@ -118,8 +123,18 @@ class LeadsController < ApplicationController
     redirect_to leads_path
   end
   
+  def claim
+    @lead = Lead.find(params[:id])
+    @user = current_user
+    @lead.claimed!
+    @lead.update(assignee: @user)
+    
+    redirect_to :back
+  end
+  
   def convert
-    Lead.find(params[:id]).converted!
+    @lead = Lead.find(params[:id])
+    @lead.converted!
     contact_attributes = Lead.find(params[:id]).attributes.select { |key, value| Contact.new.attributes.except("id", "created_at", "updated_at").keys.include? key }
     @contact = Contact.new(contact_attributes)
   end
