@@ -43,7 +43,7 @@
                 .row
                   .col-md-12
                     .form-group
-                      = f.label :name, 'Имя'
+                      = f.label :name, 'Имя', class: "required"
                       .input-group
                         %span.input-group-addon.bg-green-600
                           .icon-user
@@ -51,7 +51,7 @@
                 .row
                   .col-md-12
                     .form-group
-                      = f.label :phone, 'Телефон'
+                      = f.label :phone, 'Телефон', class: "required"
                       .input-group
                         %span.input-group-addon.bg-green-600
                           .icon-phone2
@@ -89,7 +89,7 @@
                         Пришел в офис
                   .col-md-6
                     .form-group
-                      = f.label :source, 'Откуда узнал о нас'
+                      = f.label :source, 'Откуда узнал о нас', class: "required"
                       .input-group
                         %span.input-group-addon
                           .icon-target
@@ -100,7 +100,7 @@
                                           ['Личная рекомендация', 'Личная рекомендация'],
                                           ['Раздаточный материал (флаер)', 'Раздаточный материал (флаер)'],
                                           ['Другое', 'Другое']]
-                        = f.select(:source, sources_list, {}, {class: 'select-search', data: { placeholder: 'Выберите источник...' }} )
+                        = f.select(:source, sources_list, {}, {class: 'select-search', required: true, data: { placeholder: 'Выберите источник...' }} )
                 .row
                   .col-md-6
                     .form-group
@@ -111,7 +111,7 @@
                         = f.text_field :location, class: 'form-control', placeholder: 'город, пгт, деревня или район...'
                   .col-md-6
                     .form-group
-                      = f.label :region, 'Регион'
+                      = f.label :region, 'Регион', class: "required"
                       .input-group
                         %span.input-group-addon
                           .icon-earth
@@ -145,7 +145,7 @@
                                           ['Севастополь', 'Севастополь'],
                                           ['АР Крым', 'АР Крым'],
                                           ['Неизвестно', 'Неизвестно']]
-                        = f.select(:region, regions_list, {}, {class: 'select-search', data: { placeholder: 'Please select the category you want' }} )
+                        = f.select(:region, regions_list, {}, {class: 'select-search', required: true, data: { placeholder: 'Please select the category you want' }} )
                 .row
                   .col-md-4
                     .form-group
@@ -179,7 +179,7 @@
                           %span.input-group-addon
                             .icon-versions
                           = f.select(:department_id, options_from_collection_for_select(current_user.departments, :id, :name), {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
-                = f.hidden_field :user_id, value: current_user.id
+                = f.hidden_field :assigned_to, value: current_user.id
           .text-left
             = f.submit 'Конвертировать в контакт', class: 'btn btn-success'
     / /2 columns form

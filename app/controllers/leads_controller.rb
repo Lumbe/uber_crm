@@ -153,7 +153,7 @@ class LeadsController < ApplicationController
                                  :project, :square, :floor, :question,
                                  :region, :source, :online_request,
                                  :come_in_office, :phone_call, :status,
-                                 :user_id, :department_id)
+                                 :user_id, :department_id, :assigned_to)
   end
   
   def load_statuses

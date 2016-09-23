@@ -5,8 +5,7 @@ class Lead < ActiveRecord::Base
   belongs_to :customer
   belongs_to :department
   has_many :comments, as: :commentable
-  validates :name, presence: true
-  validates :phone, presence: true
+  validates :name, :phone, presence: true
 
   enum status: [:newly, :closed, :converted, :sended, :repeated, :claimed]
 
