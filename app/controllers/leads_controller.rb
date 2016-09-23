@@ -59,7 +59,7 @@ class LeadsController < ApplicationController
                       end
                     end +
                     view_context.content_tag(:li) do
-                      view_context.link_to('#') do
+                      view_context.link_to(close_lead_path(lead.id)) do
                         view_context.content_tag(:i, '', class: 'icon-cross2') + 'Закрыть'
                       end
                     end +
@@ -128,6 +128,13 @@ class LeadsController < ApplicationController
     @user = current_user
     @lead.claimed!
     @lead.update(assignee: @user)
+    
+    redirect_to :back
+  end
+  
+  def close
+    @lead = Lead.find(params[:id])
+    @lead.closed!
     
     redirect_to :back
   end
