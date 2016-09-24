@@ -11,6 +11,8 @@
   .content
     / 2 columns form
     = form_for @contact do |f|
+      = f.hidden_field :user_id
+      = f.hidden_field :assigned_to
       - if @contact.errors.any?
         .alert.bg-danger.alert-styled-left
           %button.close{ data: { dismiss: 'alert' } }
@@ -179,7 +181,6 @@
                           %span.input-group-addon
                             .icon-versions
                           = f.select(:department_id, options_from_collection_for_select(current_user.departments, :id, :name), {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
-                = f.hidden_field :assigned_to, value: current_user.id
           .text-left
             = f.submit 'Конвертировать в контакт', class: 'btn btn-success'
     / /2 columns form
