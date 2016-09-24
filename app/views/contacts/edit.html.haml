@@ -163,18 +163,6 @@
                         %span.input-group-addon
                           .icon-office
                         = f.text_field :floor, class: 'form-control', placeholder: 'Одно- или двухэтажный'
-                .row
-                  .col-md-6
-                    .form-group
-                      = f.label :status, 'Статус'
-                      .input-group
-                        %span.input-group-addon
-                          .icon-versions
-                        - statuses = [['Новый', 'newly'],
-                                          ['Закрыт', 'closed'],
-                                          ['Конвертирован', 'converted'],
-                                          ['Передан в ГО', 'sended']]
-                        = f.select(:status, statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
           .text-left
             = f.submit 'Сохранить', class: 'btn btn-success'
     / /2 columns form
