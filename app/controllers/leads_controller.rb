@@ -1,5 +1,5 @@
 class LeadsController < ApplicationController
-  before_filter :load_statuses, only: :new
+  before_filter :load_statuses, only: [:new, :edit]
 
   def index
     @user = current_user
@@ -90,6 +90,7 @@ class LeadsController < ApplicationController
 
   def new
     @lead = Lead.new
+    @departments = current_user.departments
   end
   
   def create
@@ -104,6 +105,7 @@ class LeadsController < ApplicationController
   
   def edit
     @lead = Lead.find(params[:id])
+    @departments = current_user.departments
   end
 
   def update

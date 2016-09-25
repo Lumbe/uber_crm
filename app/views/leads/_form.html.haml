@@ -1,0 +1,179 @@
+/ 2 columns form
+= form_for @lead do |f|
+  = f.hidden_field :user_id, value: current_user.id
+  - if @lead.errors.any?
+    .alert.bg-danger.alert-styled-left
+      %button.close{ data: { dismiss: 'alert' } }
+        %span &times;
+        %span.sr-only Закрыть
+      %h4
+        Исправьте ошибки и попробуйте снова. Ошибок: 
+        = @lead.errors.count
+      %ul
+        - @lead.errors.full_messages.each do |msg|
+          %li= msg
+  .panel.panel-flat
+    .panel-heading
+      %h5.panel-title
+      .heading-elements
+        %ul.icons-list
+          %li
+            %a{"data-action" => "collapse"}
+          %li
+            %a{"data-action" => "reload"}
+          %li
+            %a{"data-action" => "close"}
+    .panel-body
+      .row
+        .col-md-3
+          %fieldset
+            %legend.text-semibold
+              %i.icon-reading.position-left
+              Персональные данные
+            .row
+              .col-md-12
+                .form-group
+                  = f.label :name, 'Имя', class: "required"
+                  .input-group
+                    %span.input-group-addon.bg-green-600
+                      .icon-user
+                    = f.text_field :name, class: 'form-control', placeholder: 'Вячеслав Олегович', required: true
+            .row
+              .col-md-12
+                .form-group
+                  = f.label :phone, 'Телефон', class: "required"
+                  .input-group
+                    %span.input-group-addon.bg-green-600
+                      .icon-phone2
+                    = f.text_field :phone, class: 'form-control', placeholder: '09712345678', required: true
+            .row
+              .col-md-12
+                .form-group
+                  = f.label :email, 'Email'
+                  .input-group
+                    %span.input-group-addon.bg-green-600
+                      .icon-mail5
+                    = f.email_field :email, class: 'form-control', placeholder: 'example@exaple.com'
+            .row
+              .col-md-12
+                .form-group
+                  = f.label :question, 'Сообщение от клиента'
+                  = f.text_area :question, class: 'form-control', size: "5x4", 'placeholder' => 'Сюда вносить ничего не надо, формируется на сайте.'
+        .col-md-9
+          %fieldset
+            %legend.text-semibold
+              %i.icon-stats-bars2.position-left
+              Статистика
+            .row
+              .col-md-6
+                .form-group
+                  = f.label 'Как вышел на связь', class: 'display-block text-semibold'
+                  = f.label :online_request, class: 'checkbox-inline' do
+                    = f.check_box :online_request, class: 'styled'
+                    Онлайн-запрос
+                  = f.label :phone_call, class: 'checkbox-inline' do
+                    = f.check_box :phone_call, class: 'styled'
+                    Звонок
+                  = f.label :come_in_office, class: 'checkbox-inline' do
+                    = f.check_box :come_in_office, class: 'styled'
+                    Пришел в офис
+              .col-md-6
+                .form-group
+                  = f.label :source, 'Откуда узнал о нас'
+                  .input-group
+                    %span.input-group-addon
+                      .icon-target
+                    - sources_list = [['Интернет', 'Интернет'],
+                                      ['Наружная реклама', 'Наружная реклама'],
+                                      ['Печатные издания', 'Печатные издания'],
+                                      ['Забрендированные маршрутки', 'Забрендированные маршрутки'],
+                                      ['Личная рекомендация', 'Личная рекомендация'],
+                                      ['Раздаточный материал (флаер)', 'Раздаточный материал (флаер)'],
+                                      ['Другое', 'Другое']]
+                    = f.select(:source, sources_list, {}, {class: 'select-search', data: { placeholder: 'Выберите источник...' }} )
+            .row
+              .col-md-6
+                .form-group
+                  = f.label :location, 'Где будет строиться'
+                  .input-group
+                    %span.input-group-addon
+                      .icon-location3
+                    = f.text_field :location, class: 'form-control', placeholder: 'город, пгт, деревня или район...'
+              .col-md-6
+                .form-group
+                  = f.label :region, 'Регион'
+                  .input-group
+                    %span.input-group-addon
+                      .icon-earth
+                    - regions_list = [['г.Хмельницкий', 'г.Хмельницкий'],
+                                      ['г.Камянец-Подольский', 'г.Камянец-Подольский'],
+                                      ['Хмельницкая обл.', 'Хмельницкая обл.'],
+                                      ['Винницкая обл.', 'Винницкая обл.'],
+                                      ['Черновицкая обл.', 'Черновицкая обл.'],
+                                      ['Ровенская обл.', 'Ровенская обл.'],
+                                      ['Волынская обл.', 'Волынская обл.'],
+                                      ['Днепропетровская обл.', 'Днепропетровская обл.'],
+                                      ['Донецкая обл.', 'Донецкая обл.'],
+                                      ['Житомирская обл.', 'Житомирская обл.'],
+                                      ['Закарпатская обл.', 'Закарпатская обл.'],
+                                      ['Запорожская обл.', 'Запорожская обл.'],
+                                      ['Ивано-Франковская обл.', 'Ивано-Франковская обл.'],
+                                      ['Киевская обл.', 'Киевская обл.'],
+                                      ['Кировоградская обл.', 'Кировоградская обл.'],
+                                      ['Луганская обл.', 'Луганская обл.'],
+                                      ['Львовская обл.', 'Львовская обл.'],
+                                      ['Николаевская обл.', 'Николаевская обл.'],
+                                      ['Одесская обл.', 'Одесская обл.'],
+                                      ['Полтавская обл.', 'Полтавская обл.'],
+                                      ['Сумская обл.', 'Сумская обл.'],
+                                      ['Тернопольская обл.', 'Тернопольская обл.'],
+                                      ['Харьковская обл.', 'Харьковская обл.'],
+                                      ['Херсонская обл.', 'Херсонская обл.'],
+                                      ['Черкасская обл.', 'Черкасская обл.'],
+                                      ['Черниговская обл.', 'Черниговская обл.'],
+                                      ['Киев', 'Киев'],
+                                      ['Севастополь', 'Севастополь'],
+                                      ['АР Крым', 'АР Крым'],
+                                      ['Неизвестно', 'Неизвестно']]
+                    = f.select(:region, regions_list, {}, {class: 'select-search', data: { placeholder: 'Please select the category you want' }} )
+            .row
+              .col-md-4
+                .form-group
+                  = f.label :project, 'Проект'
+                  .input-group
+                    %span.input-group-addon
+                      .icon-home7
+                    = f.text_field :project, class: 'form-control', placeholder: 'Название проекта'
+              .col-md-4
+                .form-group
+                  = f.label :square, 'Площадь проекта (кв.м.)'
+                  .input-group
+                    %span.input-group-addon
+                      .icon-rulers
+                    = f.text_field :square, class: 'form-control', placeholder: 'Только цифры, без кв.м.'
+              .col-md-4
+                .form-group
+                  = f.label :floor, 'Этажность'
+                  .input-group
+                    %span.input-group-addon
+                      .icon-office
+                    = f.text_field :floor, class: 'form-control', placeholder: 'Одно- или двухэтажный'
+            .row
+              .col-md-6
+                .form-group
+                  = f.label :status, 'Статус'
+                  .input-group
+                    %span.input-group-addon
+                      .icon-versions
+                    = f.select(:status, @statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                - if current_user.departments.count == 1
+                  = f.hidden_field :department_id, value: current_user.departments.first.id
+                - else
+                  .form-group
+                    = f.label :department_id, 'В какой отдел добавить лид?', class: 'required'
+                    .input-group
+                      %span.input-group-addon
+                        .icon-versions
+                      = f.collection_select(:department_id, @departments, :id, :name, {}, {class: 'select', data: { placeholder: 'Выберите отдел' }} )
+      .text-left
+        = f.submit 'Сохранить', class: 'btn btn-success'

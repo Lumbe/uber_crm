@@ -80,6 +80,7 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
+    @departments = current_user.departments
   end
   
   def create
@@ -94,6 +95,7 @@ class ContactsController < ApplicationController
   
   def edit
     @contact = Contact.find(params[:id])
+    @departments = current_user.departments
   end
 
   def update
