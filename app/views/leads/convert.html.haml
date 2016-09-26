@@ -65,12 +65,12 @@
                       .input-group
                         %span.input-group-addon.bg-green-600
                           .icon-mail5
-                        = f.email_field :email, class: 'form-control', placeholder: 'example@exaple.com'
+                        = f.email_field :email, class: 'form-control', placeholder: 'example@mail.com'
                 .row
                   .col-md-12
                     .form-group
                       = f.label :question, 'Сообщение от клиента'
-                      = f.text_area :question, class: 'form-control', size: "5x4", 'placeholder' => 'Сюда писать ничего не надо, формируется на сайте...'
+                      = f.text_area :question, class: 'form-control', size: "5x4", 'placeholder' => 'Сюда писать ничего не надо, формируется на сайте'
             .col-md-9
               %fieldset
                 %legend.text-semibold
@@ -102,7 +102,7 @@
                                           ['Личная рекомендация', 'Личная рекомендация'],
                                           ['Раздаточный материал (флаер)', 'Раздаточный материал (флаер)'],
                                           ['Другое', 'Другое']]
-                        = f.select(:source, sources_list, {}, {class: 'select-search', required: true, data: { placeholder: 'Выберите источник...' }} )
+                        = f.select(:source, sources_list, {}, {class: 'select-search', required: true, data: { placeholder: 'Выберите источник' }} )
                 .row
                   .col-md-6
                     .form-group
@@ -147,7 +147,7 @@
                                           ['Севастополь', 'Севастополь'],
                                           ['АР Крым', 'АР Крым'],
                                           ['Неизвестно', 'Неизвестно']]
-                        = f.select(:region, regions_list, {}, {class: 'select-search', required: true, data: { placeholder: 'Please select the category you want' }} )
+                        = f.select(:region, regions_list, {}, {class: 'select-search', required: true, data: { placeholder: 'Выберите регион' }} )
                 .row
                   .col-md-4
                     .form-group
@@ -169,18 +169,18 @@
                       .input-group
                         %span.input-group-addon
                           .icon-office
-                        = f.text_field :floor, class: 'form-control', placeholder: 'Одно- или двухэтажный'
+                        = f.select(:floor, ['Одноэтажный дом', 'Двухэтажный дом'], { include_blank: true }, {class: 'select', data: { placeholder: 'Выберите этажность' }} )
                 .row
                   .col-md-6
                     - if current_user.departments.count == 1
                       = f.hidden_field :department_id, value: current_user.departments.first.id
                     - else
                       .form-group
-                        = f.label :department_id, 'В какой отдел добавить контакт?'
+                        = f.label :department_id, 'В какой отдел добавить контакт?', class: "required"
                         .input-group
                           %span.input-group-addon
                             .icon-versions
-                          = f.select(:department_id, options_from_collection_for_select(current_user.departments, :id, :name), {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                          = f.collection_select(:department_id, @departments, :id, :name, {}, {class: 'select', required: true, data: { placeholder: 'Выберите отдел' }} )
           .text-left
             = f.submit 'Конвертировать в контакт', class: 'btn btn-success'
     / /2 columns form

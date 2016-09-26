@@ -144,6 +144,7 @@ class LeadsController < ApplicationController
   def convert
     @lead = Lead.find(params[:id])
     @lead.converted!
+    @departments = current_user.departments
     contact_attributes = Lead.find(params[:id]).attributes.select { |key, value| Contact.new.attributes.except("id", "created_at", "updated_at").keys.include? key }
     contact_attributes["user_id"] ||= current_user.id
     contact_attributes["assigned_to"] ||= current_user.id

@@ -42,7 +42,7 @@
               .input-group
                 %span.input-group-addon.bg-green-600
                   .icon-mail5
-                = f.email_field :email, class: 'form-control', placeholder: 'example@exaple.com'
+                = f.email_field :email, class: 'form-control', placeholder: 'example@mail.com'
         .row
           .col-md-12
             .form-group
@@ -146,7 +146,7 @@
               .input-group
                 %span.input-group-addon
                   .icon-office
-                = f.text_field :floor, class: 'form-control', placeholder: 'Одно- или двухэтажный'
+                = f.select(:floor, ['Одноэтажный дом', 'Двухэтажный дом'], { include_blank: true }, {class: 'select', data: { placeholder: 'Выберите этажность' }} )
         .row
           .col-md-6
             - if current_user.departments.count == 1

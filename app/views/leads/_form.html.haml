@@ -90,7 +90,7 @@
                                       ['Личная рекомендация', 'Личная рекомендация'],
                                       ['Раздаточный материал (флаер)', 'Раздаточный материал (флаер)'],
                                       ['Другое', 'Другое']]
-                    = f.select(:source, sources_list, {}, {class: 'select-search', data: { placeholder: 'Выберите источник...' }} )
+                    = f.select(:source, sources_list, { include_blank: true }, {class: 'select-search', data: { placeholder: 'Выберите источник' }} )
             .row
               .col-md-6
                 .form-group
@@ -135,7 +135,7 @@
                                       ['Севастополь', 'Севастополь'],
                                       ['АР Крым', 'АР Крым'],
                                       ['Неизвестно', 'Неизвестно']]
-                    = f.select(:region, regions_list, {}, {class: 'select-search', data: { placeholder: 'Please select the category you want' }} )
+                    = f.select(:region, regions_list, { include_blank: true }, {class: 'select-search', data: { placeholder: 'Выберите регион' }} )
             .row
               .col-md-4
                 .form-group
@@ -157,7 +157,7 @@
                   .input-group
                     %span.input-group-addon
                       .icon-office
-                    = f.text_field :floor, class: 'form-control', placeholder: 'Одно- или двухэтажный'
+                    = f.select(:floor, ['Одноэтажный дом', 'Двухэтажный дом'], { include_blank: true }, {class: 'select', data: { placeholder: 'Выберите этажность' }} )
             .row
               .col-md-6
                 .form-group
@@ -174,6 +174,6 @@
                     .input-group
                       %span.input-group-addon
                         .icon-versions
-                      = f.collection_select(:department_id, @departments, :id, :name, {}, {class: 'select', data: { placeholder: 'Выберите отдел' }} )
+                      = f.collection_select(:department_id, @departments, :id, :name, {}, {class: 'select', required: true, data: { placeholder: 'Выберите отдел' }} )
       .text-left
         = f.submit 'Сохранить', class: 'btn btn-success'
