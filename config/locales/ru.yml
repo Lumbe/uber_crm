@@ -5,6 +5,13 @@ ru:
       lead:
         name: "Имя"
         phone: "Телефон"
+        statuses:
+          newly: Новый
+          closed: Закрыт
+          converted: Конвертирован
+          sended: Передан в ГО
+          repeated: Повторно
+          claimed: В работе
       membership:
         role:
           visitor: Гость
@@ -22,4 +29,5 @@ ru:
       converted: Конвертирован
       sended: Передан в ГО
       repeated: Повторно
+      claimed: В работе
 

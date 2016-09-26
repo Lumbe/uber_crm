@@ -162,6 +162,6 @@ class LeadsController < ApplicationController
   end
   
   def load_statuses
-    @statuses = Lead.statuses.keys
+    @statuses = Lead.status_attributes_for_select
   end
 end

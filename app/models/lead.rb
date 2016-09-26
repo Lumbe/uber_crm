@@ -8,5 +8,12 @@ class Lead < ActiveRecord::Base
   validates :name, :phone, presence: true
 
   enum status: [:newly, :closed, :converted, :sended, :repeated, :claimed]
+  
+  # @return [Array<Array>]
+  def self.status_attributes_for_select
+    statuses.map do |status, _|
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.statuses.#{status}"), status]
+    end
+  end
 
 end
