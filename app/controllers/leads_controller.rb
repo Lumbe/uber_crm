@@ -97,6 +97,9 @@ class LeadsController < ApplicationController
     @lead = Lead.new(lead_params)
 
     if @lead.save
+      if @lead.source == "Передали"
+        flash[:notice] = "Лид #{@lead.name} успешно передан в отдел: #{@lead.department.name}"
+      end
       redirect_to leads_path
     else
       render 'new'
