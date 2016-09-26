@@ -1,0 +1,70 @@
+/ Page header
+.page-header  
+  .content-group
+    .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-vcard.position-left
+            %span.text-semibold Делегирование лида
+        .heading-elements
+  .content
+    / 2 columns form
+    = form_for @lead do |f|
+      = f.hidden_field :user_id
+      = f.hidden_field :status
+      = f.hidden_field :name
+      = f.hidden_field :phone
+      = f.hidden_field :email
+      = f.hidden_field :location
+      = f.hidden_field :project
+      = f.hidden_field :square
+      = f.hidden_field :floor
+      = f.hidden_field :question
+      = f.hidden_field :created_at
+      = f.hidden_field :updated_at
+      = f.hidden_field :region
+      = f.hidden_field :source
+      = f.hidden_field :online_request
+      = f.hidden_field :come_in_office
+      = f.hidden_field :phone_call
+      - if @lead.errors.any?
+        .alert.bg-danger.alert-styled-left
+          %button.close{ data: { dismiss: 'alert' } }
+            %span &times;
+            %span.sr-only Закрыть
+          %h4
+            Исправьте ошибки и попробуйте снова. Ошибок: 
+            = @lead.errors.count
+          %ul
+            - @lead.errors.full_messages.each do |msg|
+              %li= msg
+      .panel.panel-flat
+        .panel-heading
+          %h5.panel-title
+          .heading-elements
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+          .row
+            .col-md-3
+              %fieldset
+                %legend.text-semibold
+                  %i.icon-reading.position-left
+                  Персональные данные
+                .row
+                  .col-md-6
+                    .form-group
+                      = f.label :department_id, 'В какой отдел передать лид?', class: "required"
+                      .input-group
+                        %span.input-group-addon
+                          .icon-versions
+                        = f.select(:department_id, @departments, {}, {class: 'select', required: true, data: { placeholder: 'Выберите отдел' }} )
+          .text-left
+            = f.submit 'Делегировать', class: 'btn btn-success'
+    / /2 columns form

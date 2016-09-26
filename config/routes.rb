@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :leads
   get 'leads/:id/claim', to: 'leads#claim', :as => :claim_lead
   get 'leads/:id/close', to: 'leads#close', :as => :close_lead
+  get 'leads/:id/delegate', to: 'leads#delegate', :as => :delegate_lead # send lead to another department
   get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead # convert lead to contact
   
   resources :contacts do

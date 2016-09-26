@@ -1,5 +1,5 @@
 class LeadsController < ApplicationController
-  before_filter :load_statuses, only: [:new, :edit]
+  before_filter :load_statuses, only: [:new, :edit, :create]
 
   def index
     @user = current_user
@@ -39,7 +39,7 @@ class LeadsController < ApplicationController
                 (view_context.link_to '+ Взять в работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
               when 'closed' then view_context.content_tag :span, 'Закрыт', class: 'label label-default'
               when 'converted' then view_context.content_tag :span, 'Конвертирован', class: 'label label-success'
-              when 'sended' then view_context.content_tag :span, 'Передан в ГО', class: 'label label-info'
+              when 'sended' then view_context.content_tag :span, 'Передан', class: 'label label-info'
               when 'claimed' then view_context.content_tag :span, 'В работе', class: 'label bg-orange'
               end,
               view_context.link_to(lead.name, lead_path(lead)),
@@ -64,7 +64,7 @@ class LeadsController < ApplicationController
                       end
                     end +
                     view_context.content_tag(:li) do
-                      view_context.link_to('#') do
+                      view_context.link_to(delegate_lead_path(lead.id)) do
                         view_context.content_tag(:i, '', class: 'icon-users2') + 'Делегировать'
                       end
                     end +
@@ -97,7 +97,7 @@ class LeadsController < ApplicationController
     @lead = Lead.new(lead_params)
 
     if @lead.save
-      redirect_to @lead
+      redirect_to leads_path
     else
       render 'new'
     end
@@ -149,6 +149,17 @@ class LeadsController < ApplicationController
     contact_attributes["user_id"] ||= current_user.id
     contact_attributes["assigned_to"] ||= current_user.id
     @contact = Contact.new(contact_attributes)
+  end
+  
+  def delegate
+    @lead = Lead.find(params[:id])
+    @lead.sended!
+    @departments = Department.all.collect {|department| [ department.name, department.id ] }
+    lead_attributes = Lead.find(params[:id]).attributes.select { |key, value| Lead.new.attributes.except("id", "created_at", "updated_at").keys.include? key }
+    lead_attributes["user_id"] = current_user.id
+    lead_attributes["status"] = 0
+    lead_attributes["department_id"] = params[:department_id]
+    @lead = Lead.new(lead_attributes)
   end
 
   private
