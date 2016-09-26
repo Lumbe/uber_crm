@@ -9,7 +9,7 @@ ru:
           newly: Новый
           closed: Закрыт
           converted: Конвертирован
-          sended: Передан
+          sended: Передан в ГО
           repeated: Повторно
           claimed: В работе
       membership:
@@ -27,7 +27,7 @@ ru:
       newly: Новый
       closed: Закрыт
       converted: Конвертирован
-      sended: Передан
+      sended: Передан в ГО
       repeated: Повторно
       claimed: В работе
 
