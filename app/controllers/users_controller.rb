@@ -1,21 +1,40 @@
 class UsersController < ApplicationController
+  before_filter :load_user
+  before_filter :load_memberships
   
   def index
-    
   end
   
   def show
-    @user = User.find(params[:id])
-    @memberships = @user.memberships.order(created_at: :asc)
-    
+  end
+  
+  def edit
+  end
+  
+  def update
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render 'settings'
+    end
+  end
+  
+  def departments
+  end
+  
+  def profile
+  end
+  
+  def settings
+  end
+  
+  def user_leads
     respond_to do |format|
       format.html
       format.json do
-        @leads = Lead.where(assigned_to: @user.id, status: [0, 4, 5])
-        @contacts = Contact.where(assigned_to: @user.id)
-        
+        @leads = Lead.where(assigned_to: @user.id)
         # total count for datatable view
-        total_count = Lead.where(assigned_to: @user.id, status: [0, 4, 5]).count
+        total_count = Lead.where(assigned_to: @user.id).count
         # count fo datatable view
         count = params[:sSearch].present? ? @leads.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : @leads.count
         # paginate with kaminari gem
@@ -50,36 +69,45 @@ class UsersController < ApplicationController
     end
   end
   
-  def edit
-    
-  end
-  
-  def update
-    @user = User.find(params[:id])
-
-    if @user.update(user_params)
-      redirect_to @user
-    else
-      render 'settings'
+  def user_contacts
+    respond_to do |format|
+      format.html
+      format.json do
+        @contacts = Contact.where(assigned_to: @user.id)
+        # total count for datatable view
+        total_count = Contact.where(assigned_to: @user.id).count
+        # count fo datatable view
+        count = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : @contacts.count
+        # paginate with kaminari gem
+        @contacts = @contacts.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if params[:iDisplayLength].to_i > 0
+        # search with ransack gem
+        @contacts = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result : @contacts
+        render json: {
+          sEcho: params[:sEcho].to_i + 1,
+          iTotalRecords: total_count,
+          iTotalDisplayRecords: count,
+          aaData: @contacts.map do |contact| 
+            [
+              view_context.link_to(contact.name, contact_path(contact)),
+              contact.phone,
+              contact.email,
+              "#{view_context.time_ago_in_words(contact.created_at)} назад"
+            ]
+          end
+        }.to_json
+      end
     end
   end
   
-  def departments
-    @user = User.find(params[:id])
-    @memberships = @user.memberships.order(created_at: :asc)
-  end
-  
-  def profile
-    @user = User.find(params[:id])
-    @memberships = @user.memberships.order(created_at: :asc)
-  end
-  
-  def settings
-    @user = User.find(params[:id])
-    @memberships = @user.memberships.order(created_at: :asc)
-  end
-  
   private
+  
+  def load_user
+    @user = User.find(params[:id])
+  end
+  
+  def load_memberships
+    @memberships = @user.memberships.order(created_at: :asc)
+  end
   
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar)
