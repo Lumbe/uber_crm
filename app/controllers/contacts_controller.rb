@@ -15,7 +15,11 @@ class ContactsController < ApplicationController
                     Contact.where(department: current_user.departments.first, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
                   end
         # total count for datatable view
-        total_count = Contact.all.count
+        total_count = if params[:department].present?
+                        Contact.where(department: params[:department]).count
+                      elsif @user.departments.present?
+                        Contact.where(department: @user.departments.first).count
+                      end
         # count fo datatable view
         count = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : @contacts.count
         # paginate with kaminari gem

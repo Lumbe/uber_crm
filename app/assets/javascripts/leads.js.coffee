@@ -9,33 +9,7 @@ $ ->
     containerCssClass: 'select-sm'
     width: 200
 
-  # DataTable SETUP
-  # ------------------------------
-  # Setting datatable defaults
-  $.extend $.fn.dataTable.defaults,
-    autoWidth: false
-    columnDefs: [ {
-      orderable: false
-      width: '100px'
-      targets: [ 5 ]
-    } ]
-    dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>'
-    language:
-      search: '<span>Поиск:</span> _INPUT_'
-      lengthMenu: '<span>Показать:</span> _MENU_'
-      paginate:
-        'first': 'Первая'
-        'last': 'Последняя'
-        'next': '&rarr;'
-        'previous': '&larr;'
-      info: 'Записи с _START_ до _END_ из _TOTAL_ записей'
-      infoEmpty: 'Нет ни одной записи'
-    drawCallback: ->
-      $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass 'dropup'
-      return
-    preDrawCallback: ->
-      $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass 'dropup'
-      return
+  # DataTable for Leads
   table = $('.datatable-leads').DataTable(
     serverSide: true
     sAjaxSource: location.pathname
@@ -90,18 +64,7 @@ $ ->
   $('.select-departments').on 'change', ->
     table.draw()
     return
-  # Alternative pagination
-  $('.datatable-pagination').DataTable
-    pagingType: 'simple'
-    language: paginate:
-      'next': 'Next &rarr;'
-      'previous': '&larr; Prev'
-  # Datatable with saving state
-  $('.datatable-save-state').DataTable stateSave: true
-  # Scrollable datatable
-  $('.datatable-scroll-y').DataTable
-    autoWidth: true
-    scrollY: 300
+
   # External table additions
   # ------------------------------
   # Add placeholder to the datatable filter option

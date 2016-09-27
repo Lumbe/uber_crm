@@ -34,6 +34,8 @@
 #= require layouts/main_layout
 #= require layouts/form_elements
 #= require layouts/datapicker
+#= require layouts/datatable_defaults
 #= require leads
 #= require contacts
 #= require admin/users
+#= require users
