@@ -89,8 +89,13 @@ class ContactsController < ApplicationController
   
   def create
     @contact = Contact.new(contact_params)
-
+    @department = @contact.department
     if @contact.save
+      # Create the notifications
+      (@department.users.uniq - [current_user]).each do |user|
+        Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @contact)
+      end
+      
       redirect_to @contact
     else
       render 'new'
