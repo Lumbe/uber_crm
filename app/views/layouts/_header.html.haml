@@ -17,13 +17,16 @@
           %a.sidebar-control.sidebar-main-toggle.hidden-xs
             %i.icon-paragraph-justify3
       %ul.nav.navbar-nav.navbar-right
-        %li
-          - if current_user.admin?
+        - if current_user.admin?
+          %li
             = link_to 'Admin', admin_path
-        %li
-          %a{:href => "#"}
-            %i.icon-cog3
-            %span.visible-xs-inline-block.position-right Icon link
+        %li.dropdown
+          = link_to notifications_path, class: "dropdown-toggle", id: 'notification-link', remote: true, data: { toggle: "dropdown" } do
+            %i.icon-bell2
+            %span.visible-xs-inline-block.position-right Уведомления
+            - if @unread_notifications.count > 0
+              %span.badge.bg-warning-400#notifications-counter #{@unread_notifications.count}
+          .dropdown-menu.dropdown-content#notifications-dropdown
         %li.dropdown.dropdown-user
           %a.dropdown-toggle{"data-toggle" => "dropdown"}
             = image_tag(current_user.avatar.url(:thumb), alt: 'user profile')

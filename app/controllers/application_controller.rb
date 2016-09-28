@@ -4,4 +4,9 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  before_action :notification_counter
+  
+  def notification_counter
+    @unread_notifications = Notification.where(recipient: current_user).unread
+  end
 end

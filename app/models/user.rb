@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :customers
   has_many :competitors
   has_many :comments, as: :commentable      # As owner who created a comment.
+  has_many :notifications, foreign_key: :recipient_id
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/missing_avatar.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/

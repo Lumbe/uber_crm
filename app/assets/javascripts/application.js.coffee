@@ -39,3 +39,4 @@
 #= require contacts
 #= require admin/users
 #= require users
+#= require notifications

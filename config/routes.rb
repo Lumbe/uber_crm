@@ -20,9 +20,14 @@ Rails.application.routes.draw do
   get 'users/:id/departments', to: 'users#departments', :as => :user_departments
   get 'users/:id/profile', to: 'users#profile', :as => :user_profile
   get 'users/:id/settings', to: 'users#settings', :as => :user_settings
+  
+  resources :notifications do
+    collection do
+      post :mark_as_read
+    end
+  end
 
   get 'admin' => 'admin/dashboard#index', :as => :admin
-  # sign_in as user
   get 'admin/users/become/:id' => 'admin/users#become', :as => :become_user
   
   namespace :admin do

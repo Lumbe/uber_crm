@@ -99,11 +99,14 @@ class LeadsController < ApplicationController
   
   def create
     @lead = Lead.new(lead_params)
-
+    @department = @lead.department
     if @lead.save
-      if @lead.source == "Передали"
-        flash[:notice] = "Лид #{@lead.name} успешно передан в отдел: #{@lead.department.name}"
+      # Create the notifications
+      (@department.users.uniq - [current_user]).each do |user|
+        Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @lead)
       end
+      
+      flash[:notice] = "Лид #{@lead.name} успешно передан в отдел: #{@lead.department.name}" if @lead.source == "Передали"
       redirect_to leads_path
     else
       render 'new'
