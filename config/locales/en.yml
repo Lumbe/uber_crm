@@ -30,4 +30,15 @@ ru:
       sended: Передан в ГО
       repeated: Повторно
       claimed: В работе
+  membership:
+    role:
+      visitor: Гость
+      chief: Директор
+      marketer: Маркетолог
+      senior_manager: Ведущий менеджер
+      manager: Менеджер
+      tech_designer: Архитектор
+      estimator: Сметчик
+      accountant: Бухгалтер
+      retired: Уволен
 

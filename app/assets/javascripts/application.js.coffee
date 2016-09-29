@@ -29,6 +29,7 @@
 #= require 'limitless/plugins/ui/moment/moment-with-locales.js'
 #= require 'limitless/plugins/pickers/daterangepicker.js'
 #= require 'limitless/plugins/notifications/pnotify.min.js'
+#= require 'limitless/plugins/visualization/echarts/echarts-all.js'
 #= require 'limitless/core/app.min.js'
 
 #= require layouts/main_layout
@@ -40,3 +41,4 @@
 #= require admin/users
 #= require users
 #= require notifications
+#= require charts

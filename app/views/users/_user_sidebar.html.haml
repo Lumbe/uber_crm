@@ -13,7 +13,8 @@
               %span.label.label-primary Admin
             %small.display-block
               - @memberships.each do |membership|
-                #{membership.role} в #{membership.department.name}
+                = t("membership.role.#{membership.role}")
+                в #{membership.department.name}
                 %br
       / /user thumbnail
       / Navigation
