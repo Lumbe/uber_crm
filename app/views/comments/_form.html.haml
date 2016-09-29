@@ -16,8 +16,8 @@
         .input-group
           %span.input-group-addon
             .icon-pencil
-          = f.text_area :body, class: 'form-control', placeholder: 'Добавить комментарий'
+          = f.text_area :body, class: 'form-control', placeholder: 'Ваш комментарий...'
           = f.hidden_field :user_id, value: current_user.id
     .col-md-12
-      .text-left
+      .text-right
         = f.submit 'Добавить комментарий', class: 'btn btn-info'

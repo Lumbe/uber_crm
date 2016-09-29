@@ -36,37 +36,9 @@ class ContactsController < ApplicationController
               view_context.link_to(contact.name, contact_path(contact)),
               contact.phone,
               contact.email,
-              contact.location,
+              contact.region,
               "#{view_context.time_ago_in_words(contact.created_at)} назад",
-              view_context.content_tag(:ul, class: 'icons-list') do
-                view_context.content_tag(:li, class: 'dropdown') do
-                  view_context.link_to('#', class: 'dropdown-toggle', data: {toggle: 'dropdown'}) do
-                    view_context.content_tag(:i, '', class: 'icon-menu9')
-                  end +
-                  view_context.content_tag(:ul, class: 'dropdown-menu dropdown-menu-right') do
-                    view_context.content_tag(:li) do
-                      view_context.link_to('#') do
-                        view_context.content_tag(:i, '', class: 'icon-spinner11') + 'Конвертировать'
-                      end
-                    end +
-                    view_context.content_tag(:li) do
-                      view_context.link_to('#') do
-                        view_context.content_tag(:i, '', class: 'icon-cross2') + 'Закрыть'
-                      end
-                    end +
-                    view_context.content_tag(:li) do
-                      view_context.link_to('#') do
-                        view_context.content_tag(:i, '', class: 'icon-users2') + 'Делегировать'
-                      end
-                    end +
-                    view_context.content_tag(:li) do
-                      view_context.link_to('#') do
-                        view_context.content_tag(:i, '', class: 'icon-envelope') + 'Отправить почтой'
-                      end
-                    end
-                  end 
-                end
-              end.html_safe
+              view_context.link_to("#{contact.assignee.first_name} #{contact.assignee.last_name}", user_profile_path(contact.assignee))
             ]
           end
         }.to_json
@@ -78,7 +50,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
     @user = @contact.user
     @commentable = @contact
-    @comments = @commentable.comments
+    @comments = @commentable.comments.order(created_at: :asc)
     @comment = Comment.new
   end
 
