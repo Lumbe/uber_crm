@@ -38,15 +38,6 @@
               = link_to user_path(current_user.id) do
                 %i.icon-cabinet
                 Кабинет
-            %li
-              %a{:href => "#"}
-                %i.icon-coins
-                My balance
-            %li
-              %a{:href => "#"}
-                %span.badge.badge-warning.pull-right 58
-                %i.icon-comment-discussion
-                Messages
             %li.divider
             %li
               = link_to user_settings_path(current_user.id) do
