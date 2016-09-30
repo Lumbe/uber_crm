@@ -1,4 +1,9 @@
 - if @comments.present?
+  .row
+    .col-md-12
+      .breadcrumb-line.breadcrumb-line-component.mb-20.mt-20
+        %ul.breadcrumb
+          %li.text-bold.text-size-large Комментарии
   .timeline.timeline-left.content-group.mt-20
     .timeline-container
       - @comments.each do |comment|
