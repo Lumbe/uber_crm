@@ -66,12 +66,6 @@
                                   .media-heading.text-semibold #{@contact.user.first_name} #{@contact.user.last_name}
                                   = link_to user_path(@contact.user) do
                                     %span.text-muted Профиль
-                                .media-right.media-middle
-                                  %ul.icons-list.icons-list-extended.text-nowrap
-                                    %li
-                                    %li
-                                      %a{"data-popup" => "tooltip", "data-target" => "#chat", "data-toggle" => "modal", :href => "#", :title => "Сообщение"}
-                                        %i.icon-comment
                       - if @contact.assignee.present?
                         %tr
                           %td.text-right Ответственный
@@ -85,11 +79,6 @@
                                   .media-heading.text-semibold #{@contact.assignee.first_name} #{@contact.assignee.last_name}
                                   = link_to user_path(@contact.assignee) do
                                     %span.text-muted Профиль
-                                .media-right.media-middle
-                                  %ul.icons-list.icons-list-extended.text-nowrap
-                                    %li
-                                      %a{"data-popup" => "tooltip", "data-target" => "#chat", "data-toggle" => "modal", :href => "#", :title => "Сообщение"}
-                                        %i.icon-comment
             #tabs-basic-2
               .row
                 .col-md-6
