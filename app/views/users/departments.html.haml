@@ -24,4 +24,5 @@
                   - @memberships.each do |membership|
                     %tr
                       %td.col-md-6 #{membership.department.name}
-                      %td.col-md-6 #{membership.role}
+                      %td.col-md-6
+                        = t("membership.role.#{membership.role}")

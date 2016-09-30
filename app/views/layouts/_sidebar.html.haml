@@ -10,7 +10,7 @@
           .category-content
             .media
               %a.media-left{:href => "#"}
-                = image_tag(current_user.avatar.url(:medium), class: ['img-circle', 'img-sm'])
+                = image_tag(current_user.avatar.url(:thumb), class: ['img-circle', 'img-sm'])
               .media-body
                 %span.media-heading.text-semibold
                   #{current_user.first_name} #{current_user.last_name}
