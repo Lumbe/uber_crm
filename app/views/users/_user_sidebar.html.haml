@@ -17,38 +17,39 @@
                 в #{membership.department.name}
                 %br
       / /user thumbnail
-      / Navigation
-      .panel.panel-flat
-        .panel-heading
-          %h6.panel-title Меню
-        .list-group.no-border.no-padding-top
-          = link_to @user, class: "list-group-item" do
-            %i.icon-cabinet
-            Мой кабинет
-          = link_to user_leads_path, class: "list-group-item" do
-            %i.icon-users2
-            Мои лиды
-          = link_to user_contacts_path, class: "list-group-item" do
-            %i.icon-users
-            Мои контакты
-          = link_to user_departments_path(@user.id), class: "list-group-item" do
-            %i.icon-office
-            Отделы
-          %a.list-group-item{:href => "#"}
-            %i.icon-envelop3
-            Сообщения
-            %span.badge.bg-info.pull-right в разработке
-          %a.list-group-item{:href => "#"}
-            %i.icon-task
-            Задачи
-            %span.badge.bg-info.pull-right в разработке
-          .list-group-divider
-          %a.list-group-item{:href => "#"}
-            %i.icon-calendar3
-            События
-            %span.badge.bg-info.pull-right в разработке
-          = link_to user_settings_path(@user.id), class: "list-group-item" do
-            %i.icon-cog3
-            Настройки аккаунта
-      / /navigation
+      - if @user == current_user 
+        / Navigation
+        .panel.panel-flat
+          .panel-heading
+            %h6.panel-title Меню
+          .list-group.no-border.no-padding-top
+            = link_to @user, class: "list-group-item" do
+              %i.icon-profile
+              Мой профиль
+            = link_to user_leads_path, class: "list-group-item" do
+              %i.icon-users2
+              Мои лиды
+            = link_to user_contacts_path, class: "list-group-item" do
+              %i.icon-users
+              Мои контакты
+            = link_to user_departments_path(@user.id), class: "list-group-item" do
+              %i.icon-office
+              Отделы
+            %a.list-group-item{:href => "#"}
+              %i.icon-envelop3
+              Сообщения
+              %span.badge.bg-info.pull-right в разработке
+            %a.list-group-item{:href => "#"}
+              %i.icon-task
+              Задачи
+              %span.badge.bg-info.pull-right в разработке
+            .list-group-divider
+            %a.list-group-item{:href => "#"}
+              %i.icon-calendar3
+              События
+              %span.badge.bg-info.pull-right в разработке
+            = link_to user_settings_path(@user.id), class: "list-group-item" do
+              %i.icon-cog3
+              Настройки аккаунта
+        / /navigation
     = yield

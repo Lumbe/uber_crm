@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get 'users/:id/myleads', to: 'users#user_leads', :as => :user_leads
   get 'users/:id/mycontacts', to: 'users#user_contacts', :as => :user_contacts
   get 'users/:id/departments', to: 'users#departments', :as => :user_departments
-  get 'users/:id/profile', to: 'users#profile', :as => :user_profile
   get 'users/:id/settings', to: 'users#settings', :as => :user_settings
   
   resources :notifications do

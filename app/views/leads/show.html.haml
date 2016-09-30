@@ -60,11 +60,11 @@
                             %ul.media-list
                               %li.media
                                 .media-left.media-middle
-                                  = link_to user_profile_path(@lead.user) do
+                                  = link_to user_path(@lead.user) do
                                     = image_tag @lead.user.avatar.url(:thumb), class: "img-circle"
                                 .media-body
                                   .media-heading.text-semibold #{@lead.user.first_name} #{@lead.user.last_name}
-                                  = link_to user_profile_path(@lead.user) do
+                                  = link_to user_path(@lead.user) do
                                     %span.text-muted Профиль
                                 .media-right.media-middle
                                   %ul.icons-list.icons-list-extended.text-nowrap
@@ -79,11 +79,11 @@
                             %ul.media-list
                               %li.media
                                 .media-left.media-middle
-                                  = link_to user_profile_path(@lead.assignee) do
+                                  = link_to user_path(@lead.assignee) do
                                     = image_tag @lead.assignee.avatar.url(:thumb), class: "img-circle"
                                 .media-body
                                   .media-heading.text-semibold #{@lead.assignee.first_name} #{@lead.assignee.last_name}
-                                  = link_to user_profile_path(@lead.assignee) do
+                                  = link_to user_path(@lead.assignee) do
                                     %span.text-muted Профиль
                                 .media-right.media-middle
                                   %ul.icons-list.icons-list-extended.text-nowrap

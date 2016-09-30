@@ -22,9 +22,6 @@ class UsersController < ApplicationController
   def departments
   end
   
-  def profile
-  end
-  
   def settings
   end
   

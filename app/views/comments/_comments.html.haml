@@ -16,7 +16,7 @@
               .panel-title
                 Комментарий от
                 = image_tag(comment.user.avatar(:thumb), class: "img-circle")
-                = link_to user_profile_path(comment.user) do
+                = link_to user_path(comment.user) do
                   #{comment.user.first_name} #{comment.user.last_name}
               .heading-elements
                 %span.heading-text

@@ -38,7 +38,7 @@ class ContactsController < ApplicationController
               contact.email,
               contact.region,
               "#{view_context.time_ago_in_words(contact.created_at)} назад",
-              view_context.link_to("#{contact.assignee.first_name} #{contact.assignee.last_name}", user_profile_path(contact.assignee))
+              view_context.link_to("#{contact.assignee.first_name} #{contact.assignee.last_name}", user_path(contact.assignee))
             ]
           end
         }.to_json

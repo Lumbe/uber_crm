@@ -11,7 +11,7 @@
           .cursor-default.btn.border-success.text-success.btn-flat.btn-rounded.btn-icon.btn-sm
             %i.icon-user-plus
       .media-body
-        = link_to user_profile_path(notification.actor) do
+        = link_to user_path(notification.actor) do
           #{notification.actor.first_name} #{notification.actor.last_name}
         #{notification.action}
         - if notification.notifiable.is_a?(Lead)
