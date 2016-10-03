@@ -5,5 +5,7 @@ class Contact < ActiveRecord::Base
   belongs_to :department
   has_many :leads
   has_many :comments, as: :commentable
+  
+  validates :name, :phone, :source, :region, presence: true
 
 end

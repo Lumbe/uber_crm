@@ -1,0 +1,145 @@
+/ Page header
+.page-header  
+  .content-group
+    .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-user.position-left
+            %span.text-semibold Карточка контакта - #{@contact.name}
+        .heading-elements
+          = link_to 'Редактировать', edit_contact_path, class: 'btn btn-success'
+          = link_to 'Удалить', contact_path(@contact), method: :delete, data: {confirm: "Удалить этот контакт навсегда?"}, class: 'btn btn-danger'
+.content
+  .row
+    .col-md-12
+      .panel.panel-flat
+        .panel-heading
+          .heading-elements
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+          .jui-tabs-basic
+            %ul
+              %li
+                %a{:href => "#tabs-basic-1"}
+                  Информация
+              %li
+                %a{:href => "#tabs-basic-2"}
+                  Подробнее
+              %li
+                %a{:href => "#tabs-basic-3"}
+                  Связанные карточки
+            #tabs-basic-1
+              .row
+                .col-md-4
+                  %table.table.table-sm
+                    %tbody
+                      %tr
+                        %td.col-md-1.text-bold Имя:
+                        %td.col-md-2 #{@contact.name}
+                      %tr
+                        %td.col-md-1.text-bold Телефон:
+                        %td.col-md-2 #{@contact.phone}
+                      %tr.border-bottom.border-bottom-green-300
+                        %td.col-md-1.text-bold e-mail:
+                        %td.col-md-2 #{@contact.email}
+                .col-md-3
+                .col-md-5
+                  %table.table.table-sm.table-borderless
+                    %tbody
+                      - if @contact.user.present?
+                        %tr
+                          %td.text-right Добавил
+                          %td
+                            %ul.media-list
+                              %li.media
+                                .media-left.media-middle
+                                  = link_to user_path(@contact.user) do
+                                    = image_tag @contact.user.avatar.url(:thumb), class: "img-circle"
+                                .media-body
+                                  .media-heading.text-semibold #{@contact.user.first_name} #{@contact.user.last_name}
+                                  = link_to user_path(@contact.user) do
+                                    %span.text-muted Профиль
+                                .media-right.media-middle
+                                  %ul.icons-list.icons-list-extended.text-nowrap
+                                    %li
+                                    %li
+                                      %a{"data-popup" => "tooltip", "data-target" => "#chat", "data-toggle" => "modal", :href => "#", :title => "Сообщение"}
+                                        %i.icon-comment
+                      - if @contact.assignee.present?
+                        %tr
+                          %td.text-right Ответственный
+                          %td
+                            %ul.media-list
+                              %li.media
+                                .media-left.media-middle
+                                  = link_to user_path(@contact.assignee) do
+                                    = image_tag @contact.assignee.avatar.url(:thumb), class: "img-circle"
+                                .media-body
+                                  .media-heading.text-semibold #{@contact.assignee.first_name} #{@contact.assignee.last_name}
+                                  = link_to user_path(@contact.assignee) do
+                                    %span.text-muted Профиль
+                                .media-right.media-middle
+                                  %ul.icons-list.icons-list-extended.text-nowrap
+                                    %li
+                                      %a{"data-popup" => "tooltip", "data-target" => "#chat", "data-toggle" => "modal", :href => "#", :title => "Сообщение"}
+                                        %i.icon-comment
+            #tabs-basic-2
+              .row
+                .col-md-6
+                  %table.table.table-framed
+                    %tbody
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Сообщение клиента:
+                        %td.col-md-2 #{@contact.question}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Проект:
+                        %td.col-md-2 #{@contact.project}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Площадь:
+                        %td.col-md-2 #{@contact.square}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Этажность:
+                        %td.col-md-2 #{@contact.floor}
+                .col-md-6
+                  %table.table.table-framed
+                    %tbody
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Как вышел на связь:
+                        %td.col-md-2
+                          - if @contact.online_request
+                            Сайт запрос
+                          - if @contact.phone_call
+                            Позвонил
+                          - if @contact.come_in_office
+                            Пришел в офис
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Откуда узнал:
+                        %td.col-md-2 #{@contact.source}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Место строительства:
+                        %td.col-md-2 #{@contact.location}
+                      %tr
+                        %th.col-md-1.text-right.success
+                          %strong Регион:
+                        %td.col-md-2 #{@contact.region}
+            #tabs-basic-3
+              Aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthet.
+  .row
+    .col-md-12
+      = render "comments/form"
+      .col-md-12
+        = render "comments/comments"

@@ -1,0 +1,28 @@
+= render layout: 'user_sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Мои отделы
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        .row
+          .col-md-12
+            .table-responsive
+              %table.table
+                %thead
+                  %tr.alpha-grey
+                    %th ОТДЕЛ
+                    %th РОЛЬ
+                %tbody
+                  - @memberships.each do |membership|
+                    %tr
+                      %td.col-md-6 #{membership.department.name}
+                      %td.col-md-6
+                        = t("membership.role.#{membership.role}")

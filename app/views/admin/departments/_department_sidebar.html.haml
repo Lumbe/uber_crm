@@ -1,0 +1,41 @@
+.content
+  / Department profile
+  .row
+    .col-lg-3
+      / Department thumbnail
+      .thumbnail
+        .thumb.thumb-rounded.thumb-slide
+          = image_tag(@department.avatar.url(:medium), alt: 'department profile')
+        .caption.text-center
+          %h6.text-semibold.no-margin
+            #{@department.name}
+      / /user thumbnail
+      / Navigation
+      .panel.panel-flat
+        .panel-heading
+          %h6.panel-title Меню
+        .list-group.no-border.no-padding-top
+          = link_to admin_department_path(@department), class: "list-group-item" do
+            %i.icon-info3
+            Информация
+          = link_to admin_department_memberships_path(@department), class: "list-group-item" do
+            %i.icon-user
+            Пользователи
+          %a.list-group-item{:href => "#"}
+            %i.icon-envelop3
+            Сообщения
+            %span.badge.bg-info.pull-right в разработке
+          %a.list-group-item{:href => "#"}
+            %i.icon-task
+            Задачи
+            %span.badge.bg-info.pull-right в разработке
+          .list-group-divider
+          %a.list-group-item{:href => "#"}
+            %i.icon-calendar3
+            События
+            %span.badge.bg-info.pull-right в разработке
+          = link_to edit_admin_department_path(@department), class: "list-group-item" do
+            %i.icon-cog3
+            Настройки аккаунта
+      / /navigation
+    = yield

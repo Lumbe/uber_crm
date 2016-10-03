@@ -1,0 +1,24 @@
+/ Page header
+.page-header  
+  .content-group
+    .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-vcard.position-left
+            %span.text-semibold Создание контакта
+        .heading-elements
+  .content
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = render "form"

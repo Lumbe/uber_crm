@@ -5,10 +5,15 @@ class Lead < ActiveRecord::Base
   belongs_to :customer
   belongs_to :department
   has_many :comments, as: :commentable
-  validates :name, presence: true
-  validates :phone, presence: true
+  validates :name, :phone, presence: true
 
-  enum status: [:newly, :closed, :converted, :sended, :repeated]
+  enum status: [:newly, :closed, :converted, :sended, :repeated, :claimed]
   
-  
+  # @return [Array<Array>]
+  def self.status_attributes_for_select
+    statuses.map do |status, _|
+      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.statuses.#{status}"), status]
+    end
+  end
+
 end

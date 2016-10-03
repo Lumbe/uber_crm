@@ -1,0 +1,17 @@
+= render layout: 'department_sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Информация об отделе
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        .row
+          .col-md-12
+            Описание, юридический и физический адрес, номера офисных телефонов, email, время работы...

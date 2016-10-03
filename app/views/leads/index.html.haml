@@ -1,44 +1,51 @@
-/ Page header
-.content-group
-  .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
-    .page-header-content
-      .page-title
-        %h5
-          %i.icon-users.position-left
-          %span.text-semibold Лиды
-          %small.display-block Холодные контакты
-      .heading-elements
-        = link_to new_lead_path do
-          %button.btn.btn-success.heading-btn{:type => "button"}
-            %i.icon-plus3.position-left
-            Добавить лид
-.content
-  / Basic datatable
-  .panel.panel-flat
-    .panel-heading
-      %h5.panel-title Список лидов
-      .heading-elements
-        %ul.icons-list
-          %li
-            %a{"data-action" => "collapse"}
-          %li
-            %a{"data-action" => "reload"}
-          %li
-            %a{"data-action" => "close"}
-    .panel-body
-      .row
-        .col-md-9
-          .form-group
-            = label_tag :status, 'Статус', class: 'display-block text-semibold'
-            - Lead.statuses.each do |key, value|
-              = label_tag key, class: 'checkbox-inline' do
-                = check_box_tag nil, value, true, class: 'styled lead_status', id: key
-                = t("lead.status.#{key}")
-        .col-md-3
-          .content-group.pull-right
-            %span.display-block.text-semibold.text-right.mb-5 Дата создания
-            %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d %T'), end: Time.zone.now.strftime('%Y-%m-%d %T') }}
-              %i.icon-calendar2.position-left
-              %span
-              %b.caret
-      = render 'leads_table'
+- if @user.departments.any?
+  / Page header
+  .content-group
+    .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h5
+            %i.icon-users.position-left
+            %span.text-semibold
+              Лиды отдела -
+              - if @user.departments.count == 1
+                %span.text-size-large
+                  = @user.departments.first.name
+              - elsif @user.departments.any?
+                = select_tag(:department, options_from_collection_for_select(current_user.departments, :id, :name, 1), class: 'select-departments' )
+            %small.display-block Холодные контакты
+        .heading-elements
+          = link_to new_lead_path do
+            %button.btn.btn-success.heading-btn{:type => "button"}
+              %i.icon-plus3.position-left
+              Добавить лид
+  .content
+    / Basic datatable
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Список лидов
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        .row
+          .col-md-9
+            .form-group
+              = label_tag :status, 'Статус', class: 'display-block text-semibold'
+              - Lead.statuses.each do |key, value|
+                = label_tag key, class: 'checkbox-inline' do
+                  = check_box_tag nil, value, true, class: 'styled lead_status', id: key
+                  = t("lead.status.#{key}")
+          .col-md-3
+            .content-group.pull-right
+              %span.display-block.text-semibold.text-right.mb-5 Дата создания
+              %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d %T'), end: Time.zone.now.strftime('%Y-%m-%d %T') }}
+                %i.icon-calendar2.position-left
+                %span
+                %b.caret
+        = render 'leads_table'

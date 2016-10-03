@@ -1,11 +1,43 @@
 Rails.application.routes.draw do
-  root 'home#index'
-  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  root 'home#index'
+  devise_for :users
 
   resources :leads
-  get 'admin' => 'admin_dashboard#index', :as => :admin
+  get 'leads/:id/claim', to: 'leads#claim', :as => :claim_lead
+  get 'leads/:id/close', to: 'leads#close', :as => :close_lead
+  get 'leads/:id/delegate', to: 'leads#delegate', :as => :delegate_lead # send lead to another department
+  get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead # convert lead to contact
+  
+  resources :contacts do
+    resources :comments
+  end
+  
+  resources :users
+  get 'users/:id/myleads', to: 'users#user_leads', :as => :user_leads
+  get 'users/:id/mycontacts', to: 'users#user_contacts', :as => :user_contacts
+  get 'users/:id/departments', to: 'users#departments', :as => :user_departments
+  get 'users/:id/settings', to: 'users#settings', :as => :user_settings
+  
+  resources :notifications do
+    collection do
+      post :mark_as_read
+    end
+  end
+
+  get 'admin' => 'admin/dashboard#index', :as => :admin
+  get 'admin/users/become/:id' => 'admin/users#become', :as => :become_user
+  
+  namespace :admin do
+    resources :users
+    resources :departments do
+      get 'memberships/edit' => 'memberships#edit', :as => :edit_memberships
+      resources :memberships
+    end
+    get 'departments/:id/membership/:retire_membership_id' => 'departments#retire_user', :as => :retire_user
+  end
+  
   # You can have the root of your site routed with "root"
 
   # Example of regular route:

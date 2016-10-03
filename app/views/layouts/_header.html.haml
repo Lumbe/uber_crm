@@ -2,7 +2,7 @@
   / Main navbar
   .navbar.navbar-default.navbar-fixed-top.header-highlight
     .navbar-header
-      %a.navbar-brand{:href => "index.html"}
+      = link_to root_path, class: "navbar-brand" do
         = image_tag('logo_light', alt: "Uber CRM")
       %ul.nav.navbar-nav.pull-right.visible-xs-block
         %li
@@ -17,37 +17,32 @@
           %a.sidebar-control.sidebar-main-toggle.hidden-xs
             %i.icon-paragraph-justify3
       %ul.nav.navbar-nav.navbar-right
-        %li
-          %a{:href => "#"} Text link
-        %li
-          %a{:href => "#"}
-            %i.icon-cog3
-            %span.visible-xs-inline-block.position-right Icon link
+        - if current_user.admin?
+          %li
+            = link_to 'Admin', admin_path
+        %li.dropdown
+          = link_to notifications_path, class: "dropdown-toggle", id: 'notification-link', remote: true, data: { toggle: "dropdown" } do
+            %i.icon-bell2
+            %span.visible-xs-inline-block.position-right Уведомления
+            - if @unread_notifications.count > 0
+              %span.badge.bg-warning-400#notifications-counter #{@unread_notifications.count}
+          .dropdown-menu.dropdown-content#notifications-dropdown
         %li.dropdown.dropdown-user
           %a.dropdown-toggle{"data-toggle" => "dropdown"}
-            = image_tag('face11', alt: 'user profile')
+            = image_tag(current_user.avatar.url(:thumb), alt: 'user profile')
             %span
               = current_user.first_name
             %i.caret
           %ul.dropdown-menu.dropdown-menu-right
             %li
-              = link_to edit_user_registration_path do
-                %i.icon-user-plus
-                Профиль
-            %li
-              %a{:href => "#"}
-                %i.icon-coins
-                My balance
-            %li
-              %a{:href => "#"}
-                %span.badge.badge-warning.pull-right 58
-                %i.icon-comment-discussion
-                Messages
+              = link_to user_path(current_user.id) do
+                %i.icon-cabinet
+                Кабинет
             %li.divider
             %li
-              %a{:href => "#"}
+              = link_to user_settings_path(current_user.id) do
                 %i.icon-cog5
-                Account settings
+                Настройки
             %li
               = link_to destroy_user_session_path, method: :delete do
                 %i.icon-switch2

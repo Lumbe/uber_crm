@@ -1,0 +1,60 @@
+= render layout: 'user_sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Редактирование данных 
+        .heading-elements 
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = form_for @user do |f|
+          .row
+            .col-md-6
+              .form-group
+                = f.label :first_name, 'Имя'
+                .input-group
+                  %span.input-group-addon.bg-green-600
+                    .icon-user
+                  = f.text_field :first_name, class: 'form-control', disabled: :true
+              .form-group
+                = f.label :last_name, 'Фамилия'
+                .input-group
+                  %span.input-group-addon.bg-green-600
+                    .icon-user
+                  = f.text_field :last_name, class: 'form-control', placeholder: 'Иванов'
+              .form-group
+                = f.label :phone, 'Телефон'
+                .input-group
+                  %span.input-group-addon.bg-green-600
+                    .icon-phone
+                  = f.text_field :phone, class: 'form-control', placeholder: '067xxxxxxxx'
+              .form-group
+                = f.label :skype, 'Skype'
+                .input-group
+                  %span.input-group-addon.bg-green-600
+                    .icon-skype
+                  = f.text_field :skype, class: 'form-control', placeholder: 'Введите ваш логин в Skype'
+              .form-group
+                = f.label :avatar, 'Изменить аватар (300х300px)'
+                = f.file_field :avatar, class: 'file-styled-primary'
+          .text-left
+            = f.submit 'Сохранить', class: 'btn btn-success'
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Изменение пароля для: #{@user.first_name} #{@user.last_name} 
+        .heading-elements 
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = render template: "devise/registrations/edit"
+    
