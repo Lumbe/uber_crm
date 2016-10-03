@@ -12,6 +12,15 @@ $ ->
     minimumResultsForSearch: Infinity
     containerCssClass: 'select-sm'
     width: 200
+    
+  $('.filtered-regions').select2
+    minimumResultsForSearch: Infinity
+    containerCssClass: 'select-sm'
+    width: 600
+    
+  $('.select-filtered-regions-clear').on 'click', ->
+    $('.filtered-regions').val(null).trigger('change')
+
 
   # DataTable for Contacts
   table = $('.datatable-contacts').DataTable(
@@ -29,6 +38,9 @@ $ ->
       aoData.push
         name: 'department'
         value: $('.select-departments').val()
+      aoData.push
+          name: 'filtered_regions'
+          value: $('.filtered-regions').val()
       return
     columnDefs: [
       {
@@ -49,6 +61,11 @@ $ ->
     ])
   # redraw datatable on departments change
   $('.select-departments').on 'change', ->
+    table.draw()
+    return
+    
+  # redraw datatable on regions change
+  $('.filtered-regions').on 'change', ->
     table.draw()
     return
 

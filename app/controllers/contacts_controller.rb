@@ -26,6 +26,7 @@ class ContactsController < ApplicationController
         @contacts = @contacts.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if params[:iDisplayLength].to_i > 0
         # search with ransack gem
         @contacts = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result : @contacts
+        @contacts = params[:filtered_regions].present? ? @contacts.where(region: params[:filtered_regions]) : @contacts
         # render json on ajax request
         render json: {
           sEcho: params[:sEcho].to_i + 1,
