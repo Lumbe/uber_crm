@@ -167,7 +167,7 @@ class LeadsController < ApplicationController
     @departments = Department.all.collect {|department| [ department.name, department.id ] }
     lead_attributes = Lead.find(params[:id]).attributes.select { |key, value| Lead.new.attributes.except("id", "created_at", "updated_at").keys.include? key }
     lead_attributes["user_id"] = current_user.id
-    lead_attributes["status"] = 0
+    lead_attributes["status"] = 'newly'
     lead_attributes["department_id"] = params[:department_id]
     @lead = Lead.new(lead_attributes)
   end

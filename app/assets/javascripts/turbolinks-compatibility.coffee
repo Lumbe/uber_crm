@@ -1,3 +1,5 @@
+# Turbolinks 5 compatibility with gem 'jquery-rails'
+# as mentioned here https://github.com/kossnocorp/jquery.turbolinks/issues/61#issuecomment-246404796
 {defer, dispatch} = Turbolinks
 
 handleEvent = (eventName, handler) ->
