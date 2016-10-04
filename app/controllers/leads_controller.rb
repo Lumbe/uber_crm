@@ -146,7 +146,10 @@ class LeadsController < ApplicationController
   
   def close
     @lead = Lead.find(params[:id])
+    @user = current_user
     @lead.closed!
+    @lead.assigned_to = @user.id
+    @lead.save
     
     redirect_to :back
   end
