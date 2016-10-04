@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :departments, through: :memberships
   has_many :leads

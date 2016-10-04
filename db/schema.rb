@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -31,9 +30,8 @@ ActiveRecord::Schema.define(version: 20160928081920) do
     t.datetime "updated_at",                   null: false
     t.text     "body"
     t.integer  "comment_type",     default: 0
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
   end
-
-  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
 
   create_table "competitors", force: :cascade do |t|
     t.string   "name"
@@ -139,10 +137,9 @@ ActiveRecord::Schema.define(version: 20160928081920) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "role",          default: 0
+    t.index ["department_id"], name: "index_memberships_on_department_id", using: :btree
+    t.index ["user_id"], name: "index_memberships_on_user_id", using: :btree
   end
-
-  add_index "memberships", ["department_id"], name: "index_memberships_on_department_id", using: :btree
-  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "recipient_id"
@@ -177,10 +174,9 @@ ActiveRecord::Schema.define(version: 20160928081920) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "memberships", "departments"
   add_foreign_key "memberships", "users"
