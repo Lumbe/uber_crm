@@ -13,9 +13,10 @@
 # ------------------------
 #= require 'limitless/plugins/loaders/pace.min.js'
 #= require jquery
-#= require jquery.turbolinks
 #= require jquery_ujs
+#= require jquery.turbolinks
 #= require turbolinks
+#= require turbolinks-compatibility
 
 #= require 'limitless/core/libraries/jquery_ui/interactions.min.js'
 #= require 'limitless/core/libraries/jquery_ui/widgets.min.js'
