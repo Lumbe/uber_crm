@@ -42,4 +42,5 @@
 #= require admin/users
 #= require users
 #= require notifications
+#= require limitless/plugins/visualization/echarts/theme/limitless
 #= require charts

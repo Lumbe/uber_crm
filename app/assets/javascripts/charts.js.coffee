@@ -1,5 +1,5 @@
 $ ->
-  leadsChart = echarts.init(document.getElementById('leads_chart'))
+  leadsChart = echarts.init(document.getElementById('leads_chart'), window.echarts.themes.limitless)
   leadsChart.setOption
     title:
       text: 'Источник'
@@ -75,7 +75,7 @@ $ ->
       ]
     } ]
     
-  contactsChart = echarts.init(document.getElementById('contacts_chart'))
+  contactsChart = echarts.init(document.getElementById('contacts_chart'), window.echarts.themes.limitless)
   contactsChart.setOption
     title:
       x: 'center'
