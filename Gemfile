@@ -43,6 +43,7 @@ gem 'rails-i18n', '~> 5.0', '>= 5.0.1'
 gem 'kaminari'
 gem 'ransack'
 gem 'devise'
+gem 'cancancan', '~> 1.15'
 gem 'paperclip', '~> 5.1'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
