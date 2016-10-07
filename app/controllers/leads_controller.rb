@@ -1,5 +1,6 @@
 class LeadsController < ApplicationController
   before_filter :load_statuses, only: [:new, :edit, :create]
+  load_and_authorize_resource except: [:new]
 
   def index
     @user = current_user

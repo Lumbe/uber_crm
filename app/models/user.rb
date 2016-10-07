@@ -17,4 +17,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :first_name, :last_name, presence: true
+  
 end

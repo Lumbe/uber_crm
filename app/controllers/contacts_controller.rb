@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
-
+  load_and_authorize_resource except: [:new]
+  
   def index
     @user = current_user
     if !@user.departments.any?

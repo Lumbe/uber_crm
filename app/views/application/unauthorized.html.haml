@@ -1,0 +1,21 @@
+/ Content area
+.content
+  / Error title
+  .text-center.content-group
+    %h1.error-title 401
+    %h5 Вы не можете этого сделать.
+  / /error title
+  / Error content
+  .row
+    .col-lg-4.col-lg-offset-4.col-sm-6.col-sm-offset-3
+      .row
+        .col-sm-6
+          = link_to :back, class: 'btn btn-default btn-block content-group' do
+            %i.icon-circle-left2.position-left
+            Вернуться назад
+        .col-sm-6
+          = link_to root_url, class: ' btn btn-primary btn-block content-group' do
+            %i.icon-menu7.position-left
+            На главную
+  / /error wrapper
+

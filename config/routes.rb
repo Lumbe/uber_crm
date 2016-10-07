@@ -37,4 +37,6 @@ Rails.application.routes.draw do
     get 'departments/:id/membership/:retire_membership_id' => 'departments#retire_user', :as => :retire_user
   end
   
+  get 'unauthorized' => 'application#unauthorized', as: :unauthorized
+  
 end
