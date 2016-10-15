@@ -34,6 +34,7 @@
 #= require 'limitless/core/app.min.js'
 
 #= require layouts/main_layout
+#= require layouts/sidebar
 #= require layouts/form_elements
 #= require layouts/datapicker
 #= require layouts/datatable_defaults

@@ -50,5 +50,5 @@
 - else
   .navbar.navbar-default.navbar-fixed-top.header-highlight
     .navbar-header
-      %a.navbar-brand{:href => "index.html"}
+      = link_to root_path, class: "navbar-brand" do
         = image_tag('logo_light', alt: "Uber CRM")

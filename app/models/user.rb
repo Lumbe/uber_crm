@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  
+  class_attribute :current_role
+  
   has_many :memberships, dependent: :destroy
   has_many :departments, through: :memberships
   has_many :leads
@@ -17,5 +20,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :first_name, :last_name, presence: true
-  
+
 end

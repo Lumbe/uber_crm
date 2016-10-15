@@ -1,0 +1,19 @@
+#modal_default.modal.fade
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+        %h5.modal-title Отдел
+      = form_tag initialize_department_path, method: :get  do |f|
+        .modal-body
+          .form-group
+            = label_tag :department_id, 'Выберите отдел'
+            .input-group
+              %span.input-group-addon
+                .icon-versions
+              = select_tag(:department_id, options_from_collection_for_select(@departments, :id, :name), {class: 'select'} )
+        .modal-footer
+          %button.btn.btn-link{"data-dismiss" => "modal", :type => "button"}
+            .icon-cross2
+          %button.btn.btn-primary{:type => "submit"}
+            .icon-checkmark4
