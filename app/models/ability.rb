@@ -7,7 +7,7 @@ class Ability
     
     if user.admin?
       can :manage, :all
-    elsif User.current_role == 'senior_manager'
+    elsif user.current_role == 'senior_manager'
       can :manage, Lead do |lead|
         user.memberships.where(department: lead.department, role: ['chief', 'marketer', 'senior_manager', 'manager']).present?
       end
@@ -16,7 +16,7 @@ class Ability
         user.memberships.where(department: contact.department, role: ['chief', 'marketer', 'senior_manager', 'manager']).present?
       end
       
-    elsif User.current_role == 'manager'
+    elsif user.current_role == 'manager'
       can :manage, Lead do |lead|
         user.memberships.where(department: lead.department, role: ['chief', 'marketer', 'senior_manager', 'manager']).present?
       end

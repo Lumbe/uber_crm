@@ -40,5 +40,4 @@ Rails.application.routes.draw do
   get 'unauthorized' => 'application#unauthorized', as: :unauthorized
   
   get '/initialize_department' => 'application#initialize_department', as: :initialize_department
-
 end

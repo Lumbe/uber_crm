@@ -12,5 +12,10 @@ module ApplicationHelper
     def devise_mapping
       @devise_mapping ||= Devise.mappings[:user]
     end
+    
+    # for current department object access in view
+    def current_department
+      Department.find(current_user.current_department_id)
+    end
 
 end

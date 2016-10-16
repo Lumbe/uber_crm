@@ -1,7 +1,4 @@
 class User < ApplicationRecord
-  
-  class_attribute :current_role
-  
   has_many :memberships, dependent: :destroy
   has_many :departments, through: :memberships
   has_many :leads
