@@ -10,18 +10,9 @@ class LeadsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-                # load leads with filtered statuses and dates from datapicker
-        @leads =  if params[:department].present?
-                    Lead.where(status: params[:statuses], department: params[:department], created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
-                  elsif @user.departments.present?
-                    Lead.where(status: params[:statuses], department: current_user.departments.first, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
-                  end
-        # total count for datatable view
-        total_count = if params[:department].present?
-                        Lead.where(department: params[:department]).count
-                      elsif @user.departments.present?
-                        Lead.where(department: @user.departments.first).count
-                      end
+        # load leads with filtered statuses and dates from datapicker
+        @leads =  Lead.where(status: params[:statuses], department_id: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+        total_count = Lead.where(department_id: @user.current_department_id).count
         # count fo datatable view
         count = params[:sSearch].present? ? @leads.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : @leads.count
         # paginate with kaminari gem
