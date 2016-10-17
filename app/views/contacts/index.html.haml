@@ -8,12 +8,8 @@
             %i.icon-users.position-left
             %span.text-semibold
               Контакты отдела -
-              - if @user.departments.count == 1
-                %span.text-size-large
-                  = @user.departments.first.name
-              - elsif @user.departments.any?
-                = select_tag(:department, options_from_collection_for_select(current_user.departments, :id, :name, 1), class: 'select-departments' )
-            %small.display-block Потенциальные клиенты
+              %span.text-semibold
+                = current_department.name
         .heading-elements
           = link_to new_contact_path do
             %button.btn.btn-success.heading-btn{:type => "button"}
@@ -23,7 +19,7 @@
     / Basic datatable
     .panel.panel-flat
       .panel-heading
-        %h5.panel-title Список контактов
+        %h5.panel-title Фильтр по регионам
         .heading-elements
           %ul.icons-list
             %li
@@ -36,7 +32,6 @@
         .row
           .col-md-9
             .form-group
-              = label_tag :filtered_regions, 'Фильтр по регионам'
               .input-group
                 %span.input-group-addon
                   .icon-earth
@@ -75,7 +70,6 @@
                 %button.btn.bg-slate-400.select-filtered-regions-clear{type: 'button'} Очистить фильтр
           .col-md-3
             .content-group.pull-right
-              %span.display-block.text-semibold.text-right.mb-5 Дата создания
               %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d %T'), end: Time.zone.now.strftime('%Y-%m-%d %T') }}
                 %i.icon-calendar2.position-left
                 %span

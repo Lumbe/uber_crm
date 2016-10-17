@@ -10,17 +10,9 @@ class ContactsController < ApplicationController
       format.html
       format.json do
                 # load contacts with filtered statuses and dates from datapicker
-        @contacts =  if params[:department].present?
-                    Contact.where(department: params[:department], created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
-                  elsif @user.departments.any?
-                    Contact.where(department: current_user.departments.first, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
-                  end
+        @contacts =  Contact.where(department: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
         # total count for datatable view
-        total_count = if params[:department].present?
-                        Contact.where(department: params[:department]).count
-                      elsif @user.departments.present?
-                        Contact.where(department: @user.departments.first).count
-                      end
+        total_count = Contact.where(department: @user.current_department_id).count
         # count fo datatable view
         count = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : @contacts.count
         # paginate with kaminari gem
