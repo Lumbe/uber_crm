@@ -7,22 +7,38 @@ class Ability
     
     if user.admin?
       can :manage, :all
-    elsif user.current_role == 'senior_manager'
+    elsif user.current_role == 'chief'
       can :manage, Lead do |lead|
-        user.memberships.where(department: lead.department, role: ['chief', 'marketer', 'senior_manager', 'manager']).present?
+        user.memberships.where(department: lead.department, role: 'chief').present?
       end
       
       can :manage, Contact do |contact|
-        user.memberships.where(department: contact.department, role: ['chief', 'marketer', 'senior_manager', 'manager']).present?
+        user.memberships.where(department: contact.department, role: 'chief').present?
+      end
+    elsif user.current_role == 'marketer'
+      can :manage, Lead do |lead|
+        user.memberships.where(department: lead.department, role: 'marketer').present?
+      end
+      
+      can :manage, Contact do |contact|
+        user.memberships.where(department: contact.department, role: 'marketer').present?
+      end
+    elsif user.current_role == 'senior_manager'
+      can :manage, Lead do |lead|
+        user.memberships.where(department: lead.department, role: 'senior_manager').present?
+      end
+      
+      can :manage, Contact do |contact|
+        user.memberships.where(department: contact.department, role: 'senior_manager').present?
       end
       
     elsif user.current_role == 'manager'
       can :manage, Lead do |lead|
-        user.memberships.where(department: lead.department, role: ['chief', 'marketer', 'senior_manager', 'manager']).present?
+        user.memberships.where(department: lead.department, role: 'manager').present?
       end
       
       can :manage, Contact do |contact|
-        user.memberships.where(department: contact.department, role: ['chief', 'marketer', 'senior_manager', 'manager']).present?
+        user.memberships.where(department: contact.department, role: 'manager').present?
       end
     else
       
