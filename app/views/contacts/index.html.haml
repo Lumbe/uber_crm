@@ -1,4 +1,4 @@
-- if @user.departments.any?
+- if can? :manage, Contact
   / Page header
   .content-group
     .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
