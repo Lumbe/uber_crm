@@ -72,7 +72,7 @@ $ ->
   # External table additions
   # ------------------------------
   # Add placeholder to the datatable filter option
-  $('.dataTables_filter input[type=search]').attr 'placeholder', 'Введите имя, телефон...'
+  $('.dataTables_filter input[type=search]').attr 'placeholder', 'имя, телефон, email'
   # Enable Select2 select for the length option
   $('.dataTables_length select').select2
     minimumResultsForSearch: Infinity

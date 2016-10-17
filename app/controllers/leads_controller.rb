@@ -1,5 +1,5 @@
 class LeadsController < ApplicationController
-  before_filter :load_statuses, only: [:new, :edit, :create]
+  before_action :load_statuses, only: [:new, :edit, :create]
   load_and_authorize_resource except: [:new]
 
   def index
@@ -9,6 +9,9 @@ class LeadsController < ApplicationController
     end
     respond_to do |format|
       format.html
+      format.xlsx do
+        @leads =  Lead.where(department_id: @user.current_department_id).order(created_at: :desc)
+      end
       format.json do
         # load leads with filtered statuses and dates from datapicker
         @leads =  Lead.where(status: params[:statuses], department_id: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)

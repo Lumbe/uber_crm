@@ -33,6 +33,9 @@ gem 'jbuilder', '>= 2.0'
 gem 'rabl-rails'
 gem 'gon', '~> 6.1'
 
+# excel spreadsheets generation
+gem 'axlsx_rails', '~> 0.5.0'
+
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
