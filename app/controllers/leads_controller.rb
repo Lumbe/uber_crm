@@ -10,18 +10,10 @@ class LeadsController < ApplicationController
     respond_to do |format|
       format.html
       format.xlsx do
-        @leads =  Lead.where(department_id: @user.current_department_id).order(created_at: :desc)
+        @leads = load_leads(false).first
       end
       format.json do
-        # load leads with filtered statuses and dates from datapicker
-        @leads =  Lead.where(status: params[:statuses], department_id: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
-        total_count = Lead.where(department_id: @user.current_department_id).count
-        # count fo datatable view
-        count = params[:sSearch].present? ? @leads.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : @leads.count
-        # paginate with kaminari gem
-        @leads = @leads.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if params[:iDisplayLength].to_i > 0
-        # search with ransack gem
-        @leads = params[:sSearch].present? ? @leads.search(name_or_phone_or_email_cont: params[:sSearch]).result : @leads
+        @leads, count, total_count = load_leads
         # render json on ajax request
         render json: {
           sEcho: params[:sEcho].to_i + 1,
@@ -182,5 +174,17 @@ class LeadsController < ApplicationController
   
   def load_statuses
     @statuses = Lead.status_attributes_for_select
+  end
+  
+  def load_leads(paginate=true)
+    # load leads with filtered statuses and dates from datapicker
+    leads = Lead.where(status: params[:statuses], department_id: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+    total_count = Lead.where(department_id: @user.current_department_id).count
+    # count fo datatable view
+    count = params[:sSearch].present? ? leads.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : leads.count
+    # paginate with kaminari gem
+    leads = leads.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if paginate && (params[:iDisplayLength].to_i > 0)
+    # search with ransack gem
+    [params[:sSearch].present? ? leads.search(name_or_phone_or_email_cont: params[:sSearch]).result : leads, count, total_count]
   end
 end

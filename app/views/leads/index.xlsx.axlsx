@@ -1,13 +1,7 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Лиды") do |sheet|
-  sheet.add_row ['ID', 'Имя', 'Телефон', 'Email', 'Где будет строиться', 'Проект', 'Площадь', 'Этажность',
-                  'Вопрос клиента', 'Создан', 'Обновлен', 'Регион', 'Откуда узнал о нас', 'Онлайн-запрос',
-                  'Пришел в офис', 'Позвонил', 'Статус', 'Добавил', 'Ответственный', 'Отдел' ]
+  sheet.add_row Lead.new.attributes.keys
   @leads.each do |lead|
-    sheet.add_row [lead.id, lead.name, lead.phone, lead.email, lead.location, lead.project, lead.square, lead.floor,
-                    lead.question, lead.created_at, lead.updated_at, lead.region, lead.source, lead.online_request,
-                    lead.come_in_office, lead.phone_call, lead.status, User.find_by_id(lead.user_id).nil? ? "" : User.find_by_id(lead.user_id).first_name + " " + User.find_by_id(lead.user_id).last_name,
-                    User.find_by_id(lead.assigned_to).nil? ? "" : User.find_by_id(lead.assigned_to).first_name + " " + User.find_by_id(lead.assigned_to).last_name,
-                    Department.find_by_id(lead.department_id).nil? ? "" : Department.find_by_id(lead.department_id).name ]
+    sheet.add_row lead.attributes.values
   end
 end

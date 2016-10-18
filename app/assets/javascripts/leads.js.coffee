@@ -34,10 +34,11 @@ $ ->
       aoData.push
         name: 'end'
         value: $('.datatables-datapicker').data('end')
-      # send to leads controller selected department value(:id)
-      aoData.push
-        name: 'department'
-        value: $('.select-departments').val()
+      data = {}
+      aoData.forEach (item)->
+        data[item.name] = item.value
+      link = $('.leads-export')
+      link.attr('href', link.attr('href').split('?')[0] + '?' + $.param(data))
       return
     columnDefs: [
       {
@@ -57,6 +58,7 @@ $ ->
         sClass: 'text-center'
       }
     ])
+
   # redraw datatable with filtered statuses, when status checkbox is checked or unchecked
   $('.lead_status').on 'change', ->
     table.draw()
