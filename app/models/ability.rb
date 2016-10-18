@@ -41,7 +41,7 @@ class Ability
         user.memberships.where(department: contact.department, role: 'manager').present?
       end
     else
-      
+      can :delegate, Lead
     end
 
     # The first argument to `can` is the action you are giving the user

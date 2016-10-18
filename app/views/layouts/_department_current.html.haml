@@ -7,7 +7,7 @@
       = form_tag initialize_department_path, method: :get  do |f|
         .modal-body
           .form-group
-            = select_tag(:department_id, options_from_collection_for_select(@departments, :id, :name, current_department.id), {class: 'select'} )
+            = select_tag(:department_id, options_from_collection_for_select(@user_departments, :id, :name, current_department.id), {class: 'select'} )
         .modal-footer
           %button.btn.btn-primary{:type => "submit"}
             .icon-checkmark4

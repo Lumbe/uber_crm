@@ -11,10 +11,10 @@ class ApplicationController < ActionController::Base
   
   def initialize_department
     unless current_user.nil?
-      @departments = current_user.departments.uniq
+      @user_departments = current_user.departments.uniq
       if current_user.current_department_id.nil?
-        current_user.update_attributes(current_department_id: @departments.first.id)
-        current_user.update_attributes(current_role: Membership.where(department_id: @departments.first.id, user_id: current_user.id).first.role)
+        current_user.update_attributes(current_department_id: @user_departments.first.id)
+        current_user.update_attributes(current_role: Membership.where(department_id: @user_departments.first.id, user_id: current_user.id).first.role)
       end
       if params.has_key?(:department_id)
         current_user.update_attributes(current_department_id: params[:department_id])
