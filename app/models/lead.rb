@@ -9,6 +9,11 @@ class Lead < ApplicationRecord
 
   enum status: [:newly, :closed, :converted, :sended, :repeated, :claimed]
   
+  scope :order_by_status, -> (first = :newly, second = :repeated, third = :claimed, fourth = :converted, fifth = :sended, sixth = :closed) {
+    order("status = #{Lead.statuses[first]} DESC, status = #{Lead.statuses[second]} DESC, status = #{Lead.statuses[third]} DESC,
+    status = #{Lead.statuses[fourth]} DESC, status = #{Lead.statuses[fifth]} DESC, status = #{Lead.statuses[sixth]} DESC")
+    }
+
   # @return [Array<Array>]
   def self.status_attributes_for_select
     statuses.map do |status, _|

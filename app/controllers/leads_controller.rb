@@ -178,7 +178,7 @@ class LeadsController < ApplicationController
   
   def load_leads(paginate=true)
     # load leads with filtered statuses and dates from datapicker
-    leads = Lead.where(status: params[:statuses], department_id: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+    leads = Lead.where(status: params[:statuses], department_id: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order_by_status.order(created_at: :desc)
     total_count = Lead.where(department_id: @user.current_department_id).count
     # count fo datatable view
     count = params[:sSearch].present? ? leads.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : leads.count

@@ -5,9 +5,12 @@ class Contact < ApplicationRecord
   belongs_to :department
   has_many :leads
   has_many :comments, as: :commentable
+  validates :name, :phone, :source, :region, presence: true
   
   enum status: [:newly, :repeated, :proposal, :finished]
   
-  validates :name, :phone, :source, :region, presence: true
+  scope :order_by_status, -> (first = :proposal, second = :newly, third = :repeated, fourth = :finished) {
+    order("status = #{Contact.statuses[first]} DESC, status = #{Contact.statuses[second]} DESC, status = #{Contact.statuses[third]} DESC, status = #{Contact.statuses[fourth]} DESC")
+    }
 
 end

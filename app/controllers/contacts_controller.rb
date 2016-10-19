@@ -116,7 +116,7 @@ class ContactsController < ApplicationController
   
   def load_contacts(paginate=true)
         # load contacts with filtered statuses and dates from datapicker
-        contacts =  Contact.where(department: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+        contacts =  Contact.where(department: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order_by_status.order(created_at: :desc)
         # total count for datatable view
         total_count = Contact.where(department: @user.current_department_id).count
         # count fo datatable view
