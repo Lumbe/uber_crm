@@ -8,18 +8,11 @@ class ContactsController < ApplicationController
     end
     respond_to do |format|
       format.html
+      format.xlsx do
+        @contacts = load_contacts(false).first
+      end
       format.json do
-                # load contacts with filtered statuses and dates from datapicker
-        @contacts =  Contact.where(department: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
-        # total count for datatable view
-        total_count = Contact.where(department: @user.current_department_id).count
-        # count fo datatable view
-        count = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : @contacts.count
-        # paginate with kaminari gem
-        @contacts = @contacts.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if params[:iDisplayLength].to_i > 0
-        # search with ransack gem
-        @contacts = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result : @contacts
-        @contacts = params[:filtered_regions].present? ? @contacts.where(region: params[:filtered_regions]) : @contacts
+        @contacts, count, total_count = load_contacts
         # render json on ajax request
         render json: {
           sEcho: params[:sEcho].to_i + 1,
@@ -98,5 +91,37 @@ class ContactsController < ApplicationController
                                  :region, :source, :online_request,
                                  :come_in_office, :phone_call, :status,
                                  :user_id, :department_id, :assigned_to)
+  end
+  
+  def load_contacts(paginate=true)
+        # load contacts with filtered statuses and dates from datapicker
+        contacts =  Contact.where(department: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
+        # total count for datatable view
+        total_count = Contact.where(department: @user.current_department_id).count
+        # count fo datatable view
+        count = 
+          if params[:sSearch].present? && params[:filtered_regions].present?
+            contacts.where(region: params[:filtered_regions]).search(name_or_phone_or_email_cont: params[:sSearch]).result.count
+          elsif params[:sSearch].present?
+            contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result.count
+          elsif params[:filtered_regions].present?
+            contacts.where(region: params[:filtered_regions]).count
+          else
+            contacts.count
+          end
+        # paginate with kaminari gem
+        contacts = contacts.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if paginate && params[:iDisplayLength].to_i > 0
+        # search with ransack gem
+        if params[:sSearch].present? && params[:filtered_regions].present?
+          [contacts.where(region: params[:filtered_regions]).search(name_or_phone_or_email_cont: params[:sSearch]).result, count, total_count]
+        elsif params[:sSearch].present?
+          [contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result, count, total_count]
+        elsif params[:filtered_regions].present?
+          [contacts.where(region: params[:filtered_regions]), count, total_count]
+        else
+          [contacts, count, total_count]
+        end
+        # [params[:sSearch].present? ? contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result : contacts, count, total_count]
+        # [params[:filtered_regions].present? ? contacts.where(region: params[:filtered_regions]) : contacts, count, total_count]
   end
 end

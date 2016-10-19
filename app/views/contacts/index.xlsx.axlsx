@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Контакты") do |sheet|
+  sheet.add_row Contact.new.attributes.keys
+  @contacts.each do |contact|
+    sheet.add_row contact.attributes.values
+  end
+end

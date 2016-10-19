@@ -75,3 +75,7 @@
                 %span
                 %b.caret
         = render 'contacts_table'
+        - if current_user.admin?
+          .row
+            .col-md-12
+              = link_to 'excel', contacts_path(format: :xlsx), class: 'contacts-export btn btn-default'

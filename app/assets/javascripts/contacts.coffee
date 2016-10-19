@@ -34,13 +34,15 @@ $ ->
       aoData.push
         name: 'end'
         value: $('.datatables-datapicker').data('end')
-      # send to leads controller selected department value(:id)
-      aoData.push
-        name: 'department'
-        value: $('.select-departments').val()
       aoData.push
           name: 'filtered_regions'
           value: $('.filtered-regions').val()
+      if $('.contacts-export').length                                                  # check if element exists on page
+        data = {}
+        aoData.forEach (item)->
+          data[item.name] = item.value
+        link = $('.contacts-export')
+        link.attr('href', link.attr('href').split('?')[0] + '?' + $.param(data))
       return
     columnDefs: [
       {
