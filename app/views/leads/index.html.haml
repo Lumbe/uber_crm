@@ -43,4 +43,7 @@
                 %span
                 %b.caret
         = render 'leads_table'
-        = link_to 'excel', leads_path(format: :xlsx), class: 'leads-export'
+        - if current_user.admin?
+          .row
+            .col-md-12
+              = link_to 'excel', leads_path(format: :xlsx), class: 'leads-export btn btn-default'

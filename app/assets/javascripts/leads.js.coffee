@@ -34,11 +34,12 @@ $ ->
       aoData.push
         name: 'end'
         value: $('.datatables-datapicker').data('end')
-      data = {}
-      aoData.forEach (item)->
-        data[item.name] = item.value
-      link = $('.leads-export')
-      link.attr('href', link.attr('href').split('?')[0] + '?' + $.param(data))
+      if $('.leads-export').length                                                  # check if element exists on page
+        data = {}
+        aoData.forEach (item)->
+          data[item.name] = item.value
+        link = $('.leads-export')
+        link.attr('href', link.attr('href').split('?')[0] + '?' + $.param(data))
       return
     columnDefs: [
       {
