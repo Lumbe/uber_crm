@@ -20,6 +20,16 @@ class ContactsController < ApplicationController
           iTotalDisplayRecords: count,
           aaData: @contacts.map do |contact| 
             [
+              case contact.status
+              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
+                " " +
+                (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
+              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning') +
+                " " +
+                (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
+              when 'proposal' then view_context.content_tag :span, 'Отправлено КП', class: 'label label-info'
+              when 'finished' then view_context.content_tag :span, 'Завершено', class: 'label label-default'
+              end,
               view_context.link_to(contact.name, contact_path(contact)),
               contact.phone,
               contact.email,
@@ -81,6 +91,17 @@ class ContactsController < ApplicationController
     @contact.destroy
 
     redirect_to contacts_path
+  end
+  
+  def phone_call
+    
+  end
+  
+  def send_proposal
+    @contact = Contact.find(params[:id])
+    @user = current_user
+    @commentable = @contact
+    @comment = @commentable.comments.new
   end
 
   private

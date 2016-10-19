@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :contacts do
     resources :comments
   end
+  get 'contacts/:id/send_proposal', to: 'contacts#send_proposal', :as => :send_proposal
   
   resources :users
   get 'users/:id/myleads', to: 'users#user_leads', :as => :user_leads

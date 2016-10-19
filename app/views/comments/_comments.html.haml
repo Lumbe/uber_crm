@@ -1,20 +1,23 @@
 - if @comments.present?
-  .row
-    .col-md-12
-      .breadcrumb-line.breadcrumb-line-component.mb-20.mt-20.bg-info
-        %ul.breadcrumb
-          %li.text-bold.text-size-large Комментарии
   .timeline.timeline-left.content-group.mt-20
     .timeline-container
       - @comments.each do |comment|
         .timeline-row
-          .timeline-icon
-            .bg-info-400
-              %i.icon-comment
+          - if comment.comment_type == 'message'
+            .timeline-icon
+              .bg-info-400
+                %i.icon-comment
+          - elsif comment.comment_type == 'commercial_prop'
+            .timeline-icon
+              .bg-success-400
+                %i.icon-cash
           .panel.panel-flat.timeline-content
             .panel-heading
               .panel-title
-                Комментарий от
+                - if comment.comment_type == 'message'
+                  Комментарий от
+                - elsif comment.comment_type == 'commercial_prop'
+                  Отправлено коммерческое -
                 = image_tag(comment.user.avatar(:thumb), class: "img-circle")
                 = link_to user_path(comment.user) do
                   #{comment.user.first_name} #{comment.user.last_name}

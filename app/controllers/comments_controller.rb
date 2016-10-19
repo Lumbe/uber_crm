@@ -16,6 +16,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new(comment_params)
     if @comment.save
+      @commentable.update(status: 'proposal') if @commentable.is_a?(Contact) && @comment.comment_type == 'commercial_prop'
       redirect_to @commentable, notice: "Комментарий добавлен."
     else
       render 'new'
@@ -37,7 +38,7 @@ class CommentsController < ApplicationController
   private
   
   def comment_params
-    params.require(:comment).permit(:body, :user_id)
+    params.require(:comment).permit(:body, :user_id, :comment_type)
   end
   
   # works well if used default url format

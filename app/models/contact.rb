@@ -6,6 +6,8 @@ class Contact < ApplicationRecord
   has_many :leads
   has_many :comments, as: :commentable
   
+  enum status: [:newly, :repeated, :proposal, :finished]
+  
   validates :name, :phone, :source, :region, presence: true
 
 end

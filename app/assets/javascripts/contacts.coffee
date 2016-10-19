@@ -53,11 +53,12 @@ $ ->
           3
           4
           5
+          6
         ]
         bSortable: false
       }
       {
-        aTargets: [ 5 ]
+        aTargets: [ 6 ]
         sClass: 'text-center'
       }
     ])
