@@ -16,8 +16,9 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new(comment_params)
     if @comment.save
-      @commentable.update(status: 'proposal') if @commentable.is_a?(Contact) && @comment.comment_type == 'commercial_prop'
-      redirect_to @commentable, notice: "Комментарий добавлен."
+      @commentable.update(status: 'proposal', proposal_sent: Time.zone.now) if @commentable.is_a?(Contact) && @comment.comment_type == 'commercial_prop'
+      @commentable.update(status: 'finished') if @commentable.is_a?(Contact) && @comment.comment_type == 'phone_call'
+      redirect_to @commentable, notice: "Комментарий добавлен"
     else
       render 'new'
     end

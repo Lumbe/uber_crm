@@ -27,7 +27,16 @@ class ContactsController < ApplicationController
               when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning') +
                 " " +
                 (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
-              when 'proposal' then view_context.content_tag :span, 'Отправлено КП', class: 'label label-info'
+              when 'proposal' then (view_context.content_tag :span, 'Отправлено КП', class: 'label label-info') +
+                " " +
+                (view_context.link_to (view_context.content_tag :i, '', class: 'icon-phone-plus2'), phone_call_path(contact), class: 'label label-flat text-success label-success') +
+                if !contact.proposal_sent.nil?
+                  if ( Time.zone.now.to_i - contact.proposal_sent.to_i) > 86400
+                    (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад", class: 'text-bold text-danger')
+                  else
+                    (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад")
+                  end
+                end
               when 'finished' then view_context.content_tag :span, 'Завершено', class: 'label label-default'
               end,
               view_context.link_to(contact.name, contact_path(contact)),
@@ -94,7 +103,10 @@ class ContactsController < ApplicationController
   end
   
   def phone_call
-    
+    @contact = Contact.find(params[:id])
+    @user = current_user
+    @commentable = @contact
+    @comment = @commentable.comments.new
   end
   
   def send_proposal
