@@ -145,9 +145,9 @@ class LeadsController < ApplicationController
     @lead = Lead.find(params[:id])
     @lead.converted!
     @departments = current_user.departments
-    contact_attributes = Lead.find(params[:id]).attributes.select { |key, value| Contact.new.attributes.except("id", "created_at", "updated_at").keys.include? key }
-    contact_attributes["user_id"] ||= current_user.id
-    contact_attributes["assigned_to"] ||= current_user.id
+    contact_attributes = Lead.find(params[:id]).attributes.select { |key, value| Contact.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
+    contact_attributes['user_id'] ||= current_user.id
+    contact_attributes['assigned_to'] ||= current_user.id
     @contact = Contact.new(contact_attributes)
   end
   
@@ -155,10 +155,10 @@ class LeadsController < ApplicationController
     @lead = Lead.find(params[:id])
     @lead.sended!
     @departments = Department.all.collect {|department| [ department.name, department.id ] }
-    lead_attributes = Lead.find(params[:id]).attributes.select { |key, value| Lead.new.attributes.except("id", "created_at", "updated_at").keys.include? key }
-    lead_attributes["user_id"] = current_user.id
-    lead_attributes["status"] = 'newly'
-    lead_attributes["department_id"] = params[:department_id]
+    lead_attributes = Lead.find(params[:id]).attributes.select { |key, value| Lead.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
+    lead_attributes['user_id'] = current_user.id
+    lead_attributes['status'] = 'newly'
+    lead_attributes['department_id'] = params[:department_id]
     @lead = Lead.new(lead_attributes)
   end
 
