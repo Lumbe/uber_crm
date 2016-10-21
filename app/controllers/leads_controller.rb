@@ -86,6 +86,7 @@ class LeadsController < ApplicationController
   
   def create
     @lead = Lead.new(lead_params)
+    @lead.repeated! if @lead.contact_exists?
     @department = @lead.department
     if @lead.save
       # Create the notifications
