@@ -34,7 +34,10 @@
                   Подробнее
               %li
                 %a{:href => "#tabs-basic-3"}
-                  Связанные карточки
+                  Связанные контакты
+                  - if @lead.related_contacts.count > 0
+                    %span.badge.badge-info.position-right
+                      = @lead.related_contacts.count
             #tabs-basic-1
               .row
                 .col-md-4
@@ -126,4 +129,26 @@
                           %strong Регион:
                         %td.col-md-2 #{@lead.region}
             #tabs-basic-3
-              Aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthet.
+              - if @lead.related_contacts.present?
+                .table-responsive
+                  %table.table.table-borderless
+                    %thead
+                      %tr
+                        %th #
+                        %th Контакт
+                        %th Добавлен
+                        %th Ответственный
+                    %tbody
+                      - @lead.related_contacts.each_with_index do |contact, index|
+                        %tr
+                          %td
+                            = index + 1
+                          %td
+                            = link_to contact.name, contact
+                          %td #{time_ago_in_words(contact.created_at)} назад
+                          %td 
+                            = link_to user_path(contact.assignee) do
+                              = image_tag contact.assignee.avatar(:thumb), class: "img-circle"
+                              #{contact.assignee.first_name} #{contact.assignee.last_name}
+              - else
+                Связанные контакты отсутствуют
