@@ -9,7 +9,7 @@ class Contact < ApplicationRecord
   
   enum status: [:newly, :repeated, :proposal, :finished]
   
-  scope :order_by_status, -> (first = :proposal, second = :newly, third = :repeated, fourth = :finished) {
+  scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :finished) {
     order("status = #{Contact.statuses[first]} DESC, status = #{Contact.statuses[second]} DESC, status = #{Contact.statuses[third]} DESC, status = #{Contact.statuses[fourth]} DESC")
     }
 
