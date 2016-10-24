@@ -144,6 +144,11 @@ class LeadsController < ApplicationController
   
   def convert
     @lead = Lead.find(params[:id])
+    if @lead.repeated?
+      @lead.converted!
+      @lead.related_contacts.each { |contact| contact.repeated! }
+      redirect_back(fallback_location: root_path)
+    end
     @lead.converted!
     @departments = current_user.departments
     contact_attributes = Lead.find(params[:id]).attributes.select { |key, value| Contact.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
