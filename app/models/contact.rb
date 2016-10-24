@@ -13,4 +13,12 @@ class Contact < ApplicationRecord
     order("status = #{Contact.statuses[first]} DESC, status = #{Contact.statuses[second]} DESC, status = #{Contact.statuses[third]} DESC, status = #{Contact.statuses[fourth]} DESC")
     }
 
+  def lead_exists?
+    Lead.where(department: self.department, phone: self.phone).exists? || Lead.where(department: self.department, email: self.email).exists? ? true : false
+  end
+
+  def related_leads
+    Lead.where(department: self.department, phone: self.phone).or(Lead.where(department: self.department, email: self.email))
+  end
+
 end

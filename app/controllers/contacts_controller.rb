@@ -67,6 +67,7 @@ class ContactsController < ApplicationController
   
   def create
     @contact = Contact.new(contact_params)
+    @contact.repeated! if @contact.lead_exists?
     @department = @contact.department
     if @contact.save
       # Create the notifications

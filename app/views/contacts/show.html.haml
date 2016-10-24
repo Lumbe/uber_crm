@@ -34,7 +34,10 @@
                   Подробнее
               %li
                 %a{:href => "#tabs-basic-3"}
-                  Связанные карточки
+                  Связанные лиды
+                  - if @contact.related_leads.count > 0
+                    %span.badge.badge-info.position-right
+                      = @contact.related_leads.count
             #tabs-basic-1
               .row
                 .col-md-4
@@ -126,7 +129,29 @@
                           %strong Регион:
                         %td.col-md-2 #{@contact.region}
             #tabs-basic-3
-              Aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthet.
+              - if @contact.related_leads.present?
+                .table-responsive
+                  %table.table.table-borderless
+                    %thead
+                      %tr
+                        %th #
+                        %th Лид
+                        %th Добавлен
+                        %th Добавил
+                    %tbody
+                      - @contact.related_leads.each_with_index do |lead, index|
+                        %tr
+                          %td
+                            = index + 1
+                          %td
+                            = link_to lead.name, lead
+                          %td #{time_ago_in_words(lead.created_at)} назад
+                          %td
+                            = link_to user_path(lead.user) do
+                              = image_tag lead.user.avatar(:thumb), class: "img-circle"
+                              #{lead.user.first_name} #{lead.user.last_name}
+              - else
+                Связанные лиды отсутствуют
   .row
     .col-md-12
       = render "comments/form"
