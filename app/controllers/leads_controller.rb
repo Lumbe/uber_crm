@@ -142,10 +142,10 @@ class LeadsController < ApplicationController
   
   def convert
     @lead = Lead.find(params[:id])
-    if @lead.repeated?
+    if @lead.related_contacts.present?
       @lead.converted!
       @lead.related_contacts.each { |contact| contact.repeated! }
-      redirect_back(fallback_location: root_path)
+      redirect_to contacts_path, notice: "Контакт с номером телефона или email лида #{@lead.name} уже существует. Его статус изменен на 'Повторно'"
     end
     @lead.converted!
     @departments = current_user.departments
