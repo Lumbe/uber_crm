@@ -10,22 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020093309) do
+ActiveRecord::Schema.define(version: 20161027125107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "commentable_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.text     "body"
@@ -127,7 +120,6 @@ ActiveRecord::Schema.define(version: 20161020093309) do
     t.boolean  "phone_call",     default: false
     t.integer  "status",         default: 0
     t.integer  "user_id"
-    t.integer  "contact_id"
     t.integer  "customer_id"
     t.integer  "assigned_to"
     t.integer  "department_id"
