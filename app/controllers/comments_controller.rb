@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :load_commentable
+  before_action :load_commentable
   
   def index
     @comments = @commentable.comments.order(created_at: :desc)
