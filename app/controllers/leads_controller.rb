@@ -76,7 +76,6 @@ class LeadsController < ApplicationController
 
   def show
     @lead = Lead.find(params[:id])
-    @user = @lead.user
   end
 
   def new
@@ -129,17 +128,16 @@ class LeadsController < ApplicationController
     @lead.claimed!
     @lead.update(assignee: @user)
     
-    redirect_to :back
+    redirect_back(fallback_location: leads_path)
   end
   
   def close
     @lead = Lead.find(params[:id])
     @user = current_user
     @lead.closed!
-    @lead.assigned_to = @user.id
-    @lead.save
+    @lead.update(assignee: @user)
     
-    redirect_to :back
+    redirect_back(fallback_location: leads_path)
   end
   
   def convert
