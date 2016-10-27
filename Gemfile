@@ -66,8 +66,10 @@ group :development, :test do
   gem 'byebug'
   gem "faker"
   gem 'rspec-rails', '~> 3.5'
+  gem 'rails-controller-testing'
   gem 'factory_girl_rails', '~> 4.7'
   gem 'capybara', '~> 2.10'
+  gem 'pry-rails'
 end
 
 group :test do
