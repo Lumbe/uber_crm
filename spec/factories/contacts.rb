@@ -15,6 +15,5 @@ FactoryGirl.define do
     online_request    { Faker::Boolean.boolean }
     come_in_office    { Faker::Boolean.boolean }
     phone_call        { Faker::Boolean.boolean }
-    status            { Faker::Number.between(0, 3) }
   end
 end
