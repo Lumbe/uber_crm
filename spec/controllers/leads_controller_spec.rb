@@ -291,13 +291,13 @@ RSpec.describe LeadsController, type: :controller do
     end
 
     it 'redirects to index contacts if related contact exists' do
-      contact = create(:contact, email: @lead.email, department_id: @lead.department_id)
+      create(:contact, email: @lead.email, department_id: @lead.department_id)
       get :convert, params: { id: @lead }
       expect(response).to redirect_to(contacts_path)
     end
 
     it 'shows notice if related contact exists' do
-      contact = create(:contact, email: @lead.email, department_id: @lead.department_id)
+      create(:contact, email: @lead.email, department_id: @lead.department_id)
       get :convert, params: { id: @lead }
       expect(flash[:notice]).to be_present
     end
@@ -310,9 +310,19 @@ RSpec.describe LeadsController, type: :controller do
       @lead = create(:lead, department_id: @user.current_department_id)
     end
 
-    it 'locates the requested lead' do
+    it 'sets delegated lead source' do
       get :delegate, params: { id: @lead }
-      expect(assigns(:lead)).to eq(@lead)
+      expect(assigns(:lead).source).to eq("Передан из #{@lead.department.name}")
+    end
+
+    it 'sets delegated lead user' do
+      get :delegate, params: { id: @lead }
+      expect(assigns(:lead).user).to eq(@user)
+    end
+
+    it "sets delegated lead 'newly' status" do
+      get :delegate, params: { id: @lead }
+      expect(assigns(:lead).status).to eq('newly')
     end
 
     it 'changes lead status' do
