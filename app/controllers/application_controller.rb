@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
       if params.has_key?(:current_department_id)
         current_user.update_attributes(current_department_id: params[:current_department_id])
         current_user.update_attributes(current_role: Membership.where(department_id: current_user.current_department_id, user_id: current_user.id).first.role)
-        redirect_back(fallback_location: root_path)
+        redirect_to root_path
       end
     end
   end
