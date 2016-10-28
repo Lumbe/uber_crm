@@ -1,6 +1,6 @@
 class LeadsController < ApplicationController
   before_action :load_statuses, only: [:new, :edit, :create]
-  load_and_authorize_resource except: [:new]
+  load_and_authorize_resource except: [:new, :create_delegated_lead]
 
   def index
     @user = current_user
@@ -164,7 +164,7 @@ class LeadsController < ApplicationController
     @lead = Lead.new(lead_attributes)
   end
 
-  def create_delegated
+  def create_delegated_lead
     @lead = Lead.new(lead_params)
     @lead.repeated! if @lead.contact_exists?
     @department = @lead.department

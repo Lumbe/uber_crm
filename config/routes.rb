@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'leads/:id/claim', to: 'leads#claim', :as => :claim_lead
   get 'leads/:id/close', to: 'leads#close', :as => :close_lead
   get 'leads/:id/delegate', to: 'leads#delegate', :as => :delegate_lead # send lead to another department
-  post 'leads/:id/delegate', to: 'leads#create_delegated', :as => :create_delegated_lead
+  post 'leads/:id/delegate', to: 'leads#create_delegated_lead', :as => :create_delegated_lead
   get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead # convert lead to contact
   
   resources :notifications do
