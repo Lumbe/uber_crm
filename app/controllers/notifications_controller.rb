@@ -3,6 +3,7 @@ class NotificationsController < ApplicationController
   
   def index
     @user = current_user
+    @notifications_all = Notification.where(recipient: @user).order(created_at: :desc)
     @notifications = Notification.where(recipient: @user).order(created_at: :desc).first(10)
     
     respond_to do |format|

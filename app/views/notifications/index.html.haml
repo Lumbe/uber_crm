@@ -1,1 +1,31 @@
-= render 'notifications'
+.dropdown-content-heading
+  Уведомления
+%ul.media-list.dropdown-content-body.width-350
+  - @notifications_all.each do |notification|
+    %li.media
+      .media-left
+        - if notification.notifiable.is_a?(Lead)
+          .cursor-default.btn.border-info.text-info.btn-flat.btn-rounded.btn-icon.btn-sm
+            %i.icon-user-plus
+        - elsif notification.notifiable.is_a?(Contact)
+          .cursor-default.btn.border-success.text-success.btn-flat.btn-rounded.btn-icon.btn-sm
+            %i.icon-user-plus
+        - else
+          .cursor-default.btn.border-success.text-success.btn-flat.btn-rounded.btn-icon.btn-sm
+            %i.icon-question7
+      .media-body
+        = link_to user_path(notification.actor) do
+          #{notification.actor.first_name} #{notification.actor.last_name}
+        #{notification.action}
+        - if notification.notifiable.present? && notification.notifiable.is_a?(Lead)
+          лид
+          = link_to lead_path(notification.notifiable) do
+            #{notification.notifiable.name}
+        - if notification.notifiable.present? && notification.notifiable.is_a?(Contact)
+          контакт
+          = link_to contact_path(notification.notifiable) do
+            #{notification.notifiable.name}
+        .media-annotation #{time_ago_in_words(notification.created_at)} назад
+.dropdown-content-footer
+  = link_to notifications_path, data: {popup: 'tooltip'}, title: "Все уведомления" do
+    %i.icon-menu.display-block
