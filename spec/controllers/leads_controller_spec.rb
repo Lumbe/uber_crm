@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe LeadsController, type: :controller do
 
   describe "GET #index" do
-
     context "valid user" do
       login_user("manager")
 
@@ -28,7 +27,7 @@ RSpec.describe LeadsController, type: :controller do
 
     context "invalid user" do
       login_user("visitor")
-      
+
       it "redirects to unauthorized page" do
         get :index
         expect(response).to redirect_to("/unauthorized")
@@ -55,6 +54,7 @@ RSpec.describe LeadsController, type: :controller do
 
   describe "GET #new" do
     login_user('manager')
+    
     it "assigns a new Lead to @lead" do
       get :new
       expect(assigns(:lead)).to be_a_new(Lead)
@@ -64,11 +64,12 @@ RSpec.describe LeadsController, type: :controller do
       get :new
       expect(response).to render_template('new')
     end
+
   end
 
   describe "POST #create" do
     login_user("manager")
-    
+
     context "with valid attributes" do
       it "saves new lead to database" do
         user = subject.current_user
@@ -105,7 +106,7 @@ RSpec.describe LeadsController, type: :controller do
         post :create, params: {lead: attributes_for(:invalid_lead, user: user, department_id: user.current_department_id) }
         expect(Lead.count).to eq(0)
       end
-      
+
       it "redirects to the 'new' action" do
         user = subject.current_user
         post :create, params: {lead: attributes_for(:invalid_lead, user: user, department_id: user.current_department_id) }
@@ -225,7 +226,6 @@ RSpec.describe LeadsController, type: :controller do
       get :close, params: { id: lead }
       expect(response).to redirect_to(leads_path)
     end
-
   end
 
   describe 'GET #close' do
@@ -251,7 +251,6 @@ RSpec.describe LeadsController, type: :controller do
       get :close, params: { id: @lead }
       expect(response).to redirect_to(leads_path)
     end
-
   end
 
   describe 'GET #convert' do
@@ -334,6 +333,54 @@ RSpec.describe LeadsController, type: :controller do
     it 'renders convert view' do
       get :delegate, params: { id: @lead }
       expect(response).to render_template('delegate')
+    end
+  end
+
+  describe 'POST #create_delegated_lead' do
+    login_user('manager')
+    before :each do
+      @user = subject.current_user
+      @lead = create(:lead, user: @user, department_id: @user.current_department_id)
+    end
+
+    context "with valid attributes" do
+      it "creates new lead in delegated department" do
+        department = create(:department)
+        @lead.department_id = department.id
+        post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes }
+        expect(department.leads.count).to eq(1)
+      end
+
+      it 'change status if exists' do
+        department = create(:department)
+        create(:contact, email: @lead.email, department: department)
+        @lead.department_id = department.id
+        post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
+        expect(department.leads.first.status).to eq('repeated')
+      end
+
+      it "redirects to leads_path" do
+        department = create(:department)
+        @lead.department_id = department.id
+        post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
+        expect(response).to redirect_to(leads_path)
+      end
+
+      it "shows flash[:notice] " do
+        department = create(:department)
+        @lead.department_id = department.id
+        post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
+        expect(flash[:notice]).to be_present
+      end
+
+      it 'creates notification' do
+        department = create(:department)
+        user2 = create(:user)
+        create(:membership, user: user2, department: department, role: 'manager')
+        @lead.department_id = department.id
+        post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
+        expect(user2.notifications.count).to be > 0
+      end
     end
   end
 end
