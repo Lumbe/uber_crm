@@ -92,8 +92,6 @@ class LeadsController < ApplicationController
       (@department.users.uniq - [current_user]).each do |user|
         Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @lead)
       end
-      
-      flash[:notice] = "Лид #{@lead.name} успешно передан в отдел: #{@lead.department.name}" if @lead.source == "Передали"
       redirect_to leads_path
     else
       render 'new'
@@ -160,11 +158,27 @@ class LeadsController < ApplicationController
     @lead.sended!
     @departments = Department.all.collect {|department| [ department.name, department.id ] }
     lead_attributes = Lead.find(params[:id]).attributes.select { |key, value| Lead.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
-    lead_attributes['department_id'] = params[:department_id]
     lead_attributes['user_id'] = current_user.id
     lead_attributes['status'] = 'newly'
     lead_attributes['source'] = "Передан из #{@lead.department.name}"
     @lead = Lead.new(lead_attributes)
+  end
+
+  def create_delegated
+    @lead = Lead.new(lead_params)
+    @lead.repeated! if @lead.contact_exists?
+    @department = @lead.department
+    if @lead.save
+      # Create the notifications
+      (@department.users.uniq - [current_user]).each do |user|
+        Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @lead)
+      end
+
+      flash[:notice] = "Лид #{@lead.name} успешно передан в отдел: #{@lead.department.name}"
+      redirect_to leads_path
+    else
+      render 'delegate'
+    end
   end
 
   private
