@@ -193,13 +193,7 @@ RSpec.describe ContactsController, type: :controller do
       get :send_proposal, params: { id: @contact }
       expect(assigns(:comment)).to be_a_new(Comment)
     end
-    
-    it 'creates new comment' do
-      comment = create(:comment, user: @user, comment_type: 'commercial_prop')
-      post :send_proposal, params: { contact_id: @contact.id, comment: comment.attributes }
-      expect(@contact.comments.count).to be > 0
-    end
-    
+
   end
 
 end
