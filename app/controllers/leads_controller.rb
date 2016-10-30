@@ -24,10 +24,10 @@ class LeadsController < ApplicationController
               case lead.status
               when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
                 " " +
-                (view_context.link_to '+ Взять в работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
+                (view_context.link_to '+ В работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
               when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning') +
                 " " +
-                (view_context.link_to '+ Взять в работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
+                (view_context.link_to '+ В работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
               when 'closed' then view_context.content_tag :span, 'Закрыт', class: 'label label-default'
               when 'converted' then view_context.content_tag :span, 'Конвертирован', class: 'label label-success'
               when 'sended' then view_context.content_tag :span, 'Передан', class: 'label label-info'

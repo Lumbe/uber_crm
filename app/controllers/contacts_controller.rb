@@ -24,10 +24,10 @@ class ContactsController < ApplicationController
               when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
                 " " +
                 (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
-              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning') +
+              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning mb-5') +
                 " " +
                 (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
-              when 'proposal' then (view_context.content_tag :span, 'Отправлено КП', class: 'label label-info') +
+              when 'proposal' then (view_context.content_tag :span, 'Отправлено КП', class: 'label label-info mb-5') +
                 " " +
                 (view_context.link_to (view_context.content_tag :i, '', class: 'icon-phone-plus2'), phone_call_path(contact), class: 'label label-flat text-success label-success') +
                 if !contact.proposal_sent.nil?
