@@ -49,7 +49,6 @@ RSpec.describe LeadsController, type: :controller do
       get :show, params: { id: lead.id }
       expect(response).to render_template('show')
     end
-
   end
 
   describe "GET #new" do
@@ -64,7 +63,6 @@ RSpec.describe LeadsController, type: :controller do
       get :new
       expect(response).to render_template('new')
     end
-
   end
 
   describe "POST #create" do
