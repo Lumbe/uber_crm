@@ -16,11 +16,11 @@ class Contact < ApplicationRecord
     }
 
   def lead_exists?
-    Lead.where(department: self.department, phone: self.phone).exists? || Lead.where(department: self.department, email: self.email).exists? ? true : false
+    Lead.where(department: self.department, phone: self.phone).or(Lead.where(department: self.department, email: self.email).where.not(email: '')).exists? ? true : false
   end
 
   def related_leads
-    Lead.where(department: self.department, phone: self.phone).or(Lead.where(department: self.department, email: self.email))
+    Lead.where(department: self.department, phone: self.phone).or(Lead.where(department: self.department, email: self.email).where.not(email: ''))
   end
 
 end

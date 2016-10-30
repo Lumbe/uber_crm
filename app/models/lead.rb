@@ -24,11 +24,11 @@ class Lead < ApplicationRecord
   end
 
   def contact_exists?
-    Contact.where(department: self.department, phone: self.phone).exists? || Contact.where(department: self.department, email: self.email).exists? ? true : false
+    Contact.where(department: self.department, phone: self.phone).or(Contact.where(department: self.department, email: self.email).where.not(email: '')).exists? ? true : false
   end
 
   def related_contacts
-    Contact.where(department: self.department, phone: self.phone).or(Contact.where(department: self.department, email: self.email))
+    Contact.where(department: self.department, phone: self.phone).or(Contact.where(department: self.department, email: self.email).where.not(email: ''))
   end
 
 end
