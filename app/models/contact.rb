@@ -5,7 +5,9 @@ class Contact < ApplicationRecord
   belongs_to :department
   has_many :leads
   has_many :comments, as: :commentable
-  validates :name, :phone, :source, :region, presence: true
+  phony_normalize :phone, default_country_code: 'UA'
+  validates :name, :source, :region, presence: true
+  validates :phone, phony_plausible: { enforce_record_country: false }
   
   enum status: [:newly, :repeated, :proposal, :finished]
   
