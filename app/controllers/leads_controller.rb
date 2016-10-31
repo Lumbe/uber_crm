@@ -1,6 +1,8 @@
 class LeadsController < ApplicationController
+  protect_from_forgery with: :exception, except: [:create]
   before_action :load_statuses, only: [:new, :edit, :create]
   load_and_authorize_resource except: [:new, :create_delegated_lead]
+  prepend_before_action :auth_user_before_action, only: [:create]
 
   def index
     @user = current_user
@@ -182,6 +184,19 @@ class LeadsController < ApplicationController
   end
 
   private
+
+  def auth_user_before_action
+    if request.post? && !params[:user_email].blank? && !params[:user_token].blank?
+      user = User.find_for_database_authentication(email: params[:user_email])
+      if user && Devise.secure_compare(user.authenticatable_salt, params[:user_token])
+        sign_in user, store: false
+      end
+      # Implant @current_user so that :require_user filter becomes a noop.
+      params[:lead][:user_id] ||= user.id.to_s
+      # instance_variable_set("@current_user", user)
+      logger.info(">>> web-to-lead: creating lead for user " + user.inspect)
+    end
+  end
 
   def lead_params
     params.require(:lead).permit(:name, :phone, :email, :location,
