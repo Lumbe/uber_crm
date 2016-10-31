@@ -13,9 +13,10 @@
 # ------------------------
 #= require 'limitless/plugins/loaders/pace.min.js'
 #= require jquery
-#= require jquery.turbolinks
 #= require jquery_ujs
+#= require jquery.turbolinks
 #= require turbolinks
+#= require turbolinks-compatibility
 
 #= require 'limitless/core/libraries/jquery_ui/interactions.min.js'
 #= require 'limitless/core/libraries/jquery_ui/widgets.min.js'
@@ -33,6 +34,7 @@
 #= require 'limitless/core/app.min.js'
 
 #= require layouts/main_layout
+#= require layouts/sidebar
 #= require layouts/form_elements
 #= require layouts/datapicker
 #= require layouts/datatable_defaults
@@ -41,4 +43,9 @@
 #= require admin/users
 #= require users
 #= require notifications
+#= require limitless/plugins/visualization/echarts/theme/limitless
 #= require charts
+
+
+# pace.js - disable ajax tracking except on page navigation
+Pace.options.restartOnRequestAfter = false

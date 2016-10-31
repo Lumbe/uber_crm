@@ -1,0 +1,35 @@
+.content
+  .row
+    .col-md-12
+      .panel.panel-flat
+        .panel-heading
+          %h5.panel-title Отправка коммерческого предложения
+          .heading-elements
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+          .text-semibold.mt-10.mb-20
+            1. Отправляем коммерческое предложение через
+            = link_to 'Mailchimp', 'http://mailchimp.com/', target: '_blank'
+            %br
+            2. Добавляем комментарий (если нужно)
+            %br
+            3. Нажимаем "Коммерческое отправлено"
+          = form_for [@commentable, @comment] do |f|
+            .form-group
+              .input-group
+                %span.input-group-addon
+                  .icon-pencil
+                = f.text_area :body, class: 'form-control', placeholder: 'Ваш комментарий (опционально)'
+                = f.hidden_field :user_id, value: @user.id
+                = f.hidden_field :comment_type, value: 'commercial_prop'
+            .text-left
+              = link_to :back, class: 'btn btn-default' do
+                %i.icon-circle-left2.position-left
+                Вернуться назад
+              = f.submit 'Коммерческое отправлено', class: 'btn btn-success ml-10'

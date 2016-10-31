@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :departments, through: :memberships
   has_many :leads
@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :comments, as: :commentable      # As owner who created a comment.
   has_many :notifications, foreign_key: :recipient_id
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/missing_avatar.png"
+  has_attached_file :avatar, styles: { big: "300x300>", medium: "150x150>", thumb: "40x40>" }, default_url: "/assets/missing_avatar_:style.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   # Include default devise modules. Others available are:
@@ -17,4 +17,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :first_name, :last_name, presence: true
+
 end

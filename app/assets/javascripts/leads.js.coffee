@@ -34,10 +34,12 @@ $ ->
       aoData.push
         name: 'end'
         value: $('.datatables-datapicker').data('end')
-      # send to leads controller selected department value(:id)
-      aoData.push
-        name: 'department'
-        value: $('.select-departments').val()
+      if $('.leads-export').length                                                  # check if element exists on page
+        data = {}
+        aoData.forEach (item)->
+          data[item.name] = item.value
+        link = $('.leads-export')
+        link.attr('href', link.attr('href').split('?')[0] + '?' + $.param(data))
       return
     columnDefs: [
       {
@@ -57,6 +59,7 @@ $ ->
         sClass: 'text-center'
       }
     ])
+
   # redraw datatable with filtered statuses, when status checkbox is checked or unchecked
   $('.lead_status').on 'change', ->
     table.draw()
@@ -68,7 +71,7 @@ $ ->
   # External table additions
   # ------------------------------
   # Add placeholder to the datatable filter option
-  $('.dataTables_filter input[type=search]').attr 'placeholder', 'Введите имя, телефон...'
+  $('.dataTables_filter input[type=search]').attr 'placeholder', 'Имя, Телефон, Email'
   # Enable Select2 select for the length option
   $('.dataTables_length select').select2
     minimumResultsForSearch: Infinity

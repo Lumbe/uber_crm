@@ -34,7 +34,10 @@
                   Подробнее
               %li
                 %a{:href => "#tabs-basic-3"}
-                  Связанные карточки
+                  Связанные лиды
+                  - if @contact.related_leads.count > 0
+                    %span.badge.badge-info.position-right
+                      = @contact.related_leads.count
             #tabs-basic-1
               .row
                 .col-md-4
@@ -66,12 +69,6 @@
                                   .media-heading.text-semibold #{@contact.user.first_name} #{@contact.user.last_name}
                                   = link_to user_path(@contact.user) do
                                     %span.text-muted Профиль
-                                .media-right.media-middle
-                                  %ul.icons-list.icons-list-extended.text-nowrap
-                                    %li
-                                    %li
-                                      %a{"data-popup" => "tooltip", "data-target" => "#chat", "data-toggle" => "modal", :href => "#", :title => "Сообщение"}
-                                        %i.icon-comment
                       - if @contact.assignee.present?
                         %tr
                           %td.text-right Ответственный
@@ -85,11 +82,6 @@
                                   .media-heading.text-semibold #{@contact.assignee.first_name} #{@contact.assignee.last_name}
                                   = link_to user_path(@contact.assignee) do
                                     %span.text-muted Профиль
-                                .media-right.media-middle
-                                  %ul.icons-list.icons-list-extended.text-nowrap
-                                    %li
-                                      %a{"data-popup" => "tooltip", "data-target" => "#chat", "data-toggle" => "modal", :href => "#", :title => "Сообщение"}
-                                        %i.icon-comment
             #tabs-basic-2
               .row
                 .col-md-6
@@ -137,7 +129,29 @@
                           %strong Регион:
                         %td.col-md-2 #{@contact.region}
             #tabs-basic-3
-              Aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthet.
+              - if @contact.related_leads.present?
+                .table-responsive
+                  %table.table.table-borderless
+                    %thead
+                      %tr
+                        %th #
+                        %th Лид
+                        %th Добавлен
+                        %th Добавил
+                    %tbody
+                      - @contact.related_leads.each_with_index do |lead, index|
+                        %tr
+                          %td
+                            = index + 1
+                          %td
+                            = link_to lead.name, lead
+                          %td #{time_ago_in_words(lead.created_at)} назад
+                          %td
+                            = link_to user_path(lead.user) do
+                              = image_tag lead.user.avatar(:thumb), class: "img-circle"
+                              #{lead.user.first_name} #{lead.user.last_name}
+              - else
+                Связанные лиды отсутствуют
   .row
     .col-md-12
       = render "comments/form"

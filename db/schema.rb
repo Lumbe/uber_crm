@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,29 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928081920) do
+ActiveRecord::Schema.define(version: 20161027125107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "articles", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "commentable_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.text     "body"
     t.integer  "comment_type",     default: 0
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
   end
-
-  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
 
   create_table "competitors", force: :cascade do |t|
     t.string   "name"
@@ -73,9 +64,11 @@ ActiveRecord::Schema.define(version: 20160928081920) do
     t.boolean  "online_request"
     t.boolean  "come_in_office"
     t.boolean  "phone_call"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "department_id"
+    t.integer  "status",         default: 0
+    t.datetime "proposal_sent"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -127,7 +120,6 @@ ActiveRecord::Schema.define(version: 20160928081920) do
     t.boolean  "phone_call",     default: false
     t.integer  "status",         default: 0
     t.integer  "user_id"
-    t.integer  "contact_id"
     t.integer  "customer_id"
     t.integer  "assigned_to"
     t.integer  "department_id"
@@ -139,10 +131,9 @@ ActiveRecord::Schema.define(version: 20160928081920) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "role",          default: 0
+    t.index ["department_id"], name: "index_memberships_on_department_id", using: :btree
+    t.index ["user_id"], name: "index_memberships_on_user_id", using: :btree
   end
-
-  add_index "memberships", ["department_id"], name: "index_memberships_on_department_id", using: :btree
-  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "recipient_id"
@@ -177,10 +168,11 @@ ActiveRecord::Schema.define(version: 20160928081920) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.integer  "current_department_id"
+    t.string   "current_role",           default: ""
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "memberships", "departments"
   add_foreign_key "memberships", "users"

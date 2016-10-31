@@ -10,7 +10,7 @@
         .heading-elements
   .content
     / 2 columns form
-    = form_for @lead do |f|
+    = form_for @lead, url: create_delegated_lead_url do |f|
       = f.hidden_field :user_id
       = f.hidden_field :status
       = f.hidden_field :name
@@ -24,7 +24,7 @@
       = f.hidden_field :created_at
       = f.hidden_field :updated_at
       = f.hidden_field :region
-      = f.hidden_field :source, value: "Передали"
+      = f.hidden_field :source
       = f.hidden_field :online_request
       = f.hidden_field :come_in_office
       = f.hidden_field :phone_call
@@ -55,15 +55,14 @@
             .col-md-3
               %fieldset
                 %legend.text-semibold
-                  %i.icon-reading.position-left
-                  Персональные данные
+                  %i.icon-forward.position-left
+                  В какой отдел передать лид?
                 .row
                   .col-md-6
                     .form-group
-                      = f.label :department_id, 'В какой отдел передать лид?', class: "required"
                       .input-group
                         %span.input-group-addon
-                          .icon-versions
+                          .icon-office
                         = f.select(:department_id, @departments, {}, {class: 'select', required: true, data: { placeholder: 'Выберите отдел' }} )
           .text-left
             = f.submit 'Делегировать', class: 'btn btn-success'

@@ -1,4 +1,4 @@
-- if @user.departments.any?
+- if can? :manage, Contact
   / Page header
   .content-group
     .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
@@ -8,12 +8,8 @@
             %i.icon-users.position-left
             %span.text-semibold
               Контакты отдела -
-              - if @user.departments.count == 1
-                %span.text-size-large
-                  = @user.departments.first.name
-              - elsif @user.departments.any?
-                = select_tag(:department, options_from_collection_for_select(current_user.departments, :id, :name, 1), class: 'select-departments' )
-            %small.display-block Потенциальные клиенты
+              %span.text-semibold
+                = current_department.name
         .heading-elements
           = link_to new_contact_path do
             %button.btn.btn-success.heading-btn{:type => "button"}
@@ -23,7 +19,7 @@
     / Basic datatable
     .panel.panel-flat
       .panel-heading
-        %h5.panel-title Список контактов
+        %h5.panel-title Фильтр по регионам
         .heading-elements
           %ul.icons-list
             %li
@@ -35,11 +31,51 @@
       .panel-body
         .row
           .col-md-9
+            .form-group
+              .input-group
+                %span.input-group-addon
+                  .icon-earth
+                - regions_list = [['г.Хмельницкий', 'г.Хмельницкий'],
+                                  ['г.Камянец-Подольский', 'г.Камянец-Подольский'],
+                                  ['Хмельницкая обл.', 'Хмельницкая обл.'],
+                                  ['Винницкая обл.', 'Винницкая обл.'],
+                                  ['Черновицкая обл.', 'Черновицкая обл.'],
+                                  ['Ровенская обл.', 'Ровенская обл.'],
+                                  ['Волынская обл.', 'Волынская обл.'],
+                                  ['Днепропетровская обл.', 'Днепропетровская обл.'],
+                                  ['Донецкая обл.', 'Донецкая обл.'],
+                                  ['Житомирская обл.', 'Житомирская обл.'],
+                                  ['Закарпатская обл.', 'Закарпатская обл.'],
+                                  ['Запорожская обл.', 'Запорожская обл.'],
+                                  ['Ивано-Франковская обл.', 'Ивано-Франковская обл.'],
+                                  ['Киевская обл.', 'Киевская обл.'],
+                                  ['Кировоградская обл.', 'Кировоградская обл.'],
+                                  ['Луганская обл.', 'Луганская обл.'],
+                                  ['Львовская обл.', 'Львовская обл.'],
+                                  ['Николаевская обл.', 'Николаевская обл.'],
+                                  ['Одесская обл.', 'Одесская обл.'],
+                                  ['Полтавская обл.', 'Полтавская обл.'],
+                                  ['Сумская обл.', 'Сумская обл.'],
+                                  ['Тернопольская обл.', 'Тернопольская обл.'],
+                                  ['Харьковская обл.', 'Харьковская обл.'],
+                                  ['Херсонская обл.', 'Херсонская обл.'],
+                                  ['Черкасская обл.', 'Черкасская обл.'],
+                                  ['Черниговская обл.', 'Черниговская обл.'],
+                                  ['Киев', 'Киев'],
+                                  ['Севастополь', 'Севастополь'],
+                                  ['АР Крым', 'АР Крым'],
+                                  ['Неизвестно', 'Неизвестно']]
+                = select_tag(:filtered_regions, options_for_select(regions_list), {class: 'filtered-regions', multiple: true, data: { placeholder: 'Выберите регион(-ы)' }} )
+              .text-left.mt-10
+                %button.btn.bg-slate-400.select-filtered-regions-clear{type: 'button'} Очистить фильтр
           .col-md-3
             .content-group.pull-right
-              %span.display-block.text-semibold.text-right.mb-5 Дата создания
               %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d %T'), end: Time.zone.now.strftime('%Y-%m-%d %T') }}
                 %i.icon-calendar2.position-left
                 %span
                 %b.caret
         = render 'contacts_table'
+        - if current_user.admin?
+          .row
+            .col-md-12
+              = link_to 'excel', contacts_path(format: :xlsx), class: 'contacts-export btn btn-default'

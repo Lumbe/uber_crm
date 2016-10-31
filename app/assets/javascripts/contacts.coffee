@@ -12,6 +12,15 @@ $ ->
     minimumResultsForSearch: Infinity
     containerCssClass: 'select-sm'
     width: 200
+    
+  $('.filtered-regions').select2
+    minimumResultsForSearch: Infinity
+    containerCssClass: 'select-sm'
+    width: 600
+    
+  $('.select-filtered-regions-clear').on 'click', ->
+    $('.filtered-regions').val(null).trigger('change')
+
 
   # DataTable for Contacts
   table = $('.datatable-contacts').DataTable(
@@ -25,10 +34,15 @@ $ ->
       aoData.push
         name: 'end'
         value: $('.datatables-datapicker').data('end')
-      # send to leads controller selected department value(:id)
       aoData.push
-        name: 'department'
-        value: $('.select-departments').val()
+          name: 'filtered_regions'
+          value: $('.filtered-regions').val()
+      if $('.contacts-export').length                                                  # check if element exists on page
+        data = {}
+        aoData.forEach (item)->
+          data[item.name] = item.value
+        link = $('.contacts-export')
+        link.attr('href', link.attr('href').split('?')[0] + '?' + $.param(data))
       return
     columnDefs: [
       {
@@ -39,11 +53,12 @@ $ ->
           3
           4
           5
+          6
         ]
         bSortable: false
       }
       {
-        aTargets: [ 5 ]
+        aTargets: [ 6 ]
         sClass: 'text-center'
       }
     ])
@@ -51,11 +66,16 @@ $ ->
   $('.select-departments').on 'change', ->
     table.draw()
     return
+    
+  # redraw datatable on regions change
+  $('.filtered-regions').on 'change', ->
+    table.draw()
+    return
 
   # External table additions
   # ------------------------------
   # Add placeholder to the datatable filter option
-  $('.dataTables_filter input[type=search]').attr 'placeholder', 'Введите имя, телефон...'
+  $('.dataTables_filter input[type=search]').attr 'placeholder', 'имя, телефон, email'
   # Enable Select2 select for the length option
   $('.dataTables_length select').select2
     minimumResultsForSearch: Infinity

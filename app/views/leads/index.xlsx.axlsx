@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Лиды") do |sheet|
+  sheet.add_row Lead.new.attributes.keys
+  @leads.each do |lead|
+    sheet.add_row lead.attributes.values
+  end
+end

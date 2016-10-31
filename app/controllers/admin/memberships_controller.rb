@@ -1,7 +1,7 @@
 class Admin::MembershipsController < ApplicationController
-  before_filter :load_department
-  before_filter :load_membership, :except => [:new, :create, :index, :edit]
-  before_filter :load_roles
+  before_action :load_department
+  before_action :load_membership, :except => [:new, :create, :index, :edit]
+  before_action :load_roles
   
   def new
     @membership = @department.memberships.new

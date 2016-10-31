@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :load_user
-  before_filter :load_memberships
+  before_action :load_user
+  before_action :load_memberships
   
   def index
   end

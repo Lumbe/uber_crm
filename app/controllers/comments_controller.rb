@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :load_commentable
+  before_action :load_commentable
   
   def index
     @comments = @commentable.comments.order(created_at: :desc)
@@ -16,7 +16,9 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new(comment_params)
     if @comment.save
-      redirect_to @commentable, notice: "Комментарий добавлен."
+      @commentable.update(status: 'proposal', proposal_sent: Time.zone.now) if @commentable.is_a?(Contact) && @comment.comment_type == 'commercial_prop'
+      @commentable.update(status: 'finished') if @commentable.is_a?(Contact) && @comment.comment_type == 'phone_call'
+      redirect_to @commentable, notice: "Комментарий добавлен"
     else
       render 'new'
     end
@@ -37,7 +39,7 @@ class CommentsController < ApplicationController
   private
   
   def comment_params
-    params.require(:comment).permit(:body, :user_id)
+    params.require(:comment).permit(:body, :user_id, :comment_type)
   end
   
   # works well if used default url format

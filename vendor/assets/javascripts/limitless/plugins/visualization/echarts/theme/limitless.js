@@ -1,6 +1,5 @@
-define(function() {
-
-var theme10 = {
+window.echarts.themes = window.echarts.themes || {}
+window.echarts.themes.limitless = {
     // 默认色板
     color: [
         '#2ec7c9','#b6a2de','#5ab1ef','#ffb980','#d87a80',
@@ -311,6 +310,3 @@ var theme10 = {
         fontFamily: 'Roboto, Arial, Verdana, sans-serif'
     }
 };
-
-    return theme10;
-});

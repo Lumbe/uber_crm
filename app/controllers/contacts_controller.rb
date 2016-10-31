@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
-
+  load_and_authorize_resource except: [:new]
+  
   def index
     @user = current_user
     if !@user.departments.any?
@@ -7,25 +8,11 @@ class ContactsController < ApplicationController
     end
     respond_to do |format|
       format.html
+      format.xlsx do
+        @contacts = load_contacts(false).first
+      end
       format.json do
-                # load contacts with filtered statuses and dates from datapicker
-        @contacts =  if params[:department].present?
-                    Contact.where(department: params[:department], created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
-                  elsif @user.departments.any?
-                    Contact.where(department: current_user.departments.first, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order(created_at: :desc)
-                  end
-        # total count for datatable view
-        total_count = if params[:department].present?
-                        Contact.where(department: params[:department]).count
-                      elsif @user.departments.present?
-                        Contact.where(department: @user.departments.first).count
-                      end
-        # count fo datatable view
-        count = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : @contacts.count
-        # paginate with kaminari gem
-        @contacts = @contacts.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if params[:iDisplayLength].to_i > 0
-        # search with ransack gem
-        @contacts = params[:sSearch].present? ? @contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result : @contacts
+        @contacts, count, total_count = load_contacts
         # render json on ajax request
         render json: {
           sEcho: params[:sEcho].to_i + 1,
@@ -33,6 +20,25 @@ class ContactsController < ApplicationController
           iTotalDisplayRecords: count,
           aaData: @contacts.map do |contact| 
             [
+              case contact.status
+              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
+                " " +
+                (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
+              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning mb-5') +
+                " " +
+                (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
+              when 'proposal' then (view_context.content_tag :span, 'Отправлено КП', class: 'label label-info mb-5') +
+                " " +
+                (view_context.link_to (view_context.content_tag :i, '', class: 'icon-phone-plus2'), phone_call_path(contact), class: 'label label-flat text-success label-success') +
+                if !contact.proposal_sent.nil?
+                  if ( Time.zone.now.to_i - contact.proposal_sent.to_i) > 86400
+                    (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад", class: 'text-bold text-danger')
+                  else
+                    (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад")
+                  end
+                end
+              when 'finished' then view_context.content_tag :span, 'Завершено', class: 'label label-default'
+              end,
               view_context.link_to(contact.name, contact_path(contact)),
               contact.phone,
               contact.email,
@@ -61,6 +67,7 @@ class ContactsController < ApplicationController
   
   def create
     @contact = Contact.new(contact_params)
+    @contact.repeated! if @contact.lead_exists?
     @department = @contact.department
     if @contact.save
       # Create the notifications
@@ -68,7 +75,7 @@ class ContactsController < ApplicationController
         Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @contact)
       end
       
-      redirect_to @contact
+      redirect_to contacts_path
     else
       render 'new'
     end
@@ -95,6 +102,20 @@ class ContactsController < ApplicationController
 
     redirect_to contacts_path
   end
+  
+  def phone_call
+    @contact = Contact.find(params[:id])
+    @user = current_user
+    @commentable = @contact
+    @comment = @commentable.comments.new
+  end
+  
+  def send_proposal
+    @contact = Contact.find(params[:id])
+    @user = current_user
+    @commentable = @contact
+    @comment = @commentable.comments.new
+  end
 
   private
 
@@ -104,5 +125,35 @@ class ContactsController < ApplicationController
                                  :region, :source, :online_request,
                                  :come_in_office, :phone_call, :status,
                                  :user_id, :department_id, :assigned_to)
+  end
+  
+  def load_contacts(paginate=true)
+    # load contacts with filtered statuses and dates from datapicker
+    contacts =  Contact.where(department: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order_by_status.order(created_at: :desc)
+    # total count for datatable view
+    total_count = Contact.where(department: @user.current_department_id).count
+    # count fo datatable view
+    count =
+      if params[:sSearch].present? && params[:filtered_regions].present?
+        contacts.where(region: params[:filtered_regions]).search(name_or_phone_or_email_cont: params[:sSearch]).result.count
+      elsif params[:sSearch].present?
+        contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result.count
+      elsif params[:filtered_regions].present?
+        contacts.where(region: params[:filtered_regions]).count
+      else
+        contacts.count
+      end
+    # paginate with kaminari gem
+    contacts = contacts.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if paginate && params[:iDisplayLength].to_i > 0
+    # search with ransack gem
+    if params[:sSearch].present? && params[:filtered_regions].present?
+      [contacts.where(region: params[:filtered_regions]).search(name_or_phone_or_email_cont: params[:sSearch]).result, count, total_count]
+    elsif params[:sSearch].present?
+      [contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result, count, total_count]
+    elsif params[:filtered_regions].present?
+      [contacts.where(region: params[:filtered_regions]), count, total_count]
+    else
+      [contacts, count, total_count]
+    end
   end
 end
