@@ -5,9 +5,13 @@ class Lead < ApplicationRecord
   belongs_to :customer, optional: true
   belongs_to :department
   has_many :comments, as: :commentable
-  phony_normalize :phone, default_country_code: 'UA'
   validates :name, :phone, presence: true
-  validates :phone, phony_plausible: { enforce_record_country: false }
+  phony_normalize :phone, default_country_code: 'UA'
+  # validates :phone, phony_plausible: { enforce_record_country: false }
+  # validates_plausible_phone :phone,
+  #                         phony_plausible: { ignore_record_country_code: true },
+  #                         presence: true,
+  #                         message: :improbable_phone
 
   enum status: [:newly, :closed, :converted, :sended, :repeated, :claimed]
   
