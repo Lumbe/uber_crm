@@ -45,8 +45,8 @@ gem 'hamlit'
 # should be updated after less-rails fixed issue https://github.com/metaskills/less-rails/issues/122
 gem 'less-rails', :git => 'https://github.com/Lumbe/less-rails.git', :branch => 'rails5'
 gem 'pg'
+gem 'puma'
 gem 'rails-i18n', '~> 5.0', '>= 5.0.1'
-
 gem 'kaminari'
 gem 'ransack'
 gem 'devise'
@@ -82,7 +82,11 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3.3', '>= 3.3.1'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
