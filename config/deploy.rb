@@ -79,14 +79,12 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       invoke 'puma:restart'
-      Rake::Task['puma:restart'].reenable
     end
   end
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-  after  :finishing,    :restart
 end
 
 # ps aux | grep puma    # Get puma pid
