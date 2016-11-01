@@ -48,10 +48,19 @@
                         %td.col-md-2 #{@contact.name}
                       %tr
                         %td.col-md-1.text-bold Телефон:
-                        %td.col-md-2 #{@contact.phone}
-                      %tr.border-bottom.border-bottom-green-300
+                        %td.col-md-2
+                          #{@contact.phone}
+                          - if @contact.do_not_call?
+                            %span.label.label-warning Не звонить
+                      %tr
                         %td.col-md-1.text-bold e-mail:
-                        %td.col-md-2 #{@contact.email}
+                        %td.col-md-2
+                          #{@contact.email}
+                          - if @contact.do_not_call?
+                            %span.label.label-warning Не писать
+                      %tr.border-bottom.border-bottom-green-300
+                        %td.col-md-1.text-bold Доп. e-mail:
+                        %td.col-md-2 #{@contact.alt_email}
                 .col-md-3
                 .col-md-5
                   %table.table.table-sm.table-borderless

@@ -9,9 +9,9 @@ class Contact < ApplicationRecord
   validates :name, :phone, :source, :region, presence: true
   # validates :phone, phony_plausible: { enforce_record_country: false }
   
-  enum status: [:newly, :repeated, :proposal, :finished]
+  enum status: [:newly, :repeated, :proposal, :finished, :sended]
   
-  scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :finished) {
+  scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :sended, fifth = :finished) {
     order("status = #{Contact.statuses[first]} DESC, status = #{Contact.statuses[second]} DESC, status = #{Contact.statuses[third]} DESC, status = #{Contact.statuses[fourth]} DESC")
     }
 
