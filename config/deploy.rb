@@ -6,7 +6,7 @@ set :application,     'ubercrm'
 set :user,            'deploy'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
-# set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/secrets.yml}
 
 # Don't change these unless you know what you're doing
 set :pty,             true
@@ -59,13 +59,13 @@ namespace :deploy do
     end
   end
   
-  # desc 'Upload YAML files.'
-  # task :upload_yml do
-  #   on roles(:app) do
-  #     execute "mkdir #{shared_path}/config -p"
-  #     upload! StringIO.new(File.read("config/database.yml")), "#{shared_path}/config/database.yml"
-  #   end
-  # end
+  desc 'Upload YAML files.'
+  task :upload_yml do
+    on roles(:app) do
+      execute "mkdir #{shared_path}/config -p"
+      upload! StringIO.new(File.read("config/secrets.yml")), "#{shared_path}/config/secrets.yml"
+    end
+  end
 
   desc 'Initial Deploy'
   task :initial do
