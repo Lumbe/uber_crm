@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :comments, as: :commentable      # As owner who created a comment.
   has_many :notifications, foreign_key: :recipient_id
 
-  has_attached_file :avatar, styles: { big: "300x300>", medium: "150x150>", thumb: "40x40>" }, default_url: "/assets/missing_avatar_:style.png"
+  has_attached_file :avatar, styles: { big: "300x300>", medium: "150x150>", thumb: "40x40>" }, default_url: "missing_avatar_:style.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   # Include default devise modules. Others available are:
