@@ -17,3 +17,4 @@
 /tmp
 coverage
 config/secrets.yml
+config/database.yml
