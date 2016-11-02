@@ -46,6 +46,14 @@
         .row
           .col-md-12
             .form-group
+              = f.label :alt_email, 'Альтернативный Email'
+              .input-group
+                %span.input-group-addon.bg-green-600
+                  .icon-mail5
+                = f.email_field :alt_email, class: 'form-control', placeholder: 'example@mail.com'
+        .row
+          .col-md-12
+            .form-group
               = f.label :question, 'Сообщение от клиента'
               = f.text_area :question, class: 'form-control', size: "5x4", 'placeholder' => 'Сюда писать ничего не надо, формируется на сайте...'
     .col-md-9
@@ -158,6 +166,11 @@
                   %span.input-group-addon
                     .icon-versions
                   = f.collection_select(:department_id, @departments, :id, :name, {}, {class: 'select', required: true, data: { placeholder: 'Выберите отдел' }} )
+        .row
+          .col-md-6
+            = f.label :do_not_call, class: 'checkbox-inline' do
+              = f.check_box :do_not_call, class: 'styled'
+              Не звонить/не отправлять рассылки
   .text-left
     = f.submit 'Сохранить', class: 'btn btn-success'
 / /2 columns form

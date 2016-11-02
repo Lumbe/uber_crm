@@ -38,10 +38,19 @@ class ContactsController < ApplicationController
                   end
                 end
               when 'finished' then view_context.content_tag :span, 'Завершено', class: 'label label-default'
+              when 'sended' then view_context.content_tag :span, 'Передан', class: 'label label-info'
               end,
               view_context.link_to(contact.name, contact_path(contact)),
-              contact.phone,
-              contact.email,
+              if contact.do_not_call?
+                view_context.content_tag :span, contact.phone, class: 'text-danger'
+              else
+                contact.phone
+              end, 
+              if contact.do_not_call?
+                view_context.content_tag :span, contact.email, class: 'text-danger'
+              else
+                contact.email
+              end,
               contact.region,
               "#{view_context.time_ago_in_words(contact.created_at)} назад",
               view_context.link_to("#{contact.assignee.first_name} #{contact.assignee.last_name}", user_path(contact.assignee))
@@ -124,7 +133,8 @@ class ContactsController < ApplicationController
                                  :project, :square, :floor, :question,
                                  :region, :source, :online_request,
                                  :come_in_office, :phone_call, :status,
-                                 :user_id, :department_id, :assigned_to)
+                                 :user_id, :department_id, :assigned_to,
+                                 :alt_email, :do_not_call)
   end
   
   def load_contacts(paginate=true)
