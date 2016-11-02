@@ -11,7 +11,7 @@ class Contact < ApplicationRecord
   
   enum status: [:newly, :repeated, :proposal, :finished, :sended]
   
-  scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :sended, fifth = :finished) {
+  scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :finished, fifth = :sended) {
     order("status = #{Contact.statuses[first]} DESC, status = #{Contact.statuses[second]} DESC, status = #{Contact.statuses[third]} DESC, status = #{Contact.statuses[fourth]} DESC")
     }
 
