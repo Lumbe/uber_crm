@@ -1,3 +1,7 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+
+  def index
+    @activities = PublicActivity::Activity.where(trackable_department_id: current_user.departments.ids).order(created_at: :desc).first(100)
+  end
+
 end

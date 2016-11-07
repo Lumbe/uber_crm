@@ -1,4 +1,6 @@
 class Contact < ApplicationRecord
+  include PublicActivity::Common
+
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true
   belongs_to :customer, optional: true
@@ -7,8 +9,7 @@ class Contact < ApplicationRecord
   has_many :comments, as: :commentable
   phony_normalize :phone, default_country_code: 'UA'
   validates :name, :phone, :source, :region, presence: true
-  # validates :phone, phony_plausible: { enforce_record_country: false }
-  
+
   enum status: [:newly, :repeated, :proposal, :finished, :sended]
   
   scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :finished, fifth = :sended) {

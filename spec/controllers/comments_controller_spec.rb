@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
-  
+
   describe 'comments create on Contact#send_proposal' do
     login_user('manager')
     before :each do
