@@ -1,4 +1,6 @@
 class Admin::DepartmentsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @departments = Department.all.order(created_at: :asc)
   end
