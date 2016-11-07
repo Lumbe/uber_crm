@@ -82,7 +82,7 @@ class LeadsController < ApplicationController
 
   def new
     @lead = Lead.new
-    @departments = current_user.departments
+    @departments = current_user.departments.uniq
   end
   
   def create
@@ -94,6 +94,8 @@ class LeadsController < ApplicationController
       (@department.users.uniq - [current_user]).each do |user|
         Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @lead)
       end
+      @lead.create_activity :create, owner: current_user, trackable_department_id: @lead.department_id
+
       redirect_to leads_path
     else
       render 'new'
@@ -127,6 +129,7 @@ class LeadsController < ApplicationController
     @user = current_user
     @lead.claimed!
     @lead.update(assignee: @user)
+    @lead.create_activity :claim, owner: current_user, trackable_department_id: @lead.department_id
     
     redirect_back(fallback_location: leads_path)
   end
@@ -136,7 +139,8 @@ class LeadsController < ApplicationController
     @user = current_user
     @lead.closed!
     @lead.update(assignee: @user)
-    
+    @lead.create_activity :close, owner: current_user, trackable_department_id: @lead.department_id
+
     redirect_back(fallback_location: leads_path)
   end
   
@@ -145,10 +149,12 @@ class LeadsController < ApplicationController
     if @lead.related_contacts.present?
       @lead.converted!
       @lead.related_contacts.each { |contact| contact.repeated! }
+      @lead.create_activity :convert, owner: current_user, trackable_department_id: @lead.department_id
+
       redirect_to contacts_path, notice: "Контакт с номером телефона или email лида #{@lead.name} уже существует. Его статус изменен на 'Повторно'"
     end
-    @lead.converted!
-    @departments = current_user.departments
+    session[:converted_lead_id] = @lead.id
+    @departments = current_user.departments.uniq
     contact_attributes = Lead.find(params[:id]).attributes.select { |key, value| Contact.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
     contact_attributes['user_id'] ||= current_user.id
     contact_attributes['assigned_to'] ||= current_user.id
@@ -157,7 +163,8 @@ class LeadsController < ApplicationController
   
   def delegate
     @lead = Lead.find(params[:id])
-    @lead.sended!
+    # @lead.sended!
+    session[:delegated_lead_id] = @lead.id
     @departments = Department.all.collect {|department| [ department.name, department.id ] }
     lead_attributes = Lead.find(params[:id]).attributes.select { |key, value| Lead.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
     lead_attributes['user_id'] = current_user.id
@@ -175,6 +182,15 @@ class LeadsController < ApplicationController
       (@department.users.uniq - [current_user]).each do |user|
         Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @lead)
       end
+
+      # change status of delegated lead and create :delegate activity
+      delegated_lead = Lead.find_by(id: session[:delegated_lead_id])
+      delegated_lead.sended!
+      delegated_lead.create_activity :delegate, owner: current_user, trackable_department_id: delegated_lead.department_id, parameters: { department: @department.name }
+      session[:delegated_lead_id] = nil
+
+      # activity for created lead
+      @lead.create_activity :create, owner: current_user, trackable_department_id: @lead.department_id
 
       flash[:notice] = "Лид #{@lead.name} успешно передан в отдел: #{@lead.department.name}"
       redirect_to leads_path
@@ -221,4 +237,5 @@ class LeadsController < ApplicationController
     # search with ransack gem
     [params[:sSearch].present? ? leads.search(name_or_phone_or_email_cont: params[:sSearch]).result : leads, count, total_count]
   end
+
 end

@@ -71,7 +71,7 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
-    @departments = current_user.departments
+    @departments = current_user.departments.uniq
   end
   
   def create
@@ -83,6 +83,14 @@ class ContactsController < ApplicationController
         Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @contact)
       end
       
+      if session[:converted_lead_id].present?
+        converted_lead = Lead.find_by(id: session[:converted_lead_id])
+        converted_lead.converted!
+        converted_lead.create_activity :convert, owner: current_user, trackable_department_id: converted_lead.department_id
+        session[:converted_lead_id] = nil
+      end
+      @contact.create_activity :create, owner: current_user, trackable_department_id: @contact.department_id
+
       redirect_to contacts_path
     else
       render 'new'

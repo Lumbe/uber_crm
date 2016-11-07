@@ -1,4 +1,6 @@
 class Lead < ApplicationRecord
+  include PublicActivity::Common
+
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true
   belongs_to :contact, optional: true
@@ -7,11 +9,6 @@ class Lead < ApplicationRecord
   has_many :comments, as: :commentable
   validates :name, :phone, presence: true
   phony_normalize :phone, default_country_code: 'UA'
-  # validates :phone, phony_plausible: { enforce_record_country: false }
-  # validates_plausible_phone :phone,
-  #                         phony_plausible: { ignore_record_country_code: true },
-  #                         presence: true,
-  #                         message: :improbable_phone
 
   enum status: [:newly, :closed, :converted, :sended, :repeated, :claimed]
   

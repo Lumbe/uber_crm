@@ -16,8 +16,14 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new(comment_params)
     if @comment.save
-      @commentable.update(status: 'proposal', proposal_sent: Time.zone.now) if @commentable.is_a?(Contact) && @comment.comment_type == 'commercial_prop'
-      @commentable.update(status: 'finished') if @commentable.is_a?(Contact) && @comment.comment_type == 'phone_call'
+      if @commentable.is_a?(Contact) && @comment.comment_type == 'commercial_prop'
+        @commentable.update(status: 'proposal', proposal_sent: Time.zone.now)
+        @commentable.create_activity :send_proposal, owner: current_user, trackable_department_id: @commentable.department_id
+      elsif @commentable.is_a?(Contact) && @comment.comment_type == 'phone_call'
+        @commentable.update(status: 'finished')
+        @commentable.create_activity :phone_call, owner: current_user, trackable_department_id: @commentable.department_id
+      end
+
       redirect_to @commentable, notice: "Комментарий добавлен"
     else
       render 'new'

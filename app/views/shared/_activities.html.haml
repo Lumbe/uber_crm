@@ -1,0 +1,47 @@
+.panel.panel-flat
+  .panel-heading
+    %h6.panel-title
+      Недавние действия
+      %a.heading-elements-toggle
+        %i.icon-more
+    .heading-elements
+      %ul.icons-list
+        %li
+          %a{"data-action" => "collapse"}
+        %li
+          %a{"data-action" => "reload"}
+        %li
+          %a{"data-action" => "close"}
+  .panel-body
+    %ul.media-list
+      - @activities.each do |activity|
+        %li.media
+          .media-left
+            - if activity.owner
+              = link_to user_path(activity.owner) do
+                = image_tag activity.owner.avatar(:thumb), class: 'img-circle'
+            - else
+              .btn.border-default.text-grey.btn-flat.btn-icon.btn-rounded.btn-sm.cursor-default
+                %i.icon-question7
+          .media-body
+            %h6.media-heading.text-semibold
+            - if activity.owner
+              = link_to "#{activity.owner.first_name} #{activity.owner.last_name}", user_path(activity.owner)
+            - else
+              Неизвестный
+            = render_activity activity, display: :i18n
+            - if activity.trackable && activity.trackable.is_a?(Lead)
+              = link_to activity.trackable.name, lead_path(activity.trackable)
+            - elsif activity.trackable && activity.trackable.is_a?(Contact)
+              = link_to activity.trackable.name, contact_path(activity.trackable)
+            - else
+              навсегда.
+            - if activity.parameters[:department]
+              в отдел
+              = activity.parameters[:department]
+            %ul.list-inline.mt-5
+              %li.text-muted
+                = time_ago_in_words(activity.created_at)
+                назад
+              %li.text-semibold
+                = Department.find_by_id(activity.trackable_department_id).name
