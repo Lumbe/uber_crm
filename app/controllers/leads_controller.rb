@@ -82,7 +82,7 @@ class LeadsController < ApplicationController
 
   def new
     @lead = Lead.new
-    @departments = current_user.departments
+    @departments = current_user.departments.uniq
   end
   
   def create

@@ -71,7 +71,7 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
-    @departments = current_user.departments
+    @departments = current_user.departments.uniq
   end
   
   def create
