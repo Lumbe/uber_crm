@@ -81,13 +81,6 @@ RSpec.describe ContactsController, type: :controller do
         expect(response).to redirect_to(contacts_path)
       end
 
-      it 'change status if exists' do
-        user = subject.current_user
-        lead = create(:lead, email: Faker::Internet.email, department_id: user.current_department_id)
-        post :create, params: { contact: attributes_with_foreign_keys(:contact, email: lead.email, department_id: user.current_department_id) }
-        expect(assigns(:contact).status).to eq('repeated')
-      end
-
       it 'creates notification' do
         user = subject.current_user
         user2 = create(:user)

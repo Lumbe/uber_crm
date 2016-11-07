@@ -263,10 +263,9 @@ RSpec.describe LeadsController, type: :controller do
         expect(assigns(:lead)).to eq(@lead)
     end
 
-    it 'changes lead status' do
+    it 'store session[:converted_lead_id]' do
       get :convert, params: { id: @lead }
-      @lead.reload
-      expect(@lead.status).to eq('converted')
+      expect(session[:converted_lead_id]).to eq(@lead.id)
     end
 
     it 'renders convert view' do
@@ -277,7 +276,7 @@ RSpec.describe LeadsController, type: :controller do
     it 'populates @contact from @lead' do
       get :convert, params: { id: @lead }
       @lead.reload
-      expect(assigns(:contact).attributes.except('id', 'created_at', 'updated_at', 'status', 'proposal_sent')).to eq(@lead.attributes.except('id', 'created_at', 'updated_at', 'status'))
+      expect(assigns(:contact).attributes.except('id', 'created_at', 'updated_at', 'status', 'proposal_sent', 'alt_email', 'do_not_call')).to eq(@lead.attributes.except('id', 'created_at', 'updated_at', 'status'))
     end
 
     it 'changes related contact status' do
@@ -322,10 +321,9 @@ RSpec.describe LeadsController, type: :controller do
       expect(assigns(:lead).status).to eq('newly')
     end
 
-    it 'changes lead status' do
+    it 'store session[:delegated_lead_id]' do
       get :delegate, params: { id: @lead }
-      @lead.reload
-      expect(@lead.status).to eq('sended')
+      expect(session[:delegated_lead_id]).to eq(@lead.id)
     end
 
     it 'renders convert view' do
@@ -339,6 +337,7 @@ RSpec.describe LeadsController, type: :controller do
     before :each do
       @user = subject.current_user
       @lead = create(:lead, user: @user, department_id: @user.current_department_id)
+      session[:delegated_lead_id] = @lead.id
     end
 
     context "with valid attributes" do
