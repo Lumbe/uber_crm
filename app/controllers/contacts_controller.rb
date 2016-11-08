@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   load_and_authorize_resource except: [:new]
+  before_action :load_statuses, only: [:new, :edit, :create]
   
   def index
     @user = current_user
@@ -143,7 +144,11 @@ class ContactsController < ApplicationController
                                  :user_id, :department_id, :assigned_to,
                                  :alt_email, :do_not_call)
   end
-  
+
+  def load_statuses
+    @statuses = Contact.status_attributes_for_select
+  end
+
   def load_contacts(paginate=true)
     # load contacts with filtered statuses and dates from datapicker
     contacts =  Contact.where(department: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order_by_status.order(created_at: :desc)

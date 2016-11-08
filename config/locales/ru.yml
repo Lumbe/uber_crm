@@ -22,6 +22,15 @@ ru:
           tech_designer: Архитектор
           estimator: Сметчик
           accountant: Бухгалтер
+      contact:
+        name: "Имя"
+        phone: "Телефон"
+        statuses:
+          newly: Новый
+          repeated: Повторно
+          proposal: Отправлено КП
+          finished: Завершено
+          sended: Передан
   lead:
     status:
       newly: Новый

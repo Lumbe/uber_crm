@@ -160,12 +160,6 @@
                     = f.select(:floor, ['Одноэтажный дом', 'Двухэтажный дом'], { include_blank: true }, {class: 'select', data: { placeholder: 'Выберите этажность' }} )
             .row
               .col-md-6
-                .form-group
-                  = f.label :status, 'Статус'
-                  .input-group
-                    %span.input-group-addon
-                      .icon-versions
-                    = f.select(:status, @statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
                 - if current_user.departments.count == 1
                   = f.hidden_field :department_id, value: current_user.departments.first.id
                 - else
@@ -175,5 +169,12 @@
                       %span.input-group-addon
                         .icon-versions
                       = f.collection_select(:department_id, @departments, :id, :name, {}, {class: 'select', required: true, data: { placeholder: 'Выберите отдел' }} )
+              .col-md-6
+                .form-group
+                  = f.label :status, 'Статус'
+                  .input-group
+                    %span.input-group-addon
+                      .icon-versions
+                    = f.select(:status, @statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
       .text-left
         = f.submit 'Сохранить', class: 'btn btn-success'

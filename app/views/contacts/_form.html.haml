@@ -166,6 +166,13 @@
                   %span.input-group-addon
                     .icon-versions
                   = f.collection_select(:department_id, @departments, :id, :name, {}, {class: 'select', required: true, data: { placeholder: 'Выберите отдел' }} )
+          .col-md-6
+            .form-group
+              = f.label :status, 'Статус'
+              .input-group
+                %span.input-group-addon
+                  .icon-versions
+                = f.select(:status, @statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
         .row
           .col-md-6
             = f.label :do_not_call, class: 'checkbox-inline' do
