@@ -55,7 +55,7 @@
           .col-md-12
             .form-group
               = f.label :question, 'Сообщение от клиента'
-              = f.text_area :question, class: 'form-control', size: "5x4", 'placeholder' => 'Сюда писать ничего не надо, формируется на сайте...'
+              = f.text_area :question, class: 'form-control', readonly: 'readonly', size: "5x4", placeholder: 'Сообщение от клиента'
     .col-md-9
       %fieldset
         %legend.text-semibold
