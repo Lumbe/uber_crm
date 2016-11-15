@@ -151,7 +151,7 @@ class ContactsController < ApplicationController
 
   def load_contacts(paginate=true)
     # load contacts with filtered statuses and dates from datapicker
-    contacts =  Contact.where(department: @user.current_department_id).order_by_status.order(created_at: :desc)
+    contacts =  Contact.where(department: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order_by_status.order(created_at: :desc)
     # total count for datatable view
     total_count = Contact.where(department: @user.current_department_id).count
     # count fo datatable view
@@ -160,10 +160,6 @@ class ContactsController < ApplicationController
         contacts.where(region: params[:filtered_regions]).search(name_or_phone_or_email_cont: params[:sSearch]).result.count
       elsif params[:sSearch].present?
         contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result.count
-      elsif params[:start].present? && params[:end].present? && params[:filtered_regions].present?
-        contacts.where(created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end]), region: params[:filtered_regions]).count
-      elsif params[:start].present? && params[:end].present?
-        contacts.where(created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).count
       elsif params[:filtered_regions].present?
         contacts.where(region: params[:filtered_regions]).count
       else
@@ -176,10 +172,6 @@ class ContactsController < ApplicationController
       [contacts.where(region: params[:filtered_regions]).search(name_or_phone_or_email_cont: params[:sSearch]).result, count, total_count]
     elsif params[:sSearch].present?
       [contacts.search(name_or_phone_or_email_cont: params[:sSearch]).result, count, total_count]
-    elsif params[:start].present? && params[:end].present? && params[:filtered_regions].present?
-      [contacts.where(created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end]), region: params[:filtered_regions]), count, total_count]
-    elsif params[:start].present? && params[:end].present?
-      [contacts.where(created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])), count, total_count]
     elsif params[:filtered_regions].present?
       [contacts.where(region: params[:filtered_regions]), count, total_count]
     else
