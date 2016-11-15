@@ -38,7 +38,7 @@
                   = t("lead.status.#{key}")
           .col-md-3
             .content-group.pull-right
-              %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: (Time.zone.now - 30.days).strftime('%Y-%m-%d %T'), end: Time.zone.now.strftime('%Y-%m-%d %T') }}
+              %button.btn.btn-default.daterange-ranges.heading-btn.datatables-datapicker{:type => "button", data: { start: '', end: '' }}
                 %i.icon-calendar2.position-left
                 %span
                 %b.caret
