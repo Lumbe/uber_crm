@@ -1,0 +1,39 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    = stylesheet_link_tag 'send_lead', media: 'all'
+  %body
+    %h2
+      Новый лид
+    %div
+      %span.text-bold Имя: 
+      = @lead.name
+    %div
+      %span.text-bold Телефон: 
+      = @lead.phone
+    - if @lead.email.present?
+      %div
+        %span.text-bold Электронная почта:
+        = @lead.email
+    - if @lead.location.present?
+      %div
+        %span.text-bold Где хочет строить: 
+        = @lead.location
+    - if @lead.question.present?
+      %div
+        %span.text-bold Вопрос: 
+        = @lead.question
+    %br
+    %div
+      Строительная компания "Сервус Поділля".
+      %br
+      Энергосберегающие дома и коттеджи "под ключ"
+      %br
+      г.Хмельницкий, ул.Героев Майдана, 1
+      %br
+      www.servus.km.ua
+      %br
+      тел.(0382) 707-606
+      %br
+      моб.(098) 747-747-8

@@ -47,6 +47,7 @@ gem 'less-rails', :git => 'https://github.com/Lumbe/less-rails.git', :branch => 
 gem 'pg'
 gem 'puma'
 gem 'rails-i18n', '~> 5.0', '>= 5.0.1'
+gem 'nokogiri'
 gem 'kaminari'
 gem 'ransack'
 gem 'devise'
@@ -54,6 +55,8 @@ gem 'cancancan', '~> 1.15'
 gem 'paperclip', '~> 5.1'
 gem 'phony_rails'
 gem 'public_activity'
+gem 'premailer-rails'
+gem 'ahoy_email'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
