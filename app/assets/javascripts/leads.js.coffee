@@ -13,7 +13,7 @@ $ ->
   table = $('.datatable-leads').DataTable(
     serverSide: true
     sAjaxSource: location.pathname
-    stateSave: true
+    pageLength: 100
     fnServerParams: (aoData) ->
       statuses = $('.lead_status').map(->
         # array of lead status codes

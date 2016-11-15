@@ -26,7 +26,7 @@ $ ->
   table = $('.datatable-contacts').DataTable(
     serverSide: true
     sAjaxSource: location.pathname
-    stateSave: true
+    pageLength: 100
     fnServerParams: (aoData) ->
       aoData.push
         name: 'start'
