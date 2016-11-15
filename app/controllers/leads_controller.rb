@@ -228,14 +228,26 @@ class LeadsController < ApplicationController
   
   def load_leads(paginate=true)
     # load leads with filtered statuses and dates from datapicker
-    leads = Lead.where(status: params[:statuses], department_id: @user.current_department_id, created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).order_by_status.order(created_at: :desc)
+    leads = Lead.where(status: params[:statuses], department_id: @user.current_department_id).order_by_status.order(created_at: :desc)
     total_count = Lead.where(department_id: @user.current_department_id).count
     # count fo datatable view
-    count = params[:sSearch].present? ? leads.search(name_or_phone_or_email_cont: params[:sSearch]).result.count : leads.count
+    count =
+      if params[:sSearch].present?
+        leads.search(name_or_phone_or_email_cont: params[:sSearch]).result.count
+      elsif params[:start].present? && params[:end].present?
+        leads.where(created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])).count
+      else
+        leads.count
+      end
     # paginate with kaminari gem
     leads = leads.page(params[:iDisplayStart].to_i / params[:iDisplayLength].to_i + 1).per(params[:iDisplayLength].to_i) if paginate && (params[:iDisplayLength].to_i > 0)
-    # search with ransack gem
-    [params[:sSearch].present? ? leads.search(name_or_phone_or_email_cont: params[:sSearch]).result : leads, count, total_count]
+    if params[:sSearch].present?
+      [leads.search(name_or_phone_or_email_cont: params[:sSearch]).result, count, total_count]
+    elsif params[:start].present? && params[:end].present?
+      [leads.where(created_at: Time.zone.parse(params[:start])..Time.zone.parse(params[:end])), count, total_count]
+    else
+      [leads, count, total_count]
+    end
   end
 
 end
