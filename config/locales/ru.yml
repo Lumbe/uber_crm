@@ -66,6 +66,7 @@ ru:
       close: 'закрыл лид'
       convert: 'конвертировал лид'
       delegate: 'передал лид'
+      send_email: 'отправил лид'
     contact:
       create: 'добавил контакт'
       destroy: 'удалил контакт'

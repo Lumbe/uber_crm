@@ -1,16 +1,9 @@
 class LeadMailer < ApplicationMailer
-  default from: 'notifications@uber-crm.com'
-  
-  def welcome_email(user)
-    @user = user
-    @url = root_url
-    mail(to: @user.email, subject: 'Добро пожаловать в UberCRM!')
-  end
-  
-  def send_lead(recipient_email, lead)
-    @user = current_user
+  default from: 'office@servus.km.ua'
+
+  def send_lead(recipient_email, sender, lead)
     @lead = lead
-    track user: @user
+    track user: sender
     mail(to: recipient_email, subject: "Новый лид")
   end
 end

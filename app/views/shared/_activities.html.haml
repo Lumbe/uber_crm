@@ -39,6 +39,9 @@
             - if activity.parameters[:department]
               в отдел
               = activity.parameters[:department]
+            - elsif activity.parameters[:send_lead_email]
+              на почту
+              = activity.parameters[:send_lead_email]
             %ul.list-inline.mt-5
               %li.text-muted
                 = time_ago_in_words(activity.created_at)
