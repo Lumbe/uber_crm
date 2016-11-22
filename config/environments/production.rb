@@ -90,7 +90,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   ssl: true,
-  address:        "smtp.yandex.ru",
+  address:        "ssl://smtp.yandex.ru",
   port:           587,
   domain:         'yandex.ru',
   authentication: :login,
