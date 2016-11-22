@@ -44,7 +44,8 @@
                       %span.input-group-addon
                         .icon-paperplane
                       = email_field_tag :send_to_email, '', class: 'form-control', required: true, placeholder: 'Введите email'
-                    %span.btn.btn-info.send-mail-button lev-servus@mail.ru
-                    %span.btn.btn-info.send-mail-button ysg7777@yandex.ua
+                  .mb-20.mt-10
+                    %span.btn.btn-info#send-mail-button-lev lev-servus@mail.ru
+                    %span.btn.btn-info#send-mail-button-ysg ysg7777@yandex.ua
             .text-left
               = submit_tag 'Отправить', class: 'btn btn-success'
