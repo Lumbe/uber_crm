@@ -94,7 +94,7 @@ Rails.application.configure do
     address:        "smtp.yandex.ua",
     port:           587,
     domain:         'yandex.ua',
-    authentication: :plain,
+    authentication: :login,
     user_name:      ENV["EMAIL_SENDER_ADDRESS"],
     password:       ENV["EMAIL_SENDER_PASSWORD"],
   }
