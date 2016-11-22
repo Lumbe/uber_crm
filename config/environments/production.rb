@@ -89,7 +89,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {:host => '95.85.55.222', :from => 'query@servus.km.ua'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    openssl_verify_mode: none,
+    openssl_verify_mode: 'none',
     tls: false,
     enable_starttls_auto: true,
     address:        "smtp.yandex.ru",
