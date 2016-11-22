@@ -93,7 +93,7 @@ Rails.application.configure do
   tls: true,
   port:           587,
   domain:         'yandex.ru',
-  authentication: :plain,
+  authentication: :login,
   user_name:      ENV["EMAIL_SENDER_ADDRESS"],
   password:       ENV["EMAIL_SENDER_PASSWORD"],
   }
