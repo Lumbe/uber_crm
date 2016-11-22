@@ -91,7 +91,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     tls: true,
     enable_starttls_auto: true,
-    address:        "smtp.yandex.ua",
+    address:        "ssl://smtp.yandex.ua",
     port:           465,
     domain:         'yandex.ua',
     authentication: :login,
