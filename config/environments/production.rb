@@ -86,10 +86,10 @@ Rails.application.configure do
   
   config.assets.digest = true
 
-  config.action_mailer.default_url_options = {:host => 'localhost'}
+  config.action_mailer.default_url_options = {:host => '95.85.55.222', :from => 'query@servus.km.ua'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  address:        "smtp.yandex.ru ",
+  address:        "smtp.yandex.ru",
   port:           587,
   domain:         'yandex.ru',
   authentication: :plain,
