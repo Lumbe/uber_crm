@@ -90,11 +90,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   address:        "smtp.yandex.ru",
+  tls: true,
   port:           587,
   domain:         'yandex.ru',
   authentication: :plain,
   user_name:      ENV["EMAIL_SENDER_ADDRESS"],
   password:       ENV["EMAIL_SENDER_PASSWORD"],
-  enable_starttls_auto: true
   }
 end
