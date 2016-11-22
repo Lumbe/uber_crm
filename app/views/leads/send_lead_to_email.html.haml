@@ -35,7 +35,7 @@
         - else
           = form_tag send_lead_to_email_url, method: :get do |f|
             .row
-              .col-md-3
+              .col-md-6
                 %fieldset
                   %legend.text-semibold
                     Отправить лид на почту:
@@ -44,8 +44,8 @@
                       %span.input-group-addon
                         .icon-paperplane
                       = email_field_tag :send_to_email, '', class: 'form-control', required: true, placeholder: 'Введите email'
-                  .mb-20.mt-10
-                    %span.btn.btn-info#send-mail-button-lev lev-servus@mail.ru
-                    %span.btn.btn-info#send-mail-button-ysg ysg7777@yandex.ua
+                .mb-20.mt-10
+                  %span.btn.btn-info#send-mail-button-lev lev-servus@mail.ru
+                  %span.btn.btn-info#send-mail-button-ysg ysg7777@yandex.ua
             .text-left
               = submit_tag 'Отправить', class: 'btn btn-success'
