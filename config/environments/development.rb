@@ -58,7 +58,7 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # devise gem config
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost' }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
@@ -69,5 +69,6 @@ Rails.application.configure do
     user_name:            ENV["EMAIL_SENDER_ADDRESS"],
     password:             ENV["EMAIL_SENDER_PASSWORD"],
     authentication:       'plain',
-    enable_starttls_auto: true  }
+    enable_starttls_auto: true
+    }
 end
