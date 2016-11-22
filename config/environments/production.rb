@@ -92,7 +92,7 @@ Rails.application.configure do
     tls: true,
     enable_starttls_auto: true,
     address:        "smtp.yandex.ua",
-    port:           587,
+    port:           465,
     domain:         'yandex.ua',
     authentication: :login,
     user_name:      ENV["EMAIL_SENDER_ADDRESS"],
