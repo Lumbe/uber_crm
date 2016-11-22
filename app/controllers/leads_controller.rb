@@ -202,7 +202,7 @@ class LeadsController < ApplicationController
     @lead = Lead.find(params[:id])
     if params[:send_to_email].present?
       recipient = params[:send_to_email]
-      LeadMailer.send_lead(recipient, current_user, @lead).deliver
+      LeadMailer.send_lead(recipient, current_user, @lead).deliver_now
       @lead.sended!
       @lead.create_activity :send_email, owner: current_user, trackable_department_id: @lead.department_id, parameters: {send_lead_email: recipient}
       LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform
