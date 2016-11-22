@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'leads/:id/close', to: 'leads#close', :as => :close_lead
   get 'leads/:id/delegate', to: 'leads#delegate', :as => :delegate_lead # send lead to another department
   post 'leads/:id/delegate', to: 'leads#create_delegated_lead', :as => :create_delegated_lead
+  get 'leads/:id/send_lead_to_email', to: 'leads#send_lead_to_email', :as => :send_lead_to_email # send lead to another department
   get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead # convert lead to contact
   
   resources :notifications do

@@ -45,6 +45,7 @@
 #= require notifications
 #= require limitless/plugins/visualization/echarts/theme/limitless
 #= require charts
+#= require send_lead_to_email
 
 
 # pace.js - disable ajax tracking except on page navigation

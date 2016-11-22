@@ -62,7 +62,7 @@ class LeadsController < ApplicationController
                       end
                     end +
                     view_context.content_tag(:li) do
-                      view_context.link_to('#') do
+                      view_context.link_to(send_lead_to_email_path(lead)) do
                         view_context.content_tag(:i, '', class: 'icon-envelope') + 'Отправить почтой'
                       end
                     end
@@ -163,7 +163,6 @@ class LeadsController < ApplicationController
   
   def delegate
     @lead = Lead.find(params[:id])
-    # @lead.sended!
     session[:delegated_lead_id] = @lead.id
     @departments = Department.all.collect {|department| [ department.name, department.id ] }
     lead_attributes = Lead.find(params[:id]).attributes.select { |key, value| Lead.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
@@ -196,6 +195,20 @@ class LeadsController < ApplicationController
       redirect_to leads_path
     else
       render 'delegate'
+    end
+  end
+
+  def send_lead_to_email
+    @lead = Lead.find(params[:id])
+    if params[:send_to_email].present?
+      recipient = params[:send_to_email]
+      LeadMailer.send_lead(recipient, current_user, @lead).deliver
+      @lead.sended!
+      @lead.create_activity :send_email, owner: current_user, trackable_department_id: @lead.department_id, parameters: {send_lead_email: recipient}
+      LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform
+
+      flash[:notice] = "Лид #{@lead.name} успешно отправлен на почту: #{recipient}"
+      redirect_to leads_path
     end
   end
 
