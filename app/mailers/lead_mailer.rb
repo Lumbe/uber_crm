@@ -1,5 +1,5 @@
 class LeadMailer < ApplicationMailer
-  default from: 'office@servus.km.ua'
+  default from: 'query@servus.km.ua'
 
   def send_lead(recipient_email, sender, lead)
     @lead = lead

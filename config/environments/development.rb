@@ -52,21 +52,22 @@ Rails.application.configure do
   config.web_console.whitelisted_ips = %w(188.163.33.207 94.230.198.15)
   config.web_console.whiny_requests = false
   
-  # devise gem config
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.raise_delivery_errors = true
-config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
-  port:                 587,
-  domain:               'gmail.com',
-  user_name:            ENV["EMAIL_SENDER_ADDRESS"],
-  password:             ENV["EMAIL_SENDER_PASSWORD"],
-  authentication:       'plain',
-  enable_starttls_auto: true  }
+  # devise gem config
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            ENV["EMAIL_SENDER_ADDRESS"],
+    password:             ENV["EMAIL_SENDER_PASSWORD"],
+    authentication:       'plain',
+    enable_starttls_auto: true  }
 end
