@@ -97,6 +97,6 @@ Rails.application.configure do
     authentication:       "plain",
     enable_starttls_auto: true
   }
-  Rails.logger.info "production.rb"
-  Rails.logger.info ENV
+  Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info "production.rb"
+  Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info ENV
 end
