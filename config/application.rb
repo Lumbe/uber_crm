@@ -22,7 +22,7 @@ module Workspace
 
     # load environment variables, defined in config/local_env.yml
     config.before_configuration do
-      Rails.logger.info "before_configuration"
+      Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info "before_configuration"
       env_file = File.join(Rails.root, 'config', 'local_env.yml')
       YAML.load(File.open(env_file)).each do |key, value|
         ENV[key.to_s] = value
