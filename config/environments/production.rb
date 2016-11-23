@@ -86,7 +86,7 @@ Rails.application.configure do
   
   config.assets.digest = true
 
-  config.action_mailer.default_url_options = {:host => '95.85.55.222', :from => 'query@servus.km.ua'}
+  config.action_mailer.default_url_options = {:host => '95.85.55.222'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
@@ -94,7 +94,7 @@ Rails.application.configure do
     domain:               'gmail.com',
     user_name:            ENV["EMAIL_SENDER_ADDRESS"],
     password:             ENV["EMAIL_SENDER_PASSWORD"],
-    authentication:       'plain',
+    authentication:       'login',
     enable_starttls_auto: true
   }
 end
