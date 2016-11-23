@@ -97,4 +97,6 @@ Rails.application.configure do
     authentication:       "plain",
     enable_starttls_auto: true
   }
+  Rails.logger.info "production.rb"
+  Rails.logger.info ENV
 end
