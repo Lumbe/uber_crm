@@ -60,6 +60,16 @@ namespace :deploy do
     end
   end
   
+  desc "Link shared files"
+  task :symlink_config_files do
+    on roles(:app) do
+      symlinks = {
+        "#{shared_path}/config/local_env.yml" => "#{release_path}/config/local_env.yml"
+      }
+      execute symlinks.map{|from, to| "ln -nfs #{from} #{to}"}.join(" && ")
+    end
+  end
+
   desc 'Upload YAML files.'
   task :upload_yml do
     on roles(:app) do
@@ -85,6 +95,7 @@ namespace :deploy do
   end
 
   before :starting,     :check_revision
+  before 'deploy:assets:precompile', :symlink_config_files
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
 end
