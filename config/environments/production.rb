@@ -98,5 +98,6 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info "production.rb"
-  Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info ENV
+  Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info ENV["EMAIL_SENDER_ADDRESS"]
+  Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info ENV["EMAIL_SENDER_PASSWORD"]
 end
