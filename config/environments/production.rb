@@ -86,7 +86,7 @@ Rails.application.configure do
   
   config.assets.digest = true
 
-  config.action_mailer.default_url_options = {:host => "localhost"}
+  config.action_mailer.default_url_options = {:host => "95.85.55.222"}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              "smtp.gmail.com",
@@ -97,7 +97,4 @@ Rails.application.configure do
     authentication:       "plain",
     enable_starttls_auto: true
   }
-  Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info "production.rb"
-  Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info ENV["EMAIL_SENDER_ADDRESS"]
-  Logger.new('/home/deploy/apps/ubercrm/current/log/production.log').info ENV["EMAIL_SENDER_PASSWORD"]
 end
