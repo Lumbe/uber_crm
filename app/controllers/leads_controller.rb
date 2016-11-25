@@ -205,9 +205,10 @@ class LeadsController < ApplicationController
       LeadMailer.send_lead(recipient, current_user, @lead).deliver_now
       @lead.sended!
       @lead.create_activity :send_email, owner: current_user, trackable_department_id: @lead.department_id, parameters: {send_lead_email: recipient}
-      LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform
+      LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform if params[:convert_lead].present?
 
       flash[:notice] = "Лид #{@lead.name} успешно отправлен на почту: #{recipient}"
+      flash[:notice] = "Лид #{@lead.name} успешно конвертирован в контакт." if params[:convert_lead].present?
       redirect_to leads_path
     end
   end
