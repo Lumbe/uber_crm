@@ -276,7 +276,7 @@ RSpec.describe LeadsController, type: :controller do
     it 'populates @contact from @lead' do
       get :convert, params: { id: @lead }
       @lead.reload
-      expect(assigns(:contact).attributes.except('id', 'created_at', 'updated_at', 'status', 'proposal_sent', 'alt_email', 'do_not_call')).to eq(@lead.attributes.except('id', 'created_at', 'updated_at', 'status'))
+      expect(assigns(:contact).attributes.except('id', 'created_at', 'updated_at', 'status', 'proposal_sent', 'alt_email', 'do_not_call')).to eq(@lead.attributes.except('id', 'created_at', 'updated_at', 'status', 'contact_id'))
     end
 
     it 'changes related contact status' do
