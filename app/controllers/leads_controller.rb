@@ -87,7 +87,11 @@ class LeadsController < ApplicationController
   
   def create
     @lead = Lead.new(lead_params)
-    @lead.repeated! if @lead.contact_exists?
+    if @lead.related_contacts.present?
+      @lead.repeated!
+      lead_url = url_for(:controller => 'leads', :action => 'show', :id => @lead.id, host: request.host)
+      LeadScenarios::AssignLeadToContact.new(@lead, @lead.related_contacts.first, lead_url).perform
+    end
     @department = @lead.department
     if @lead.save
       # Create the notifications

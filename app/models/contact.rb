@@ -23,12 +23,4 @@ class Contact < ApplicationRecord
     end
   end
 
-  def lead_exists?
-    Lead.where(department: self.department, phone: self.phone).or(Lead.where(department: self.department, email: self.email).where.not(email: '')).exists? ? true : false
-  end
-
-  def related_leads
-    Lead.where(department: self.department, phone: self.phone).or(Lead.where(department: self.department, email: self.email).where.not(email: ''))
-  end
-
 end
