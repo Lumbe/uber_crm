@@ -71,7 +71,7 @@ class LeadsController < ApplicationController
               end.html_safe
             ]
           end
-        }.to_json
+        }
       end
     end
   end
