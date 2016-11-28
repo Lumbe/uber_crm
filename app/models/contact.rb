@@ -23,12 +23,8 @@ class Contact < ApplicationRecord
     end
   end
 
-  def lead_exists?
-    Lead.where(department: self.department, phone: self.phone).or(Lead.where(department: self.department, email: self.email).where.not(email: '')).exists? ? true : false
-  end
-
-  def related_leads
-    Lead.where(department: self.department, phone: self.phone).or(Lead.where(department: self.department, email: self.email).where.not(email: ''))
+  def self.top_repeated_leads
+    joins(:leads).group("contacts.id").order("count(leads.id) DESC")
   end
 
 end

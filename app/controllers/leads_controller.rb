@@ -71,7 +71,7 @@ class LeadsController < ApplicationController
               end.html_safe
             ]
           end
-        }.to_json
+        }
       end
     end
   end
@@ -87,7 +87,11 @@ class LeadsController < ApplicationController
   
   def create
     @lead = Lead.new(lead_params)
-    @lead.repeated! if @lead.contact_exists?
+    if @lead.related_contacts.present?
+      @lead.repeated!
+      lead_url = url_for(:controller => 'leads', :action => 'show', :id => @lead.id, host: request.host)
+      LeadScenarios::AssignLeadToContact.new(@lead, @lead.related_contacts.first, lead_url).perform
+    end
     @department = @lead.department
     if @lead.save
       # Create the notifications
@@ -174,7 +178,11 @@ class LeadsController < ApplicationController
 
   def create_delegated_lead
     @lead = Lead.new(lead_params)
-    @lead.repeated! if @lead.contact_exists?
+    if @lead.related_contacts.present?
+      @lead.repeated!
+      lead_url = url_for(:controller => 'leads', :action => 'show', :id => @lead.id, host: request.host)
+      LeadScenarios::AssignLeadToContact.new(@lead, @lead.related_contacts.first, lead_url).perform
+    end
     @department = @lead.department
     if @lead.save
       # Create the notifications
@@ -205,9 +213,10 @@ class LeadsController < ApplicationController
       LeadMailer.send_lead(recipient, current_user, @lead).deliver_now
       @lead.sended!
       @lead.create_activity :send_email, owner: current_user, trackable_department_id: @lead.department_id, parameters: {send_lead_email: recipient}
-      LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform
+      LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform if params[:convert_lead].present?
 
       flash[:notice] = "Лид #{@lead.name} успешно отправлен на почту: #{recipient}"
+      flash[:notice] = "Лид #{@lead.name} успешно конвертирован в контакт." if params[:convert_lead].present?
       redirect_to leads_path
     end
   end

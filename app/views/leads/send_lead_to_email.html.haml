@@ -31,7 +31,7 @@
               %li Откуда узнал про нас
             - if @lead.region.blank?
               %li Регион
-          = link_to "Перейти к редактированию", edit_lead_path(@lead), class: 'btn btn-success'
+          = link_to "Перейти к редактированию", edit_lead_path(@lead), class: 'btn btn-success', target: '_blank'
         - else
           = form_tag send_lead_to_email_url, method: :get do |f|
             .row
@@ -44,8 +44,12 @@
                       %span.input-group-addon
                         .icon-paperplane
                       = email_field_tag :send_to_email, '', class: 'form-control', required: true, placeholder: 'Введите email'
-                .mb-20.mt-10
-                  %span.btn.btn-info#send-mail-button-lev lev-servus@mail.ru
-                  %span.btn.btn-info#send-mail-button-ysg ysg7777@yandex.ua
+                    .mb-10.mt-10
+                      %span.btn.btn-info#send-mail-button-lev lev-servus@mail.ru
+                      %span.btn.btn-info#send-mail-button-ysg ysg7777@yandex.ua
+                    .checkbox.mt-20.ml-5
+                      = label_tag :convert_lead do
+                        = check_box_tag :convert_lead, '0', checked = false, class: 'styled'
+                        Конвертировать в контакт
             .text-left
               = submit_tag 'Отправить', class: 'btn btn-success'

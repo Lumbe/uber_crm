@@ -35,9 +35,9 @@
               %li
                 %a{:href => "#tabs-basic-3"}
                   Связанные лиды
-                  - if @contact.related_leads.count > 0
+                  - if @contact.leads.count > 0
                     %span.badge.badge-info.position-right
-                      = @contact.related_leads.count
+                      = @contact.leads.count
             #tabs-basic-1
               .row
                 .col-md-4
@@ -138,7 +138,7 @@
                           %strong Регион:
                         %td.col-md-2 #{@contact.region}
             #tabs-basic-3
-              - if @contact.related_leads.present?
+              - if @contact.leads.present?
                 .table-responsive
                   %table.table.table-borderless
                     %thead
@@ -148,7 +148,7 @@
                         %th Добавлен
                         %th Добавил
                     %tbody
-                      - @contact.related_leads.each_with_index do |lead, index|
+                      - @contact.leads.each_with_index do |lead, index|
                         %tr
                           %td
                             = index + 1

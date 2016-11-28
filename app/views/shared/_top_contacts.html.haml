@@ -1,0 +1,30 @@
+.panel.panel-flat
+  .panel-heading
+    %h6.panel-title
+      Повторные обращения
+      %a.heading-elements-toggle
+        %i.icon-more
+    .heading-elements
+      %ul.icons-list
+        %li
+          %a{"data-action" => "collapse"}
+        %li
+          %a{"data-action" => "reload"}
+        %li
+          %a{"data-action" => "close"}
+  .panel-body
+    %table.table.datatable-top-contacts
+      %thead
+        %tr
+          %th Контакт
+          %th Повторные обращения
+          %th Отдел
+      %tbody
+        -# @contacts.each do |contact|
+          %ul
+            %li
+              = contact.name
+            %li
+              = contact.leads.count
+            %li
+              = contact.created_at

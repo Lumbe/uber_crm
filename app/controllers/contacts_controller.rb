@@ -57,7 +57,7 @@ class ContactsController < ApplicationController
               view_context.link_to("#{contact.assignee.first_name} #{contact.assignee.last_name}", user_path(contact.assignee))
             ]
           end
-        }.to_json
+        }
       end
     end
   end
