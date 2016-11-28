@@ -38,6 +38,7 @@
 #= require layouts/form_elements
 #= require layouts/datapicker
 #= require layouts/datatable_defaults
+#= require home
 #= require leads
 #= require contacts
 #= require admin/users
@@ -46,7 +47,6 @@
 #= require limitless/plugins/visualization/echarts/theme/limitless
 #= require charts
 #= require send_lead_to_email
-
 
 # pace.js - disable ajax tracking except on page navigation
 Pace.options.restartOnRequestAfter = false
