@@ -148,7 +148,7 @@ RSpec.describe ContactsController, type: :controller do
       end
     end
   end
-  
+
   describe 'DELETE destroy' do
     login_user('manager')
     before :each do
@@ -164,14 +164,14 @@ RSpec.describe ContactsController, type: :controller do
       expect(response).to redirect_to(contacts_path)
     end
   end
-  
+
   describe 'GET #send_proposal' do
     login_user('manager')
     before :each do
       @user = subject.current_user
       @contact = create(:contact, department_id: @user.current_department_id)
     end
-    
+
     it 'locates the requested contact' do
       get :send_proposal, params: { id: @contact }
       expect(assigns(:contact)).to eq(@contact)
@@ -181,12 +181,34 @@ RSpec.describe ContactsController, type: :controller do
       get :send_proposal, params: { id: @contact }
       expect(assigns(:commentable)).to eq(@contact)
     end
-    
+
     it 'new comment for contact' do
       get :send_proposal, params: { id: @contact }
       expect(assigns(:comment)).to be_a_new(Comment)
     end
+  end
 
+  describe 'GET #phone_call' do
+    login_user('manager')
+    before :each do
+      @user = subject.current_user
+      @contact = create(:contact, department_id: @user.current_department_id)
+    end
+
+    it 'locates the requested contact' do
+      get :phone_call, params: { id: @contact }
+      expect(assigns(:contact)).to eq(@contact)
+    end
+
+    it 'populates @commentable' do
+      get :phone_call, params: { id: @contact }
+      expect(assigns(:commentable)).to eq(@contact)
+    end
+
+    it 'new comment for contact' do
+      get :phone_call, params: { id: @contact }
+      expect(assigns(:comment)).to be_a_new(Comment)
+    end
   end
 
 end

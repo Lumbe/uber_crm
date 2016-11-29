@@ -87,7 +87,7 @@ RSpec.describe LeadsController, type: :controller do
         post :create, params: { lead: attributes_with_foreign_keys(:lead, email: contact.email, department_id: user.current_department_id) }
         expect(assigns(:lead).status).to eq('repeated')
       end
-q
+
       it 'assigns to contact if related contact exists' do
         user = subject.current_user
         contact = create(:contact, email: Faker::Internet.email, department_id: user.current_department_id)
