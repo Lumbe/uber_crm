@@ -216,7 +216,7 @@ class LeadsController < ApplicationController
       LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform if params[:convert_lead].present?
 
       flash[:notice] = "Лид #{@lead.name} успешно отправлен на почту: #{recipient}"
-      flash[:notice] = "Лид #{@lead.name} успешно конвертирован в контакт." if params[:convert_lead].present?
+      flash[:notice] << " и успешно конвертирован в контакт." if params[:convert_lead].present?
       redirect_to leads_path
     end
   end
