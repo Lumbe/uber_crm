@@ -7,6 +7,7 @@ class Contact < ApplicationRecord
   belongs_to :department
   has_many :leads
   has_many :comments, as: :commentable
+  has_many :commercial_proposals
   phony_normalize :phone, default_country_code: 'UA'
   validates :name, :phone, :source, :region, presence: true
 
