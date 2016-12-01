@@ -56,7 +56,6 @@ gem 'paperclip', '~> 5.1'
 gem 'phony_rails'
 gem 'public_activity'
 gem 'premailer-rails'
-gem 'ahoy_email'
 gem 'mailgun_rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

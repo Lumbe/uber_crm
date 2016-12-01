@@ -7,7 +7,6 @@ class Lead < ApplicationRecord
   belongs_to :customer, optional: true
   belongs_to :department
   has_many :comments, as: :commentable
-  has_many :messages, class_name: "Ahoy::Message"
   validates :name, :phone, presence: true
   phony_normalize :phone, default_country_code: 'UA'
 
