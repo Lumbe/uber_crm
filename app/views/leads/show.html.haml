@@ -5,8 +5,9 @@
       .page-header-content
         .page-title
           %h4
-            %i.icon-user.position-left
-            %span.text-semibold Карточка лида - #{@lead.name}
+            %i.icon-user.position-left.text-info-600
+            %span.text-semibold #{@lead.name}
+            %small.display-block Лид
         .heading-elements
           = link_to 'Редактировать', edit_lead_path, class: 'btn btn-success'
           = link_to 'Удалить', lead_path(@lead), method: :delete, data: {confirm: "Удалить этот лид навсегда?"}, class: 'btn btn-danger'

@@ -5,8 +5,9 @@
       .page-header-content
         .page-title
           %h4
-            %i.icon-user.position-left
-            %span.text-semibold Карточка контакта - #{@contact.name}
+            %i.icon-user.position-left.text-success-600
+            %span.text-semibold #{@contact.name}
+            %small.display-block Контакт
         .heading-elements
           = link_to 'Редактировать', edit_contact_path, class: 'btn btn-success'
           = link_to 'Удалить', contact_path(@contact), method: :delete, data: {confirm: "Удалить этот контакт навсегда?"}, class: 'btn btn-danger'
@@ -34,6 +35,9 @@
                   Подробнее
               %li
                 %a{:href => "#tabs-basic-3"}
+                  Коммерческие предложения
+              %li
+                %a{:href => "#tabs-basic-4"}
                   Связанные лиды
                   - if @contact.leads.count > 0
                     %span.badge.badge-info.position-right
@@ -138,6 +142,27 @@
                           %strong Регион:
                         %td.col-md-2 #{@contact.region}
             #tabs-basic-3
+              - if @contact.commercial_proposals.present?
+                .table-responsive
+                  %table.table.table-borderless
+                    %thead
+                      %tr
+                        %th #
+                        %th Название
+                        %th Создано
+                        %th Отправлено
+                    %tbody
+                      - @contact.commercial_proposals.each_with_index do |commercial_proposal, index|
+                        %tr
+                          %td
+                            = index + 1
+                          %td
+                            = link_to commercial_proposal.project_name, contact_commercial_proposal_path(@contact.id, commercial_proposal.id)
+                          %td #{time_ago_in_words(commercial_proposal.created_at)} назад
+                          %td
+              - else
+                Коммерческие предложения отсутствуют
+            #tabs-basic-4
               - if @contact.leads.present?
                 .table-responsive
                   %table.table.table-borderless
