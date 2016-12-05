@@ -1,0 +1,90 @@
+/ Page header
+.page-header
+  .content-group
+    .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-coin-dollar.position-left.text-success-400
+            %span.text-semibold Коммерческое предложение для -
+            = link_to @commercial_proposal.contact.name, contact_path(@commercial_proposal.contact)
+.content
+  .row
+    .col-md-12
+      .panel.panel-flat
+        .panel-heading
+          %h5.panel-title КП - #{@commercial_proposal.project_name}
+          .heading-elements
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+          .col-md-6
+            .table-responsive
+              %table.table.table-borderless
+                %tbody
+                  %tr
+                    %td Название проекта
+                    %td.text-bold
+                      = link_to @commercial_proposal.project_name, @commercial_proposal.project_url, target: '_blank', title: "Посмотреть в каталоге", data: {popup: "tooltip", placement: "top"}
+                  %tr
+                    %td Стоимость домокомплекта
+                    %td.text-bold
+                      = number_to_currency(@commercial_proposal.house_kit_price, locale: :en)
+                  %tr
+                    %td Стоимость дополнительных работ
+                    %td.text-bold
+                      = number_to_currency(@commercial_proposal.additional_services_price, locale: :en)
+                  %tr
+                    %td Скидка на д/к
+                    %td.text-bold
+                      - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
+                        = number_to_percentage(@commercial_proposal.discount, precision: 0)
+                      - else
+                        .text-bold без скидки
+                  %tr
+                    %td Курс доллара
+                    %td.text-bold
+                      = number_to_currency(@commercial_proposal.dollar_exchange_rate, locale: :uk)
+                  %tr.border-top.border-top-grey-300
+                    %td.bg-info-400.text-bold
+                      Итого по смете:
+                      - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
+                        %br
+                        .label.bg-orange-600
+                          Скидка
+                          = number_to_percentage(@commercial_proposal.discount, precision: 0)
+                    %td.text-bold
+                      - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
+                        .text-bold.text-success-600
+                          - total_dollar_price = (@commercial_proposal.house_kit_price * @commercial_proposal.discount / 100) + @commercial_proposal.additional_services_price
+                          = number_to_currency(total_dollar_price, locale: :en)
+                      - else
+                        .text-bold.text-success-600
+                          - total_dollar_price = @commercial_proposal.house_kit_price + @commercial_proposal.additional_services_price
+                          = number_to_currency(total_dollar_price, locale: :en)
+                      или
+                      %span.text-bold.text-info-600
+                        - total_converted_price = total_dollar_price * @commercial_proposal.dollar_exchange_rate
+                        = number_to_currency(total_converted_price, locale: :uk)
+          .col-md-2
+          .col-md-4
+            .table-responsive
+              %table.table.table-borderless
+                %tbody
+                  %tr
+                    %td Создано
+                    %td.text-bold
+                      = time_tag @commercial_proposal.created_at
+                  %tr
+                    %td Отправлено почтой
+                    %td.text-bold
+                      = time_tag @commercial_proposal.created_at
+                  %tr
+                    %td Открыто клиентом
+                    %td.text-bold
+                      = time_tag @commercial_proposal.created_at

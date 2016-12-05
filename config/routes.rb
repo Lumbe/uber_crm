@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
-  get 'statistics', to: 'statistics#index'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
+  get 'statistics', to: 'statistics#index'
   devise_for :users
   get '/initialize_department' => 'application#initialize_department', as: :initialize_department
   get 'unauthorized' => 'application#unauthorized', as: :unauthorized
   
-  # Lead
   resources :leads
   get 'leads/:id/claim', to: 'leads#claim', :as => :claim_lead
   get 'leads/:id/close', to: 'leads#close', :as => :close_lead
@@ -22,14 +19,13 @@ Rails.application.routes.draw do
     end
   end
 
-  # Contact
   resources :contacts do
     resources :comments
+    resources :commercial_proposals, only: [:new, :create, :show]
   end
   get 'contacts/:id/send_proposal', to: 'contacts#send_proposal', :as => :send_proposal
   get 'contacts/:id/phone_call', to: 'contacts#phone_call', :as => :phone_call
-  
-  # User
+
   resources :users
   get 'users/:id/myleads', to: 'users#user_leads', :as => :user_leads
   get 'users/:id/mycontacts', to: 'users#user_contacts', :as => :user_contacts
