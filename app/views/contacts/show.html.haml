@@ -151,6 +151,7 @@
                         %th Название
                         %th Создано
                         %th Отправлено
+                        %th Открыто
                     %tbody
                       - @contact.commercial_proposals.each_with_index do |commercial_proposal, index|
                         %tr
@@ -158,8 +159,12 @@
                             = index + 1
                           %td
                             = link_to commercial_proposal.project_name, contact_commercial_proposal_path(@contact.id, commercial_proposal.id)
-                          %td #{time_ago_in_words(commercial_proposal.created_at)} назад
                           %td
+                            = time_tag commercial_proposal.created_at
+                          %td
+                            = time_tag commercial_proposal.created_at
+                          %td
+                            = time_tag commercial_proposal.created_at
               - else
                 Коммерческие предложения отсутствуют
             #tabs-basic-4
