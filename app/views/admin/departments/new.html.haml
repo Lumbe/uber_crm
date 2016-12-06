@@ -6,51 +6,19 @@
         .page-title
           %h4
             %i.icon-vcard.position-left
-            %span.text-semibold Создание пользователя
+            %span.text-semibold Создание отдела
         .heading-elements
   .content
-    / 2 columns form
-    = form_for(@department, url: admin_departments_path) do |f|
-      - if @department.errors.any?
-        .alert.bg-danger.alert-styled-left
-          %button.close{ data: { dismiss: 'alert' } }
-            %span &times;
-            %span.sr-only Закрыть
-          %h4
-            Исправьте ошибки и попробуйте снова. Ошибок: 
-            = @department.errors.count
-          %ul
-            - @department.errors.full_messages.each do |msg|
-              %li= msg
-      .panel.panel-flat
-        .panel-heading
-          %h5.panel-title
-          .heading-elements
-            %ul.icons-list
-              %li
-                %a{"data-action" => "collapse"}
-              %li
-                %a{"data-action" => "reload"}
-              %li
-                %a{"data-action" => "close"}
-        .panel-body
-          .row
-            .col-md-3
-              %fieldset
-                %legend.text-semibold
-                  %i.icon-reading.position-left
-                  Регистрационные данные
-                .row
-                  .col-md-12
-                    .form-group
-                      = f.label :name, 'Название'
-                      .input-group
-                        %span.input-group-addon.bg-green-600
-                          .icon-user
-                        = f.text_field :name, class: 'form-control', placeholder: 'Сервус Поділля'
-                    .form-group
-                      = f.label :avatar, 'Аватар (300х300px)'
-                      = f.file_field :avatar, class: 'file-styled-primary'
-          .text-left
-            = f.submit 'Создать отдел', class: 'btn btn-success'
-    / /2 columns form
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = render 'form'
