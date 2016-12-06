@@ -50,6 +50,12 @@
                   .icon-user
                 = f.text_field :vkontakte, class: 'form-control', placeholder: 'https://vk.com/servuspodillya'
             .form-group
+              = f.label :website, 'Сайт'
+              .input-group
+                %span.input-group-addon.bg-green-600
+                  .icon-user
+                = f.text_field :website, class: 'form-control', placeholder: 'servus.km.ua'
+            .form-group
               = f.label :avatar, 'Аватар (300х300px)'
               = f.file_field :avatar, class: 'file-styled-primary'
   .text-left
