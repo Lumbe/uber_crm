@@ -38,6 +38,12 @@
                   .icon-user
                 = f.text_field :address, class: 'form-control', placeholder: 'ул.Героев Майдана, 1'
             .form-group
+              = f.label :email, 'Электронная почта'
+              .input-group
+                %span.input-group-addon.bg-green-600
+                  .icon-user
+                = f.text_field :email, class: 'form-control', placeholder: 'office@servus.km.ua'
+            .form-group
               = f.label :facebook, 'Facebook'
               .input-group
                 %span.input-group-addon.bg-green-600
