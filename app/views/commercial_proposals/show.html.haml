@@ -36,6 +36,10 @@
                     %td.text-bold
                       = number_to_currency(@commercial_proposal.house_kit_price, locale: :en)
                   %tr
+                    %td Стоимость монтажа домокомплекта
+                    %td.text-bold
+                      = number_to_currency(@commercial_proposal.house_installation_price, locale: :en)
+                  %tr
                     %td Стоимость дополнительных работ
                     %td.text-bold
                       = number_to_currency(@commercial_proposal.additional_services_price, locale: :en)
@@ -43,7 +47,7 @@
                     %td Скидка на д/к
                     %td.text-bold
                       - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
-                        = number_to_percentage(@commercial_proposal.discount, precision: 0)
+                        = number_to_currency(@commercial_proposal.discount, precision: 0, locale: :en)
                       - else
                         .text-bold без скидки
                   %tr
@@ -57,15 +61,15 @@
                         %br
                         .label.bg-orange-600
                           Скидка
-                          = number_to_percentage(@commercial_proposal.discount, precision: 0)
+                          = number_to_currency(@commercial_proposal.discount, precision: 0, locale: :en)
                     %td.text-bold
                       - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
                         .text-bold.text-success-600
-                          - total_dollar_price = (@commercial_proposal.house_kit_price * @commercial_proposal.discount / 100) + @commercial_proposal.additional_services_price
+                          - total_dollar_price = @commercial_proposal.house_kit_price + @commercial_proposal.house_installation_price -  @commercial_proposal.discount + @commercial_proposal.additional_services_price
                           = number_to_currency(total_dollar_price, locale: :en)
                       - else
                         .text-bold.text-success-600
-                          - total_dollar_price = @commercial_proposal.house_kit_price + @commercial_proposal.additional_services_price
+                          - total_dollar_price = @commercial_proposal.house_kit_price + @commercial_proposal.house_installation_price + @commercial_proposal.additional_services_price
                           = number_to_currency(total_dollar_price, locale: :en)
                       или
                       %span.text-bold.text-info-600
