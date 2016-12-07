@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206195129) do
+ActiveRecord::Schema.define(version: 20161207100740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,15 +45,16 @@ ActiveRecord::Schema.define(version: 20161206195129) do
 
   create_table "commercial_proposals", force: :cascade do |t|
     t.string   "project_name"
-    t.integer  "house_kit_price"
-    t.integer  "additional_services_price"
+    t.decimal  "house_kit_price",           precision: 8, scale: 2
+    t.decimal  "additional_services_price", precision: 8, scale: 2
     t.integer  "contact_id"
     t.integer  "user_id"
-    t.integer  "discount"
+    t.decimal  "discount",                  precision: 8, scale: 2
     t.decimal  "dollar_exchange_rate",      precision: 5, scale: 2
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
     t.string   "project_url"
+    t.decimal  "house_installation_price",  precision: 8, scale: 2
   end
 
   create_table "competitors", force: :cascade do |t|
