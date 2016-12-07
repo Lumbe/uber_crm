@@ -29,6 +29,14 @@
         .row
           .col-md-12
             .form-group
+              = f.label :house_square, 'Площадь дома'
+              .input-group
+                %span.input-group-addon.bg-green-600
+                  .icon-rulers
+                = f.number_field :house_square, class: 'form-control', placeholder: '133.02', step: 0.01
+        .row
+          .col-md-12
+            .form-group
               = f.label :project_url, 'Ссылка на проект (скопировать из браузера и вставить)'
               .input-group
                 %span.input-group-addon.bg-green-600

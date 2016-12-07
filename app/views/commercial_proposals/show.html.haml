@@ -32,17 +32,22 @@
                     %td.text-bold
                       = link_to @commercial_proposal.project_name, @commercial_proposal.project_url, target: '_blank', title: "Посмотреть в каталоге", data: {popup: "tooltip", placement: "top"}
                   %tr
+                    %td Площадь
+                    %td.text-bold
+                      = @commercial_proposal.house_square
+                      кв.м.
+                  %tr
                     %td Стоимость домокомплекта
                     %td.text-bold
-                      = number_to_currency(@commercial_proposal.house_kit_price, locale: :en)
+                      = number_to_currency(@commercial_proposal.house_kit_price, locale: :en, precision: 0)
                   %tr
                     %td Стоимость монтажа домокомплекта
                     %td.text-bold
-                      = number_to_currency(@commercial_proposal.house_installation_price, locale: :en)
+                      = number_to_currency(@commercial_proposal.house_installation_price, locale: :en, precision: 0)
                   %tr
                     %td Стоимость дополнительных работ
                     %td.text-bold
-                      = number_to_currency(@commercial_proposal.additional_services_price, locale: :en)
+                      = number_to_currency(@commercial_proposal.additional_services_price, locale: :en, precision: 0)
                   %tr
                     %td Скидка на д/к
                     %td.text-bold
@@ -61,7 +66,7 @@
                         %br
                         .label.bg-orange-600
                           Скидка
-                          = number_to_currency(@commercial_proposal.discount, precision: 0, locale: :en)
+                          = number_to_currency(@commercial_proposal.discount, locale: :en, precision: 0)
                     %td.text-bold
                       - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
                         .text-bold.text-success-600

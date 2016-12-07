@@ -22,6 +22,7 @@ class CommercialProposalsController < ApplicationController
 
   def commercial_proposal_params
     params.require(:commercial_proposal).permit(:project_name, :project_url, :house_kit_price, :additional_services_price,
-                                                :contact_id, :user_id, :discount, :dollar_exchange_rate)
+                                                :contact_id, :user_id, :discount, :dollar_exchange_rate, :house_installation_price,
+                                                :house_square)
   end
 end
