@@ -9,16 +9,16 @@
             %span.text-semibold Коммерческое предложение для #{@contact.name}
         .heading-elements
   .content
-      .panel.panel-flat
-        .panel-heading
-          %h5.panel-title
-          .heading-elements
-            %ul.icons-list
-              %li
-                %a{"data-action" => "collapse"}
-              %li
-                %a{"data-action" => "reload"}
-              %li
-                %a{"data-action" => "close"}
-        .panel-body
-          = render 'form'
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = render 'form'
