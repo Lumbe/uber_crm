@@ -95,7 +95,7 @@
                       - if @contact.department.present? && @contact.department.city.present? && @contact.department.address.present?
                         #{@contact.department.city}, #{@contact.department.address}
                       %br/
-                      = link_to @contact.department.website, url_with_protocol(@contact.department.website), target: '_blank' if @contact.department.present?
+                      = link_to @contact.department.website, url_with_protocol(@contact.department.website), target: '_blank' if @contact.department.website.present?
                   %tr
                     %td{:height => "25"}
     %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "note", :width => "100%"}
@@ -410,7 +410,8 @@
                             2. ДОПОЛНИТЕЛЬНЫЕ РАБОТЫ
                         %tr
                           %td{:align => "right", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#DD3333;", "data-size" => "Texs Total", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 14px; color: #DD3333; font-weight: bold; line-height: 27.2px;", :valign => "top"}
-                            СКИДКА
+                            - if @commercial_proposal.discount.present?
+                              СКИДКА
                         %tr
                           %td{:align => "left", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Texs Total", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 15px; color: rgb(59, 59, 59); font-weight: bold; line-height: 27.2px; text-align: right;", :valign => "top"}
                             %hr/
@@ -431,7 +432,7 @@
                               = number_to_currency(@commercial_proposal.additional_services_price, locale: :en, precision: 0)
                         %tr
                           %td{:align => "right", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#DD3333;", "data-size" => "Texs Total", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 16px; color: #DD3333; font-weight: bold; line-height: 27.2px;", :valign => "top"}
-                            = number_to_currency(@commercial_proposal.discount, locale: :en, precision: 0)
+                            = number_to_currency(@commercial_proposal.discount, locale: :en, precision: 0) if @commercial_proposal.discount.present?
                         %tr
                           %td{:align => "right", "data-color" => "Total Text", "data-link-color" => "Total Text", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Total Sum", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 20px; color: rgb(59, 59, 59); font-weight: bold; line-height: 22px;", :valign => "top"}
                             %hr/
@@ -680,12 +681,12 @@
                                     %table{:align => "left", :border => "0", :cellpadding => "0", :cellspacing => "0"}
                                       %tr
                                         %td{:align => "center", :style => "line-height: 0px;"}
-                                          - if @contact.department.present?
+                                          - if @contact.department.facebook.present?
                                             = link_to @contact.department.facebook, url: @contact.department.facebook, target: '_blank' do
                                               = image_tag 'commercial_proposal_mailer/fb-5', width: '20'
                                         %td{:width => "10"}
                                         %td{:align => "center", :style => "line-height: 0px;"}
-                                          - if @contact.department.present?
+                                          - if @contact.department.vkontakte.present?
                                             = link_to @contact.department.vkontakte, url: @contact.department.vkontakte, target: '_blank' do
                                               = image_tag 'commercial_proposal_mailer/vk-5', width: '20'
                                         %td{:width => "10"}
@@ -731,7 +732,7 @@
                                     - if @contact.department.present? && @contact.department.city.present? && @contact.department.address.present?
                                       #{@contact.department.city}, #{@contact.department.address}
                                     %br/
-                                    = link_to @contact.department.website, url_with_protocol(@contact.department.website), target: '_blank' if @contact.department.present?
+                                    = link_to @contact.department.website, url_with_protocol(@contact.department.website), target: '_blank' if @contact.department.website.present?
                                 %tr
                                   %td{:height => "10"}
                                 %tr
