@@ -25,7 +25,7 @@
               .input-group
                 %span.input-group-addon.bg-green-600
                   .icon-home2
-                = f.text_field :project_name, class: 'form-control', placeholder: 'Проект "Амалия"'
+                = f.text_field :project_name, class: 'form-control', placeholder: 'Проект "Амалия"', required: true
         .row
           .col-md-12
             .form-group
@@ -33,7 +33,7 @@
               .input-group
                 %span.input-group-addon.bg-green-600
                   .icon-rulers
-                = f.number_field :house_square, class: 'form-control', placeholder: '133.02', step: 0.01
+                = f.number_field :house_square, class: 'form-control', placeholder: '133.02', step: 0.01, required: true
         .row
           .col-md-12
             .form-group
@@ -41,7 +41,7 @@
               .input-group
                 %span.input-group-addon.bg-green-600
                   .icon-link
-                = f.text_field :project_url, class: 'form-control', placeholder: 'http://servus.km.ua/project/amaliya-138-67-m-kv'
+                = f.text_field :project_url, class: 'form-control', placeholder: 'http://servus.km.ua/project/amaliya-138-67-m-kv', required: true
         .row
           .col-md-12
             .form-group
@@ -49,7 +49,7 @@
               .input-group
                 %span.input-group-addon.bg-green-600
                   .icon-coin-dollar
-                = f.number_field :house_kit_price, class: 'form-control', placeholder: '9999'
+                = f.number_field :house_kit_price, class: 'form-control', placeholder: '9999', required: true
         .row
           .col-md-12
             .form-group
@@ -57,7 +57,7 @@
               .input-group
                 %span.input-group-addon.bg-green-600
                   .icon-coin-dollar
-                = f.number_field :house_installation_price, class: 'form-control', placeholder: '9999'
+                = f.number_field :house_installation_price, class: 'form-control', placeholder: '9999', required: true
         .row
           .col-md-12
             .form-group
@@ -65,7 +65,7 @@
               .input-group
                 %span.input-group-addon.bg-green-600
                   .icon-coin-dollar
-                = f.number_field :additional_services_price, class: 'form-control', placeholder: '14999'
+                = f.number_field :additional_services_price, class: 'form-control', placeholder: '14999', required: true
         .row
           .col-md-12
             .form-group
@@ -81,7 +81,7 @@
               .input-group
                 %span.input-group-addon.bg-green-600
                   .icon-reset
-                = f.number_field :dollar_exchange_rate, class: 'form-control', placeholder: '26.5', step: 0.01
+                = f.number_field :dollar_exchange_rate, class: 'form-control', placeholder: '26.5', step: 0.01, required: true
   .text-left
     = f.submit 'Сохранить', class: 'btn btn-success'
 / /2 columns form
