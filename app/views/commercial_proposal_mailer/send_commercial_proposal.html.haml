@@ -437,10 +437,10 @@
                           %td{:align => "right", "data-color" => "Total Text", "data-link-color" => "Total Text", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Total Sum", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 20px; color: rgb(59, 59, 59); font-weight: bold; line-height: 22px;", :valign => "top"}
                             %hr/
                             %b
-                              - total_price = @commercial_proposal.house_kit_price                |
+                              - total_price = @commercial_proposal.house_kit_price              |
                                             + @commercial_proposal.house_installation_price     |
                                             + @commercial_proposal.additional_services_price    |
-                                            - @commercial_proposal.discount                     |
+                              - total_price -= @commercial_proposal.discount if @commercial_proposal.discount.present?
                               = number_to_currency(total_price, locale: :en, precision: 0)
             %tr
               %td{:height => "15"}

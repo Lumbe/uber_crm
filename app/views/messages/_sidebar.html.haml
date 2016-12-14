@@ -1,0 +1,17 @@
+.content
+  .row
+    .col-lg-3
+      .panel.panel-flat
+        .panel-heading
+          %h6.panel-title Сообщения
+        .list-group.no-border.no-padding-top
+          = link_to 'jojo', class: "list-group-item" do
+            %i.icon-folder-open
+            Входящие
+          = link_to 'jojo', class: "list-group-item" do
+            %i.icon-paperplane
+            Отправленные
+          = link_to commercial_proposals_user_messages_path, class: "list-group-item" do
+            %i.icon-coin-dollar
+            Коммерческие предложения
+    = yield

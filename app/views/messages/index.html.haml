@@ -1,0 +1,22 @@
+= render layout: 'sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .panel-body
+        .row
+          .col-md-12
+            .table-responsive
+              %table.table
+                %thead
+                  %tr.alpha-grey
+                    %th.text-uppercase{ 'colspan' => '2'}
+                      Контактные данные
+                %tbody
+                  %tr
+                    %td.col-md-3 Электронная почта
+                    %td.col-md-9
+                  %tr
+                    %td.col-md-3 Телефон
+                    %td.col-md-9
+                  %tr
+                    %td.col-md-3 Skype
+                    %td.col-md-9

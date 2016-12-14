@@ -3,8 +3,8 @@ module Observers
     def self.delivered_email(message)
       return unless message.respond_to?(:observer_args)
       sent_email = Message.new(
-         from: message.from.join(';'),
-         to: message.to,
+         from: message.from.join(','),
+         to: message.to.join(','),
          subject: message.subject,
          message_id: message.message_id,
          user_id: message.observer_args[:user].id,
@@ -16,6 +16,10 @@ module Observers
                         else
                            message.body.raw_source
                         end
+
+      # remove body styles to prevent breaking of existing layouts
+      sent_email.body.to_s.sub!(/body style="([^"]*)"/, 'body')
+      sent_email.body.to_s.sub!(/(<style).*(<\/style>)/, '')
 
       sent_email.save!
     end

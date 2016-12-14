@@ -148,10 +148,9 @@
                     %thead
                       %tr
                         %th #
-                        %th Название
+                        %th Проект
+                        %th Площадь
                         %th Создано
-                        %th Отправлено
-                        %th Открыто
                     %tbody
                       - @contact.commercial_proposals.each_with_index do |commercial_proposal, index|
                         %tr
@@ -160,9 +159,8 @@
                           %td
                             = link_to commercial_proposal.project_name, contact_commercial_proposal_path(@contact.id, commercial_proposal.id)
                           %td
-                            = time_tag commercial_proposal.created_at
-                          %td
-                            = time_tag commercial_proposal.created_at
+                            - if commercial_proposal.house_square.present?
+                              #{commercial_proposal.house_square} кв.м.
                           %td
                             = time_tag commercial_proposal.created_at
               - else
