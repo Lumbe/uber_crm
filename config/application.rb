@@ -13,6 +13,8 @@ module Workspace
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = :ru
     config.autoload_paths += %W(#{config.root}/lib)
+    config.time_zone = 'Kyiv'
+    config.active_record.default_timezone = :local
 
     # default sass syntax fr rails generators
     if Rails.configuration.respond_to?(:sass)
