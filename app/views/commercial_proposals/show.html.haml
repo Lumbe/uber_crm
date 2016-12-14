@@ -13,7 +13,9 @@
     .col-md-12
       .panel.panel-flat
         .panel-heading
-          %h5.panel-title КП - #{@commercial_proposal.project_name}
+          %h5.panel-title
+            %i.icon-home2.position-left.text-success-400
+            %span.text-semibold #{@commercial_proposal.project_name}
           .heading-elements
             %ul.icons-list
               %li
@@ -80,20 +82,31 @@
                       %span.text-bold.text-info-600
                         - total_converted_price = total_dollar_price * @commercial_proposal.dollar_exchange_rate
                         = number_to_currency(total_converted_price, locale: :uk)
-          .col-md-2
-          .col-md-4
+            .row
+              .col-md-12
+                .mt-20
+                  = link_to 'Отправить почтой', contact_commercial_proposal_send_by_email_path(commercial_proposal_id: @commercial_proposal.id), class: 'btn btn-success', data: { confirm: "Коммерческое предложение для #{@commercial_proposal.contact.name} будет отправлено на почту #{@commercial_proposal.contact.email}. Вы уверены что хотите продолжить?"}
+          .col-md-6
             .table-responsive
-              %table.table.table-borderless
+              %table.table
+                %caption
+                  %h5 Отправлено почтой
+                %thead
+                  %tr.bg-grey-300
+                    %th Тема
+                    %th Доставлено
+                    %th Открыто
                 %tbody
-                  %tr
-                    %td Создано
-                    %td.text-bold
-                      = time_tag @commercial_proposal.created_at
-                  %tr
-                    %td Отправлено почтой
-                    %td.text-bold
-                      = time_tag @commercial_proposal.created_at
-                  %tr
-                    %td Открыто клиентом
-                    %td.text-bold
-                      = time_tag @commercial_proposal.created_at
+                  - if @commercial_proposal.messages.present?
+                    - @commercial_proposal.messages.each do |message|
+                      %tr
+                        %td
+                          = link_to user_message_path(@commercial_proposal.user.id, message.id) do
+                            = message.subject
+                        %td
+                          = time_tag(message.delivered_at) if message.delivered_at.present?
+                        %td
+                          = message.opened_at if message.opened_at.present?
+                  - else
+                    %tr
+                      %td{colspan: 3} Коммерческое предложение еще не отправлено
