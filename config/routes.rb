@@ -21,17 +21,26 @@ Rails.application.routes.draw do
 
   resources :contacts do
     resources :comments
-    resources :commercial_proposals, only: [:new, :create, :show]
+    resources :commercial_proposals, only: [:new, :create, :show] do
+      get 'send_by_email', to: 'commercial_proposals#send_by_email', :as => :send_by_email
+    end
   end
   get 'contacts/:id/send_proposal', to: 'contacts#send_proposal', :as => :send_proposal
   get 'contacts/:id/phone_call', to: 'contacts#phone_call', :as => :phone_call
 
-  resources :users
+  resources :users do
+    resources :messages do
+      get 'commercial_proposals', on: :collection
+    end
+  end
   get 'users/:id/myleads', to: 'users#user_leads', :as => :user_leads
   get 'users/:id/mycontacts', to: 'users#user_contacts', :as => :user_contacts
   get 'users/:id/departments', to: 'users#departments', :as => :user_departments
   get 'users/:id/settings', to: 'users#settings', :as => :user_settings
-  
+
+  # webhook from Mailgun for delivered messages
+  post 'messages/delivered', to: 'messages#delivered'
+
   # Admin dashboard
   get 'admin' => 'admin/dashboard#index', :as => :admin
   get 'admin/users/become/:id' => 'admin/users#become', :as => :become_user
