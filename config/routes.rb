@@ -38,8 +38,9 @@ Rails.application.routes.draw do
   get 'users/:id/departments', to: 'users#departments', :as => :user_departments
   get 'users/:id/settings', to: 'users#settings', :as => :user_settings
 
-  # webhook from Mailgun for delivered messages
+  # webhook from Mailgun for delivered and opened messages
   post 'messages/delivered', to: 'messages#delivered'
+  post 'messages/opened', to: 'messages#opened'
 
   # Admin dashboard
   get 'admin' => 'admin/dashboard#index', :as => :admin
