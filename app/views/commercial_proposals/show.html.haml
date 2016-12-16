@@ -106,7 +106,7 @@
                         %td
                           = time_tag(message.delivered_at) if message.delivered_at.present?
                         %td
-                          = message.opened_at if message.opened_at.present?
+                          = time_tag(message.opened_at) if message.opened_at.present?
                   - else
                     %tr
                       %td{colspan: 3} Коммерческое предложение еще не отправлено
