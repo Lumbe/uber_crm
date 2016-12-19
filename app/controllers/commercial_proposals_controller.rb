@@ -24,7 +24,7 @@ class CommercialProposalsController < ApplicationController
     @user = current_user
     CommercialProposalMailer.send_commercial_proposal(@contact, @user, @commercial_proposal).deliver_now
     flash[:notice] = "Коммерческое предложение для #{@commercial_proposal.project_name} успешно отправлено на почту: #{@contact.email}"
-    redirect_back fallback_location: @commercial_proposal
+    redirect_back fallback_location: contact_commercial_proposal_path(@contact, @commercial_proposal)
   end
 
   private
