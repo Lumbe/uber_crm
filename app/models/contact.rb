@@ -1,6 +1,8 @@
 class Contact < ApplicationRecord
   include PublicActivity::Common
 
+  enum status: [:newly, :repeated, :proposal, :finished, :sended]
+
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true
   belongs_to :customer, optional: true
@@ -8,11 +10,11 @@ class Contact < ApplicationRecord
   has_many :leads
   has_many :comments, as: :commentable
   has_many :commercial_proposals
-  phony_normalize :phone, default_country_code: 'UA'
-  validates :name, :phone, :source, :region, presence: true
 
-  enum status: [:newly, :repeated, :proposal, :finished, :sended]
+  validates :name, :phone, :source, :region, presence: true
   
+  phony_normalize :phone, default_country_code: 'UA'
+
   scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :finished, fifth = :sended) {
     order("status = #{Contact.statuses[first]} DESC, status = #{Contact.statuses[second]} DESC, status = #{Contact.statuses[third]} DESC, status = #{Contact.statuses[fourth]} DESC")
     }
