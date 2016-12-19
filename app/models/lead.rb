@@ -19,13 +19,6 @@ class Lead < ApplicationRecord
     status = #{Lead.statuses[fourth]} DESC, status = #{Lead.statuses[fifth]} DESC, status = #{Lead.statuses[sixth]} DESC")
     }
 
-  # @return [Array<Array>]
-  def self.status_attributes_for_select
-    statuses.map do |status, _|
-      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.statuses.#{status}"), status]
-    end
-  end
-
   def related_contacts
     Contact.where(department: self.department).ransack(phone_cont: self.phone.chars.last(7).join).result.or(Contact.where(department: self.department, email: self.email).where.not(email: ''))
   end

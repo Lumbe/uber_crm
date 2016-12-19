@@ -1,6 +1,5 @@
 class LeadsController < ApplicationController
   protect_from_forgery with: :exception, except: [:create]
-  before_action :load_statuses, only: [:new, :edit, :create]
   load_and_authorize_resource except: [:new, :create_delegated_lead]
   prepend_before_action :auth_user_before_action, only: [:create]
 
@@ -243,11 +242,7 @@ class LeadsController < ApplicationController
                                  :come_in_office, :phone_call, :status,
                                  :user_id, :department_id, :assigned_to)
   end
-  
-  def load_statuses
-    @statuses = Lead.status_attributes_for_select
-  end
-  
+
   def load_leads(paginate=true)
     # load leads with filtered statuses and dates from datapicker
     leads = Lead.where(status: params[:statuses], department_id: @user.current_department_id).order_by_status.order(created_at: :desc)

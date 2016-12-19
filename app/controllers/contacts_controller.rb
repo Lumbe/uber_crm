@@ -1,6 +1,5 @@
 class ContactsController < ApplicationController
   load_and_authorize_resource except: [:new]
-  before_action :load_statuses, only: [:new, :edit, :create]
   
   def index
     @user = current_user
@@ -143,10 +142,6 @@ class ContactsController < ApplicationController
                                  :come_in_office, :phone_call, :status,
                                  :user_id, :department_id, :assigned_to,
                                  :alt_email, :do_not_call)
-  end
-
-  def load_statuses
-    @statuses = Contact.status_attributes_for_select
   end
 
   def load_contacts(paginate=true)

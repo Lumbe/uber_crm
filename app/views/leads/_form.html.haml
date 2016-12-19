@@ -175,6 +175,6 @@
                   .input-group
                     %span.input-group-addon
                       .icon-versions
-                    = f.select(:status, @statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                    = f.select(:status, lead_statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
       .text-left
         = f.submit 'Сохранить', class: 'btn btn-success'

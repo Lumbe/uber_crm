@@ -19,13 +19,6 @@ class Contact < ApplicationRecord
     order("status = #{Contact.statuses[first]} DESC, status = #{Contact.statuses[second]} DESC, status = #{Contact.statuses[third]} DESC, status = #{Contact.statuses[fourth]} DESC")
     }
 
-  # @return [Array<Array>]
-  def self.status_attributes_for_select
-    statuses.map do |status, _|
-      [I18n.t("activerecord.attributes.#{model_name.i18n_key}.statuses.#{status}"), status]
-    end
-  end
-
   def self.top_repeated_leads
     joins(:leads).group("contacts.id").order("count(leads.id) DESC")
   end

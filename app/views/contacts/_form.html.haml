@@ -172,7 +172,7 @@
               .input-group
                 %span.input-group-addon
                   .icon-versions
-                = f.select(:status, @statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                = f.select(:status, contact_statuses, {}, { class: 'select' } )
         .row
           .col-md-6
             = f.label :do_not_call, class: 'checkbox-inline' do
