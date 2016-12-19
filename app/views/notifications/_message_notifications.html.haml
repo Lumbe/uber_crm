@@ -1,0 +1,18 @@
+.dropdown-content-heading
+  Уведомления
+%ul.media-list.dropdown-content-body.width-350
+  - @message_notifications.each do |notification|
+    %li.media
+      .media-left
+        .cursor-default.btn.text-info.btn-flat.btn-rounded.btn-icon.btn-sm
+          %i.icon-mail-read
+      .media-body
+        = link_to contact_path(notification.notifiable.commercial_proposal.contact) do
+          #{notification.notifiable.commercial_proposal.contact.name}
+        #{notification.action}
+        = link_to user_message_path(notification.notifiable.user, notification.notifiable) do
+          #{notification.notifiable.subject}
+        .media-annotation #{time_ago_in_words(notification.created_at)} назад
+.dropdown-content-footer
+  = link_to notifications_path, data: {popup: 'tooltip'}, title: "Все уведомления" do
+    %i.icon-menu.display-block

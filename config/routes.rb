@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     collection do
       post :mark_as_read
     end
+    get 'general_notifications', to: 'notifications#general_notifications', on: :collection, as: :general
+    get 'message_notifications', to: 'notifications#message_notifications', on: :collection, as: :message
   end
 
   resources :contacts do

@@ -26,7 +26,8 @@ class ApplicationController < ActionController::Base
   end
 
   def notification_counter
-    @unread_notifications = Notification.where(recipient: current_user).unread
+    @unread_general_notifications = Notification.general.where(recipient: current_user).unread
+    @unread_message_notifications = Notification.message.where(recipient: current_user).unread
   end
   
   def unauthorized

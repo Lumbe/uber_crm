@@ -1,7 +1,7 @@
 .dropdown-content-heading
   Уведомления
 %ul.media-list.dropdown-content-body.width-350
-  - @notifications.each do |notification|
+  - @general_notifications.each do |notification|
     %li.media
       .media-left
         - if notification.notifiable.is_a?(Lead)

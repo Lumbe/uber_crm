@@ -21,12 +21,19 @@
           %li
             = link_to 'Admin', admin_path
         %li.dropdown
-          = link_to notifications_path, class: "dropdown-toggle", id: 'notification-link', remote: true, data: { toggle: "dropdown" } do
+          = link_to message_notifications_path, class: "dropdown-toggle", id: 'message-notifications', remote: true, data: { toggle: "dropdown" } do
+            %i.icon-envelop3.text-info-600
+            %span.visible-xs-inline-block.position-right Сообщения
+            - if @unread_message_notifications.count > 0
+              %span.badge.bg-warning-400#message-notifications-counter #{@unread_message_notifications.count}
+          .dropdown-menu.dropdown-content#message-notifications-dropdown
+        %li.dropdown
+          = link_to general_notifications_path, class: "dropdown-toggle", id: 'general-notifications', remote: true, data: { toggle: "dropdown" } do
             %i.icon-bell2
             %span.visible-xs-inline-block.position-right Уведомления
-            - if @unread_notifications.count > 0
-              %span.badge.bg-warning-400#notifications-counter #{@unread_notifications.count}
-          .dropdown-menu.dropdown-content#notifications-dropdown
+            - if @unread_general_notifications.count > 0
+              %span.badge.bg-warning-400#general-notifications-counter #{@unread_general_notifications.count}
+          .dropdown-menu.dropdown-content#general-notifications-dropdown
         %li.dropdown.dropdown-user
           %a.dropdown-toggle{"data-toggle" => "dropdown"}
             = image_tag(current_user.avatar.url(:thumb), alt: 'user profile')
