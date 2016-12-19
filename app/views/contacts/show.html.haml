@@ -191,6 +191,10 @@
                 Связанные лиды отсутствуют
   .row
     .col-md-12
+      .contact-buttons
+        = link_to 'Коммерческое предложение', new_contact_commercial_proposal_path(@contact), class: "btn btn-success"
+  .row
+    .col-md-12
       = render "comments/form"
       .col-md-12
         = render "comments/comments"
