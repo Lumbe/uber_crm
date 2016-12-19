@@ -27,6 +27,7 @@ class MessagesController < ApplicationController
       message_id = params['message-id']
       message = Message.find_by_message_id message_id
       message.update opened_at: Time.current
+      Notification.create(recipient: message.user, actor: message.user, action: 'открыл письмо', notifiable: message, notification_type: 'message')
     end
   end
 
