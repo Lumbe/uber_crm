@@ -1,4 +1,6 @@
 class CommercialProposal < ApplicationRecord
+  include PublicActivity::Common
+
   belongs_to :user
   belongs_to :contact
   has_many :messages

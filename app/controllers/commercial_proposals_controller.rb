@@ -8,6 +8,7 @@ class CommercialProposalsController < ApplicationController
     @contact = Contact.find(params[:contact_id])
     @commercial_proposal = @contact.commercial_proposals.new(commercial_proposal_params)
     if @commercial_proposal.save
+      @commercial_proposal.create_activity :create, owner: current_user, trackable_department_id: @commercial_proposal.contact.department.id
       redirect_to contact_commercial_proposal_path(@contact, @commercial_proposal)
     else
       render 'new'
