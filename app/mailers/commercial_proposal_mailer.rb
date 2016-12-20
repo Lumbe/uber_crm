@@ -1,5 +1,5 @@
 class CommercialProposalMailer < ApplicationMailer
-  default from: "Сервус Поділля <postmaster@sandbox6c18ff9554cc49aeab97c7fad99c0440.mailgun.org>"
+  default from: "Сервус Поділля <office@mg.servus.vn.ua>"
   add_template_helper ApplicationHelper
 
   def mail(headers = {}, &block)
@@ -19,6 +19,9 @@ class CommercialProposalMailer < ApplicationMailer
     @contact = contact
     @commercial_proposal = commercial_proposal
     @manager = manager
-    mail(to: contact.email, subject: "Стоимость Вашего дома", observer_args: { user: @manager, commercial_proposal: @commercial_proposal })
+    mail to: contact.email,
+        from: "#{@manager.first_name} #{@manager.last_name} <#{@manager.email}>",
+        subject: "Стоимость Вашего дома",
+        observer_args: { user: @manager, commercial_proposal: @commercial_proposal }
   end
 end
