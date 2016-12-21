@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   root 'home#index'
+
+  require 'sidekiq/web'
+  authenticate :user, lambda { |user| user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   get 'statistics', to: 'statistics#index'
   devise_for :users
   get '/initialize_department' => 'application#initialize_department', as: :initialize_department

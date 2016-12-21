@@ -13,8 +13,13 @@ module Workspace
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = :ru
     config.autoload_paths += %W(#{config.root}/lib)
+
+    # set timizone
     config.time_zone = 'Kyiv'
     config.active_record.default_timezone = :local
+
+    # set sidekiq gem as default queue adapter
+    config.active_job.queue_adapter = :sidekiq
 
     # default sass syntax fr rails generators
     if Rails.configuration.respond_to?(:sass)
