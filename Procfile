@@ -1,3 +1,3 @@
-rails-puma-server: rails s -p $PORT -b $IP
-redis-server: redis-server
-sidekiq:      bundle exec sidekiq
+puma:     rails s -p $PORT -b $IP
+redis:    redis-server
+sidekiq:  bundle exec sidekiq
