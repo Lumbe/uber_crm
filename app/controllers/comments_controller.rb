@@ -4,11 +4,7 @@ class CommentsController < ApplicationController
   def index
     @comments = @commentable.comments.order(created_at: :desc)
   end
-  
-  def show
-    
-  end
-  
+
   def new
     @comment = @commentable.comments.new
   end
@@ -29,19 +25,7 @@ class CommentsController < ApplicationController
       render 'new'
     end
   end
-  
-  def edit
-    
-  end
-  
-  def update
-    
-  end
-  
-  def destroy
-    
-  end
-  
+
   private
   
   def comment_params
