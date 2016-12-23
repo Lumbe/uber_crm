@@ -7,6 +7,17 @@
           %h4
             %i.icon-user.position-left.text-success-600
             %span.text-semibold #{@contact.name}
+            - case @contact.status
+              - when 'newly'
+                %span.label.label-danger Новый
+              - when 'repeated'
+                %span.label.label-danger Повторно
+              - when 'proposal'
+                %span.label.label-primary Отправлено КП
+              - when 'finished'
+                %span.label.label-default Завершен
+              - when 'sended'
+                %span.label.label-info Передан
             %small.display-block Контакт
         .heading-elements
           = link_to 'Редактировать', edit_contact_path, class: 'btn btn-success'
