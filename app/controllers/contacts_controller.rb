@@ -119,6 +119,27 @@ class ContactsController < ApplicationController
     redirect_to contacts_path
   end
   
+  def change_status
+    contact = Contact.find(params[:id])
+    case params[:contact_status]
+    when 'newly'
+      contact.newly!
+      redirect_to contact
+    when 'repeated'
+      contact.repeated!
+      redirect_to contact
+    when 'proposal'
+      contact.proposal!
+      redirect_to contact
+    when 'finished'
+      contact.finished!
+      redirect_to contact
+    when 'sended'
+      contact.sended!
+      redirect_to contact
+    end
+  end
+
   def phone_call
     @contact = Contact.find(params[:id])
     @user = current_user

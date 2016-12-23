@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get 'send_by_email', to: 'commercial_proposals#send_by_email', :as => :send_by_email
     end
   end
+  post 'contacts/:id/change_status', to: 'contacts#change_status', :as => :change_status
   get 'contacts/:id/send_proposal', to: 'contacts#send_proposal', :as => :send_proposal
   get 'contacts/:id/phone_call', to: 'contacts#phone_call', :as => :phone_call
 

@@ -203,7 +203,18 @@
   .row
     .col-md-12
       .contact-buttons
-        = link_to 'Коммерческое предложение', new_contact_commercial_proposal_path(@contact), class: "btn btn-success"
+        = link_to new_contact_commercial_proposal_path(@contact), class: "btn btn-success", title: 'Создать коммерческое предложение', data: { popup: 'tooltip', placement: 'bottom' } do
+          %i.icon-plus3.position-left
+          Коммерческое предложение
+        .btn-group.ml-20
+          %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+            Статус
+            %span.caret
+          %ul.dropdown-menu.dropdown-menu-right.bg-success
+            - Contact.statuses.keys.each do |status|
+              %li
+                = link_to change_status_path(contact_status: status), method: :post, remote: true do
+                  = t("activerecord.attributes.contact.statuses.#{status}")
   .row
     .col-md-12
       = render "comments/new"

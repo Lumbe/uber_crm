@@ -18,6 +18,7 @@ module ApplicationHelper
       Department.find(current_user.current_department_id)
     end
 
+    # for use with link_to in mailers
     def url_with_protocol(url)
       /^http/i.match(url) ? url : "http://#{url}"
     end
