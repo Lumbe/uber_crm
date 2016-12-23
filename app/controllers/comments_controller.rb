@@ -1,14 +1,6 @@
 class CommentsController < ApplicationController
   before_action :load_commentable
-  
-  def index
-    @comments = @commentable.comments.order(created_at: :desc)
-  end
 
-  def new
-    @comment = @commentable.comments.new
-  end
-  
   def create
     @comment = @commentable.comments.new(comment_params)
     if @comment.save
