@@ -3,6 +3,13 @@ class MessagesController < ApplicationController
   prepend_before_action :auth_user_before_action, only: [:delivered, :opened]
 
   def index
+    @messages = Message.where(commercial_proposal: nil).where(inbound: true)
+    @user = current_user
+  end
+
+  def new
+    @user = current_user
+    @message = Message.new
   end
 
   def show
@@ -31,6 +38,22 @@ class MessagesController < ApplicationController
     end
   end
 
+  def send_mail
+    @message = Message.new(message_params)
+    @user = current_user
+    @message.save
+    mail = MessageMailer.send_mail(@message, @user)
+    mail.deliver_later
+
+    flash[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
+    redirect_to inbound_user_messages_path
+  end
+
+  def outbound
+    @messages = Message.where(commercial_proposal: nil).where.not(inbound: true)
+    @user = current_user
+  end
+
   private
 
   def auth_user_before_action
@@ -38,6 +61,10 @@ class MessagesController < ApplicationController
       user = User.first
       sign_in user, store: false
     end
+  end
+
+  def message_params
+    params.require(:message).permit(:to, :from, :subject, :body, :user_id)
   end
 
 end

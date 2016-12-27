@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   root 'home#index'
 
   require 'sidekiq/web'
@@ -40,6 +41,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :messages do
       get 'commercial_proposals', on: :collection
+      get 'outbound', on: :collection
+      post 'send_mail', on: :collection
     end
   end
   get 'users/:id/myleads', to: 'users#user_leads', :as => :user_leads

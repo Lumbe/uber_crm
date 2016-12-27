@@ -11,16 +11,19 @@
               %th Доставлено
               %th Прочитано
           %tbody
-            - @messages.each do |message|
-              %tr
-                %td
-                  = link_to message.commercial_proposal.project_name, contact_commercial_proposal_path(message.commercial_proposal.contact, message.commercial_proposal)
-                %td
-                  = link_to user_message_path(@user.id, message.id) do
-                    = message.subject
-                %td
-                  = link_to message.commercial_proposal.contact.name, message.commercial_proposal.contact
-                %td
-                  = time_tag(message.delivered_at) if message.delivered_at.present?
-                %td
-                  = time_tag(message.opened_at) if message.opened_at.present?
+            - if @messages.blank?
+              %span.text-semibold Отправленные коммерческие предложения отсутствуют
+            - else
+              - @messages.each do |message|
+                %tr
+                  %td
+                    = link_to message.commercial_proposal.project_name, contact_commercial_proposal_path(message.commercial_proposal.contact, message.commercial_proposal)
+                  %td
+                    = link_to user_message_path(@user.id, message.id) do
+                      = message.subject
+                  %td
+                    = link_to message.commercial_proposal.contact.name, message.commercial_proposal.contact
+                  %td
+                    = time_tag(message.delivered_at) if message.delivered_at.present?
+                  %td
+                    = time_tag(message.opened_at) if message.opened_at.present?

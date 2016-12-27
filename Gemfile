@@ -58,6 +58,7 @@ gem 'public_activity'
 gem 'premailer-rails'
 gem 'mailgun_rails'
 gem 'sidekiq'
+gem 'ckeditor'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

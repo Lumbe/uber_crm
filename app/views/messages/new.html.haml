@@ -1,0 +1,43 @@
+= render layout: 'sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Новое сообщение
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = form_for [@user, @message], url: send_mail_user_messages_url, remote: true do |f|
+          = f.hidden_field :from, value: @user.email
+          = f.hidden_field :user_id, value: @user.id
+          - if @message.errors.any?
+            .alert.bg-danger.alert-styled-left
+              %button.close{ data: { dismiss: 'alert' } }
+                %span &times;
+                %span.sr-only Закрыть
+              %h4
+                Исправьте ошибки и попробуйте снова. Ошибок:
+                = @message.errors.count
+              %ul
+                - @message.errors.full_messages.each do |msg|
+                  %li = msg
+          .mb-10
+            = f.submit 'Отправить', class: 'btn btn-success'
+            %span.ml-5
+            письмо от
+            = link_to "#{@user.email} (#{@user.first_name} #{@user.last_name})", user_path(@user)
+          .form-group
+            = f.label :to, 'Кому'
+            = f.text_field :to, class: 'form-control', required: true
+          .form-group
+            = f.label :subject, 'Тема'
+            = f.text_field :subject, class: 'form-control', required: true
+          .form-group
+            = f.cktext_area :body, class: 'form-control'
+          .form-group
+            = f.submit 'Отправить', class: 'btn btn-success'

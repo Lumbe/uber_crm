@@ -7,8 +7,12 @@
         .cursor-default.btn.text-info.btn-flat.btn-rounded.btn-icon.btn-sm
           %i.icon-mail-read
       .media-body
-        = link_to contact_path(notification.notifiable.commercial_proposal.contact) do
-          #{notification.notifiable.commercial_proposal.contact.name}
+        - if notification.notifiable.commercial_proposal.present?
+          = link_to contact_path(notification.notifiable.commercial_proposal.contact) do
+            #{notification.notifiable.commercial_proposal.contact.name}
+        - else
+          .text-info.text-bold
+            = notification.notifiable.to
         #{notification.action}
         = link_to user_message_path(notification.notifiable.user, notification.notifiable) do
           #{notification.notifiable.subject}
