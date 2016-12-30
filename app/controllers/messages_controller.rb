@@ -41,16 +41,26 @@ class MessagesController < ApplicationController
   def send_mail
     @message = Message.new(message_params)
     @user = current_user
-    @message.save
+    @message.save!
     mail = MessageMailer.send_mail(@message, @user)
     mail.deliver_later
 
-    flash[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
-    redirect_to inbound_user_messages_path
+    respond_to do |format|
+      format.html
+      format.js do
+        case Rails.application.routes.recognize_path(request.referrer)[:controller]
+        when 'contacts'
+          flash.now[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
+        when 'messages'
+          flash.now[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
+          redirect_to user_messages_path
+        end
+      end
+    end
   end
 
   def outbound
-    @messages = Message.where(commercial_proposal: nil).where.not(inbound: true)
+    @messages = Message.where(commercial_proposal: nil).where.not(inbound: true).order(created_at: :desc)
     @user = current_user
   end
 

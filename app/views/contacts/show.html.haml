@@ -204,8 +204,11 @@
     .col-md-12
       .contact-buttons
         = link_to new_contact_commercial_proposal_path(@contact), class: "btn btn-success", title: 'Создать коммерческое предложение', data: { popup: 'tooltip', placement: 'bottom' } do
-          %i.icon-plus3.position-left
+          %i.icon-coin-dollar.position-left
           Коммерческое предложение
+          = link_to '#', class: "btn btn-success ml-20", data: { toggle: 'modal', target: '#modal_new_contact_message' } do
+            %i.icon-paperplane.position-left
+            Написать письмо
         .btn-group.ml-20
           %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
             Статус
@@ -220,3 +223,4 @@
       = render "comments/new"
       .col-md-12
         = render @contact.comments
+      = render 'new_contact_message'

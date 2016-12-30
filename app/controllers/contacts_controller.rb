@@ -63,10 +63,14 @@ class ContactsController < ApplicationController
 
   def show
     @contact = Contact.find(params[:id])
-    @user = @contact.user
+    @user = current_user
+    @message = Message.new
     @commentable = @contact
     @comments = @commentable.comments.order(created_at: :asc)
     @comment = Comment.new
+    gon.push({
+      contact_email: @contact.email
+    })
   end
 
   def new
