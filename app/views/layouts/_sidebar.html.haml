@@ -47,20 +47,6 @@
     / /main sidebar
     / Main content
     .content-wrapper
-      - flash.each do |key, value|
-        .content
-          - if key.to_s == 'alert'
-            .alert.bg-danger.alert-styled-left
-              %button.close{ data: { dismiss: 'alert' } }
-                %span &times;
-                %span.sr-only Закрыть
-              %span.text-semibold
-                = value
-          - else
-            .alert.bg-info.alert-styled-left
-              %button.close{ data: { dismiss: 'alert' } }
-                %span &times;
-                %span.sr-only Закрыть
-              %span.text-semibold
-                = value
+      #flash_messages
+        = render 'layouts/flash_messages'
       = yield
