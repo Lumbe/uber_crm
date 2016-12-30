@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get 'statistics', to: 'statistics#index'
   devise_for :users
-  get '/initialize_department' => 'application#initialize_department', as: :initialize_department
+  post '/initialize_department' => 'application#initialize_department', as: :initialize_department
   get 'unauthorized' => 'application#unauthorized', as: :unauthorized
   
   resources :leads

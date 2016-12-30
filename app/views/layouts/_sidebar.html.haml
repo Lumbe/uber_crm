@@ -17,7 +17,7 @@
                 = link_to user_path(current_user.id), class: "label label-flat border-grey-300 text-size-small text-muted" do
                   Мой кабинет
                 %br
-                = link_to "#{current_department.name}", '#', id: 'modal_department', data: { toggle: 'modal', target: '#modal_default' }
+                = link_to "#{current_department.name}", '#', data: { toggle: 'modal', target: '#modal_current_department' }
         / Main navigation
         .sidebar-category.sidebar-category-visible
           .category-content.no-padding

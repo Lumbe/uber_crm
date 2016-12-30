@@ -1,13 +1,13 @@
-#modal_default.modal.fade
+#modal_current_department.modal.fade
   .modal-dialog.modal-sm
     .modal-content
       .modal-header
         %button.close{"data-dismiss" => "modal", :type => "button"} ×
         %h5.modal-title Выберите отдел
-      = form_tag initialize_department_path, method: :get  do |f|
+      = form_tag initialize_department_url do
         .modal-body
           .form-group
             = select_tag(:current_department_id, options_from_collection_for_select(@user_departments, :id, :name, current_department.id), {class: 'select'} )
         .modal-footer
-          %button.btn.btn-primary{:type => "submit"}
+          = button_tag :submit, class: 'btn btn-primary' do
             .icon-checkmark4
