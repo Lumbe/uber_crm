@@ -18,6 +18,13 @@
             %small.display-block
               Тема:
               %span.text-grey-800.text-bold #{@message.subject}
+        - if @message.attachments.present?
+          .mt-20
+            - @message.attachments.each do |attachment|
+              - case attachment.attachment_content_type
+              - when /\Aimage/
+                %i.icon-file-picture.position-top
+              = link_to attachment.attachment_file_name, attachment.attachment.url, download: attachment.attachment_file_name
 .content
   .row
     .col-md-12

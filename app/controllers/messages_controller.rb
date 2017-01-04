@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  protect_from_forgery with: :exception, except: [:delivered, :opened]
+  protect_from_forgery with: :exception, except: [:delivered, :opened], prepend: true
   prepend_before_action :auth_user_before_action, only: [:delivered, :opened]
 
   def index
@@ -39,22 +39,31 @@ class MessagesController < ApplicationController
   end
 
   def send_mail
-    @message = Message.new(message_params)
     @user = current_user
-    @message.save!
-    mail = MessageMailer.send_mail(@message, @user)
-    mail.deliver_later
-
+    @message = Message.new(message_params)
+    if params[:attachments]
+      params[:attachments].each do |attachment|
+        @message.attachments.build(attachment: attachment)
+      end
+    end
     respond_to do |format|
-      format.html
-      format.js do
-        case Rails.application.routes.recognize_path(request.referrer)[:controller]
-        when 'contacts'
-          flash.now[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
-        when 'messages'
-          flash.now[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
-          redirect_to user_messages_path
+      if @message.save
+        mail = MessageMailer.send_mail(@message, @user)
+        mail.deliver_later
+
+        format.html { redirect_to user_messages_path, notice: "Письмо успешно отправлено на почту: #{@message.to}" }
+        format.js do
+          case Rails.application.routes.recognize_path(request.referrer)[:controller]
+          when 'contacts'
+            flash.now[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
+          when 'messages'
+            flash[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
+            redirect_to user_messages_path
+          end
         end
+      else
+        format.html { render 'new' }
+        format.js { render json: @message.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -74,7 +83,7 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    params.require(:message).permit(:to, :from, :subject, :body, :user_id)
+    params.require(:message).permit(:to, :from, :subject, :body, :user_id, attachments: [])
   end
 
 end

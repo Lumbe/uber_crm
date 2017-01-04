@@ -1,4 +1,4 @@
-= form_for [@user, @message], url: send_mail_user_messages_url(@user), remote: true do |f|
+= form_for [@user, @message], url: send_mail_user_messages_url(@user), authenticity_token: true, remote: true, html: { multipart: true } do |f|
   = f.hidden_field :from, value: @user.email
   = f.hidden_field :user_id, value: @user.id
   - if @message.errors.any?
@@ -8,10 +8,18 @@
         %span.sr-only Закрыть
       %h4
         Исправьте ошибки и попробуйте снова. Ошибок:
-        = @message.errors.count
+        - attachment_errors = 0
+        - @message.attachments.each { |attachment| attachment_errors += attachment.errors.count }
+        = @message.errors.count + attachment_errors
       %ul
         - @message.errors.full_messages.each do |msg|
-          %li = msg
+          %li
+            = msg
+        - if @message.attachments.any?
+          - @message.attachments.each do |attachment|
+            - attachment.errors.full_messages.each do |msg|
+              %li
+                = msg
   .mb-10
     = f.submit 'Отправить', class: 'btn btn-success'
     %span.ml-5
@@ -25,5 +33,7 @@
     = f.text_field :subject, class: 'form-control'
   .form-group
     = f.cktext_area :body, class: 'form-control'
+  .form-group
+    = file_field_tag "attachments[]", type: :file, multiple: true, class: 'form-control'
   .form-group
     = f.submit 'Отправить', class: 'btn btn-success'
