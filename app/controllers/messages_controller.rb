@@ -10,6 +10,7 @@ class MessagesController < ApplicationController
   def new
     @user = current_user
     @message = Message.new
+    @message.attachments.new
   end
 
   def show
@@ -41,8 +42,8 @@ class MessagesController < ApplicationController
   def send_mail
     @user = current_user
     @message = Message.new(message_params)
-    if params[:attachments]
-      params[:attachments].each do |attachment|
+    if params[:attachments_attributes][:attachment]
+      params[:attachments_attributes][:attachment].each do |attachment|
         @message.attachments.build(attachment: attachment)
       end
     end
@@ -57,13 +58,16 @@ class MessagesController < ApplicationController
           when 'contacts'
             flash.now[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
           when 'messages'
-            flash[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
-            redirect_to user_messages_path
+            redirect_to user_messages_path, notice: "Письмо успешно отправлено на почту: #{@message.to}"
           end
         end
       else
         format.html { render 'new' }
-        format.js { render json: @message.errors, status: :unprocessable_entity }
+        format.js do
+          @message.attachments.each do |attachment|
+            attachment.errors.full_messages.each { |msg| flash.now[:alert] =  "Письмо не отправлено. #{msg}" }
+          end
+        end
       end
     end
   end
@@ -83,7 +87,7 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    params.require(:message).permit(:to, :from, :subject, :body, :user_id, attachments: [])
+    params.require(:message).permit(:to, :from, :subject, :body, :user_id, attachments_attributes: [:attachment])
   end
 
 end

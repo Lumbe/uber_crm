@@ -5,7 +5,8 @@ class Message < ApplicationRecord
 
   belongs_to :user
   belongs_to :commercial_proposal, optional: true
-  has_many :attachments, dependent: :destroy
+  has_many :attachments, dependent: :destroy, inverse_of: :message
+  accepts_nested_attributes_for :attachments
 
   validates_presence_of :from, :to, :user_id
 

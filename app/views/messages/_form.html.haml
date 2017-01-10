@@ -1,4 +1,4 @@
-= form_for [@user, @message], url: send_mail_user_messages_url(@user), authenticity_token: true, remote: true, html: { multipart: true } do |f|
+= form_for [@user, @message], url: send_mail_user_messages_url(@user), authenticity_token: true, remote: true do |f|
   = f.hidden_field :from, value: @user.email
   = f.hidden_field :user_id, value: @user.id
   - if @message.errors.any?
@@ -34,6 +34,7 @@
   .form-group
     = f.cktext_area :body, class: 'form-control'
   .form-group
-    = file_field_tag "attachments[]", type: :file, multiple: true, class: 'form-control'
+    = f.fields_for :attachments, @message do |attachment_f|
+      = attachment_f.file_field :attachment, name: "attachments_attributes[attachment][]", id: "message_attachments_attributes", type: :file, multiple: true, class: 'form-control'
   .form-group
     = f.submit 'Отправить', class: 'btn btn-success'

@@ -6,7 +6,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
+$(document).on 'turbolinks:load', ->
   # Set departments select tag without search field, fixed width & medium size
   $('.select-departments').select2
     minimumResultsForSearch: Infinity
