@@ -59,6 +59,7 @@ gem 'premailer-rails'
 gem 'mailgun_rails'
 gem 'sidekiq'
 gem 'ckeditor'
+gem 'remotipart', '~> 1.2'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
