@@ -175,6 +175,13 @@
                 = f.select(:status, contact_statuses, {}, { class: 'select' } )
         .row
           .col-md-6
+            = f.label :assigned_to, 'Ответственный'
+            .input-group
+              %span.input-group-addon
+                .icon-user
+              = f.collection_select(:assigned_to, @contact.department.users, :id, :full_name, {}, {class: 'select', data: { placeholder: 'Выберите отдел' }} )
+        .row
+          .col-md-6.mt-20
             = f.label :do_not_call, class: 'checkbox-inline' do
               = f.check_box :do_not_call, class: 'styled'
               Не звонить/не отправлять рассылки
