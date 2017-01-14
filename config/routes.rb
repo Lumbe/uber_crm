@@ -12,14 +12,17 @@ Rails.application.routes.draw do
   post '/initialize_department' => 'application#initialize_department', as: :initialize_department
   get 'unauthorized' => 'application#unauthorized', as: :unauthorized
   
-  resources :leads
-  get 'leads/:id/claim', to: 'leads#claim', :as => :claim_lead
-  get 'leads/:id/close', to: 'leads#close', :as => :close_lead
-  get 'leads/:id/delegate', to: 'leads#delegate', :as => :delegate_lead # send lead to another department
-  post 'leads/:id/delegate', to: 'leads#create_delegated_lead', :as => :create_delegated_lead
-  get 'leads/:id/send_lead_to_email', to: 'leads#send_lead_to_email', :as => :send_lead_to_email # send lead to another department
-  get 'leads/:id/convert', to: 'leads#convert', :as => :convert_lead # convert lead to contact
-  
+  resources :leads do
+    member do
+      get :claim
+      get :close
+      get :convert
+      get :delegate
+      post :delegate, as: :create_delegated, to: 'leads#create_delegated_lead'
+      get :send_email_with_lead, as: :send_email_with
+    end
+  end
+
   resources :notifications do
     collection do
       post :mark_as_read
