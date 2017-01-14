@@ -424,7 +424,7 @@ RSpec.describe LeadsController, type: :controller do
     end
   end
 
-  describe 'GET #send_lead_to_email' do
+  describe 'GET #send_email_with_lead' do
     login_user('manager')
     before :each do
       @user = subject.current_user
@@ -432,42 +432,46 @@ RSpec.describe LeadsController, type: :controller do
     end
 
     it "assigns the requested lead to @lead" do
-      get :send_lead_to_email, params: { id: @lead.id }
+      get :send_email_with_lead, params: { id: @lead.id }
       expect(assigns(:lead)).to eq(@lead)
     end
 
-    it "renders :send_lead_to_email" do
-      get :send_lead_to_email, params: { id: @lead.id }
-      expect(response).to render_template('send_lead_to_email')
+    it "renders :send_email_with_lead" do
+      get :send_email_with_lead, params: { id: @lead.id }
+      expect(response).to render_template('send_email_with_lead')
     end
 
     it "changes lead status" do
-      get :send_lead_to_email, params: { id: @lead.id, send_to_email: Faker::Internet.email }
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
       expect(assigns(:lead).status).to eq('sended')
     end
 
-    it "sent email" do
-      get :send_lead_to_email, params: { id: @lead.id, send_to_email: Faker::Internet.email }
-      expect(LeadMailer.deliveries.count).to be > 0
+    it "email is delivered with expected content" do
+      perform_enqueued_jobs do
+        recipient_email = Faker::Internet.email
+        get :send_email_with_lead, params: { id: @lead.id, send_to_email: recipient_email }
+        delivered_email = ActionMailer::Base.deliveries.last
+        assert_includes delivered_email.to, recipient_email
+      end
     end
 
     it 'creates activity' do
-      get :send_lead_to_email, params: { id: @lead.id, send_to_email: Faker::Internet.email }
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
       expect(PublicActivity::Activity.all.count).to eq(1)
     end
 
     it 'creates contact if params[:convert_lead].present?' do
-      get :send_lead_to_email, params: { id: @lead.id, send_to_email: Faker::Internet.email, convert_lead: '1' }
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email, convert_lead: '1' }
       expect(Contact.all.count).to eq(1)
     end
 
     it 'shows notice' do
-      get :send_lead_to_email, params: { id: @lead.id, send_to_email: Faker::Internet.email }
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
       expect(flash[:notice]).to be_present
     end
 
     it "redirects to unauthorized page" do
-      get :send_lead_to_email, params: { id: @lead.id, send_to_email: Faker::Internet.email }
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
       expect(response).to redirect_to(leads_path)
     end
   end

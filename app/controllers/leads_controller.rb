@@ -61,7 +61,7 @@ class LeadsController < ApplicationController
                       end
                     end +
                     view_context.content_tag(:li) do
-                      view_context.link_to(send_lead_to_email_path(lead)) do
+                      view_context.link_to(send_email_with_lead_path(lead)) do
                         view_context.content_tag(:i, '', class: 'icon-envelope') + 'Отправить почтой'
                       end
                     end
@@ -205,11 +205,11 @@ class LeadsController < ApplicationController
     end
   end
 
-  def send_lead_to_email
+  def send_email_with_lead
     @lead = Lead.find(params[:id])
     if params[:send_to_email].present?
       recipient = params[:send_to_email]
-      LeadMailer.send_lead(recipient, current_user, @lead).deliver_now
+      LeadMailer.send_lead(recipient, current_user, @lead).deliver_later
       @lead.sended!
       @lead.create_activity :send_email, owner: current_user, trackable_department_id: @lead.department_id, parameters: {send_lead_email: recipient}
       LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform if params[:convert_lead].present?

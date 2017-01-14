@@ -33,7 +33,7 @@
               %li Регион
           = link_to "Перейти к редактированию", edit_lead_path(@lead), class: 'btn btn-success', target: '_blank'
         - else
-          = form_tag send_lead_to_email_url, method: :get do |f|
+          = form_tag send_email_with_lead_url, method: :get do |f|
             .row
               .col-md-6
                 %fieldset
