@@ -3,7 +3,7 @@ module Observers
     def self.delivered_email(message)
       return unless message.respond_to?(:observer_args)
       if message.observer_args[:commercial_proposal].present? || message.observer_args[:lead].present?
-        sent_email = Message.new(
+        sent_email = ::Message.new(
            from: message.from.join(','),
            to: message.to.join(','),
            subject: message.subject,
