@@ -85,7 +85,7 @@
             .row
               .col-md-12
                 .mt-20
-                  = link_to 'Отправить почтой', contact_commercial_proposal_send_by_email_path(commercial_proposal_id: @commercial_proposal.id), class: 'btn btn-success', data: { confirm: "Коммерческое предложение для #{@commercial_proposal.contact.name} будет отправлено на почту #{@commercial_proposal.contact.email}. Вы уверены что хотите продолжить?"}
+                  = link_to 'Отправить почтой', contact_commercial_proposal_send_by_email_path(@commercial_proposal.contact, @commercial_proposal), class: 'btn btn-success', data: { confirm: "Коммерческое предложение для #{@commercial_proposal.contact.name} будет отправлено на почту #{@commercial_proposal.contact.email}. Вы уверены что хотите продолжить?"}
           .col-md-6
             .table-responsive
               %table.table

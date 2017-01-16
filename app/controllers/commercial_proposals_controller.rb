@@ -23,11 +23,11 @@ class CommercialProposalsController < ApplicationController
     @commercial_proposal = CommercialProposal.find(params[:commercial_proposal_id])
     @contact = Contact.find(params[:contact_id])
     @user = current_user
-    mail = CommercialProposalMailer.send_commercial_proposal(@contact, @user, @commercial_proposal)
-    mail.deliver_later
+    CommercialProposalMailer.send_commercial_proposal(@contact, @user, @commercial_proposal).deliver_later
+    commercial_prop_url = url_for(:controller => 'commercial_proposals', :action => 'show', :contact_id => @contact.id, :id => @commercial_proposal.id, host: request.host)
+    ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, commercial_prop_url).perform
 
     flash[:notice] = "Коммерческое предложение для #{@commercial_proposal.project_name} отправлено на почту: #{@contact.email}"
-
     redirect_back fallback_location: contact_commercial_proposal_path(@contact, @commercial_proposal)
   end
 
