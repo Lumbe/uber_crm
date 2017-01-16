@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
     if request.post? && !params['Message-Id'].blank?
       message_id = params['Message-Id'].gsub(/<|>/, '')
       message = Message.find_by_message_id message_id
-      message.update delivered_at: Time.current
+      message.update delivered_at: Time.current if message.present?
     end
   end
 
@@ -34,8 +34,10 @@ class MessagesController < ApplicationController
     if request.post? && !params['message-id'].blank?
       message_id = params['message-id']
       message = Message.find_by_message_id message_id
-      message.update opened_at: Time.current
-      Notification.create(recipient: message.user, actor: message.user, action: 'открыл письмо', notifiable: message, notification_type: 'message')
+      if message.present?
+        message.update opened_at: Time.current
+        Notification.create(recipient: message.user, actor: message.user, action: 'открыл письмо', notifiable: message, notification_type: 'message')
+      end
     end
   end
 
