@@ -21,17 +21,11 @@ class ContactsController < ApplicationController
           aaData: @contacts.map do |contact| 
             [
               case contact.status
-              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
-                " " +
-                (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
-              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning mb-5') +
-                " " +
-                (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
+              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5')
+              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning mb-5')
               when 'proposal' then (view_context.content_tag :span, 'Отправлено КП', class: 'label label-info mb-5') +
-                " " +
-                (view_context.link_to (view_context.content_tag :i, '', class: 'icon-phone-plus2'), phone_call_path(contact), class: 'label label-flat text-success label-success') +
-                if !contact.proposal_sent.nil?
-                  if ( Time.zone.now.to_i - contact.proposal_sent.to_i) > 86400
+                if contact.commercial_proposals.present? && contact.commercial_proposals.last.messages.present? && !contact.commercial_proposals.last.messages.last.delivered_at.blank?
+                  if ( Time.zone.now.to_i - contact.commercial_proposals.last.messages.last.delivered_at.to_i) > 86400
                     (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад", class: 'text-bold text-danger')
                   else
                     (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад")
