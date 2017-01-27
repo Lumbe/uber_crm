@@ -11,5 +11,13 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe LeadsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#lead_statuses" do
+    it 'returns two-dimensional array of translated and original lead statuses' do
+      statuses = Lead.statuses.keys
+      translated_statuses = I18n.t("activerecord.attributes.lead.statuses").values
+      array_of_translated_statuses = translated_statuses.zip(statuses)
+      
+      expect(helper.lead_statuses).to eq(array_of_translated_statuses)
+    end
+  end
 end

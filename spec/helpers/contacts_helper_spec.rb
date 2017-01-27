@@ -11,5 +11,14 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe ContactsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe "#contact_statuses" do
+    it 'returns two-dimensional array of translated and original contact statuses' do
+      statuses = Contact.statuses.keys
+      translated_statuses = I18n.t("activerecord.attributes.contact.statuses").values
+      array_of_translated_statuses = translated_statuses.zip(statuses)
+
+      expect(helper.contact_statuses).to eq(array_of_translated_statuses)
+    end
+  end
 end
