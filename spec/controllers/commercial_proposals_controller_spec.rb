@@ -73,4 +73,40 @@ RSpec.describe CommercialProposalsController, type: :controller do
     end
   end
 
+  describe "GET #send_by_email" do
+    login_user("manager")
+
+    before :each do
+      @user = subject.current_user
+      @contact = create(:contact, department_id: @user.current_department_id)
+      @commercial_proposal = create(:commercial_proposal, user: @user, contact: @contact)
+      clear_enqueued_jobs
+    end
+
+    it 'locates the requested @user' do
+      get :send_by_email, params: { contact_id: @contact.id, commercial_proposal_id: @commercial_proposal.id }
+      expect(assigns(:user)).to eq(@user)
+    end
+
+    it 'locates the requested @contact' do
+      get :send_by_email, params: { contact_id: @contact.id, commercial_proposal_id: @commercial_proposal.id }
+      expect(assigns(:contact)).to eq(@contact)
+    end
+
+    it 'locates the requested @commercial_proposal' do
+      get :send_by_email, params: { contact_id: @contact.id, commercial_proposal_id: @commercial_proposal.id }
+      expect(assigns(:commercial_proposal)).to eq(@commercial_proposal)
+    end
+
+    it "enque commercial_proposal's email" do
+      get :send_by_email, params: { contact_id: @contact.id, commercial_proposal_id: @commercial_proposal.id }
+      expect(enqueued_jobs.size).to eq(1)
+    end
+
+    it "creates comment for contact with sended commercial_proposal" do
+      get :send_by_email, params: { contact_id: @contact.id, commercial_proposal_id: @commercial_proposal.id }
+      expect(@contact.comments.size).to be >= 0
+    end
+  end
+
 end
