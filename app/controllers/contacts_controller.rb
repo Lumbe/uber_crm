@@ -138,20 +138,6 @@ class ContactsController < ApplicationController
     end
   end
 
-  def phone_call
-    @contact = Contact.find(params[:id])
-    @user = current_user
-    @commentable = @contact
-    @comment = @commentable.comments.new
-  end
-  
-  def send_proposal
-    @contact = Contact.find(params[:id])
-    @user = current_user
-    @commentable = @contact
-    @comment = @commentable.comments.new
-  end
-
   private
 
   def contact_params
