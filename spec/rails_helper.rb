@@ -63,6 +63,17 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # shoulda matchers for Paperclip attachments
+  config.include Paperclip::Shoulda::Matchers
+
+  # remove directory with uploaded files after each test
+  config.after(:all) do
+    if Rails.env.test?
+      test_uploads = Dir["#{Rails.root}/spec/test_uploads"]
+      FileUtils.rm_rf(test_uploads)
+    end
+  end
 end
 
 Shoulda::Matchers.configure do |config|

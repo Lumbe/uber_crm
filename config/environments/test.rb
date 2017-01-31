@@ -41,4 +41,10 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = {:host => "localhost:3000"}
+
+  # default paths for paperclip uploads in test mode
+  config.paperclip_defaults = {
+    path: ':rails_root/spec/test_uploads/:class/:id_partition/:style.:extension',
+    url: ':rails_root/spec/test_uploads/:class/:id_partition/:style.:extension'
+  }
 end
