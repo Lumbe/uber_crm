@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103210244) do
+ActiveRecord::Schema.define(version: 20170130155702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(version: 20170103210244) do
     t.string   "from"
     t.string   "to"
     t.string   "subject"
-    t.string   "body"
+    t.string   "body",                   default: ""
     t.string   "message_id"
     t.datetime "delivered_at"
     t.datetime "opened_at"
