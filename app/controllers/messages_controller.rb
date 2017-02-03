@@ -44,7 +44,7 @@ class MessagesController < ApplicationController
   def send_mail
     @user = current_user
     @message = Message.new(message_params)
-    if params[:attachments_attributes][:attachment]
+    if params[:attachments_attributes]
       params[:attachments_attributes][:attachment].each do |attachment|
         @message.attachments.build(attachment: attachment)
       end
@@ -60,7 +60,8 @@ class MessagesController < ApplicationController
           when 'contacts'
             flash.now[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
           when 'messages'
-            redirect_to user_messages_path, notice: "Письмо успешно отправлено на почту: #{@message.to}"
+            flash.keep[:notice] = "Письмо успешно отправлено на почту: #{@message.to}"
+            render js: "window.location = '#{user_messages_path}'"
           end
         end
       else
@@ -83,7 +84,7 @@ class MessagesController < ApplicationController
 
   def auth_user_before_action
     if request.post? && !params['Message-Id'].blank? || !params['message-id'].blank?
-      user = User.first
+      user = User.where(admin:true).first
       sign_in user, store: false
     end
   end
