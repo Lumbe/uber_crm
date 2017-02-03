@@ -1,5 +1,5 @@
 class MessageMailer < ApplicationMailer
-  default from: "Сервус Поділля <office@mg.servus.vn.ua>"
+  default from: "Сервус Поділля <office@servus.km.ua>"
   add_template_helper ApplicationHelper
 
   def mail(headers = {}, &block)
@@ -18,8 +18,13 @@ class MessageMailer < ApplicationMailer
   def send_mail(message, user)
     @message = message
     @user = user
+    if @message.attachments.present?
+      @message.attachments.each do |attachment|
+        attachments[attachment.attachment_file_name] = File.read(attachment.attachment.path)
+      end
+    end
     mail to: @message.to,
-        from: "#{@user.first_name} #{@user.last_name} <#{@user.email}>",
+        # from: "#{@user.first_name} #{@user.last_name} <#{@user.email}>",
         subject: @message.subject,
         observer_args: { user: @user, message: @message }
   end
