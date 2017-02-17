@@ -40,3 +40,8 @@ module Workspace
     # config.active_record.raise_in_transactional_callbacks = true
   end
 end
+
+Raven.configure do |config|
+  config.dsn = 'https://1d294cca32aa4e31881be0f74d847a2c:caa03500a4ca4f11b1bf4ec26f310abd@sentry.io/140034'
+  config.environments = ['staging', 'production']
+end

@@ -6,10 +6,11 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :notification_counter
   before_action :initialize_department
+  before_action :set_raven_context
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to :unauthorized, :alert => exception.message
   end
-  
+
   def initialize_department
     unless current_user.nil?
       @user_departments = current_user.departments.uniq
@@ -29,8 +30,16 @@ class ApplicationController < ActionController::Base
     @unread_general_notifications = Notification.general.where(recipient: current_user).unread
     @unread_message_notifications = Notification.message.where(recipient: current_user).unread
   end
-  
+
   def unauthorized
     render :unauthorized
   end
+
+  private
+
+  def set_raven_context
+    # Raven.user_context(id: session["warden.user.user.key"][0][0])
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  end
+
 end
