@@ -53,7 +53,7 @@ RSpec.describe ContactsController, type: :controller do
 
   describe "GET #new" do
     login_user('manager')
-    
+
     it "assigns a new contact to @contact" do
       get :new
       expect(assigns(:contact)).to be_a_new(Contact)
@@ -149,20 +149,41 @@ RSpec.describe ContactsController, type: :controller do
     end
   end
 
-  describe 'DELETE destroy' do
-    login_user('manager')
-    before :each do
-      @contact = create(:contact, name: "Lawrence", department_id: subject.current_user.current_department_id)
+  describe 'DELETE' do
+    context 'admin' do
+      login_admin
+      before :each do
+        @contact = create(:contact, name: "Lawrence", department_id: subject.current_user.current_department_id)
+      end
+
+      it 'destroys contact' do
+        expect { delete :destroy, params: {id: @contact} }.to change{Contact.count}.by(-1)
+      end
+
+      it 'redirects to index contacts' do
+        delete :destroy, params: { id: @contact }
+        expect(response).to redirect_to(contacts_path)
+      end
     end
 
-    it 'deletes contact' do
-      expect { delete :destroy, params: {id: @contact} }.to change{Contact.count}.by(-1)
+    context 'user' do
+      login_user('manager')
+      before :each do
+        @contact = create(:contact, name: "Lawrence", department_id: subject.current_user.current_department_id)
+      end
+
+      it 'do not destroys contact' do
+        expect { delete :destroy, params: {id: @contact} }.to_not change(Contact, :count)
+      end
+
+      it 'redirects to unauthorized' do
+        delete :destroy, params: { id: @contact }
+        expect(response).to redirect_to('/unauthorized')
+      end
     end
-    
-    it 'redirects to index contacts' do
-      delete :destroy, params: { id: @contact }
-      expect(response).to redirect_to(contacts_path)
-    end
+
   end
+
+
 
 end

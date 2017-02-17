@@ -53,7 +53,7 @@ RSpec.describe LeadsController, type: :controller do
 
   describe "GET #new" do
     login_user('manager')
-    
+
     it "assigns a new Lead to @lead" do
       get :new
       expect(assigns(:lead)).to be_a_new(Lead)
@@ -172,19 +172,39 @@ RSpec.describe LeadsController, type: :controller do
   end
 
   describe 'DELETE destroy' do
-    login_user('manager')
-    before :each do
-      @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+
+    context 'admin' do
+      login_admin
+      before :each do
+        @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+      end
+
+      it 'deletes lead' do
+        expect { delete :destroy, params: {id: @lead} }.to change{Lead.count}.by(-1)
+      end
+
+      it 'redirects to index leads' do
+        delete :destroy, params: { id: @lead }
+        expect(response).to redirect_to(leads_path)
+      end
     end
 
-    it 'deletes lead' do
-      expect { delete :destroy, params: {id: @lead} }.to change{Lead.count}.by(-1)
+    context 'user' do
+      login_user('manager')
+      before :each do
+        @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+      end
+
+      it 'deletes lead' do
+        expect { delete :destroy, params: {id: @lead} }.to_not change(Lead, :count)
+      end
+
+      it 'redirects to unauthorized' do
+        delete :destroy, params: { id: @lead }
+        expect(response).to redirect_to('/unauthorized')
+      end
     end
-    
-    it 'redirects to index leads' do
-      delete :destroy, params: { id: @lead }
-      expect(response).to redirect_to(leads_path)
-    end
+
   end
 
   describe 'GET #claim' do
