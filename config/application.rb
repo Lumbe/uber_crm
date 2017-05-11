@@ -12,6 +12,14 @@ module Workspace
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.default_locale = :ru
+    config.autoload_paths += %W(#{config.root}/lib)
+
+    # set timizone
+    config.time_zone = 'Kyiv'
+    config.active_record.default_timezone = :local
+
+    # set sidekiq gem as default queue adapter
+    config.active_job.queue_adapter = :sidekiq
 
     # default sass syntax fr rails generators
     if Rails.configuration.respond_to?(:sass)
@@ -31,4 +39,9 @@ module Workspace
     # Do not swallow errors in after_commit/after_rollback callbacks.
     # config.active_record.raise_in_transactional_callbacks = true
   end
+end
+
+Raven.configure do |config|
+  config.dsn = 'https://1d294cca32aa4e31881be0f74d847a2c:caa03500a4ca4f11b1bf4ec26f310abd@sentry.io/140034'
+  config.environments = ['staging', 'production']
 end

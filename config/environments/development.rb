@@ -60,15 +60,28 @@ Rails.application.configure do
   # devise gem config
   config.action_mailer.default_url_options = { host: 'localhost' }
 
-  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.smtp_settings = {
+  #   address:              'smtp.gmail.com',
+  #   port:                 587,
+  #   domain:               'gmail.com',
+  #   user_name:            ENV["EMAIL_SENDER_ADDRESS"],
+  #   password:             ENV["EMAIL_SENDER_PASSWORD"],
+  #   authentication:       'plain',
+  #   enable_starttls_auto: true
+  #   }
+
+  config.active_job.queue_adapter = :sidekiq
+  config.action_mailer.asset_host = 'https://crm-lumbe.c9users.io'
+
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'gmail.com',
-    user_name:            ENV["EMAIL_SENDER_ADDRESS"],
-    password:             ENV["EMAIL_SENDER_PASSWORD"],
-    authentication:       'plain',
-    enable_starttls_auto: true
-    }
+
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+          api_key: 'key-a59abbc67d0dca5f43905227e9cf42ba',
+          domain: 'mg.servus.vn.ua'
+          # domain: 'sandbox6c18ff9554cc49aeab97c7fad99c0440.mailgun.org'
+  }
 end

@@ -8,9 +8,10 @@
 - if @lead.question.present?
   Вопрос: #{@lead.question}
 ======================================
-Строительная компания "Сервус Поділля". 
+Строительная компания "Сервус Поділля".
 Энергосберегающие дома и коттеджи "под ключ"
-г.Хмельницкий, ул.Героев Майдана, 1  
-www.servus.km.ua
-тел.(0382) 707-606 
-моб.(098) 747-747-8
+#{@lead.department.city}, #{@lead.department.address}
+- if @lead.department.website.present?
+  #{@lead.department.website}
+тел.
+= number_to_phone @lead.user.phone

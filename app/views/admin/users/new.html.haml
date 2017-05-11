@@ -67,6 +67,14 @@
                 .row
                   .col-md-12
                     .form-group
+                      = f.label :phone, 'Телефон'
+                      .input-group
+                        %span.input-group-addon.bg-green-600
+                          .icon-phone2
+                        = f.text_field :phone, class: 'form-control', placeholder: '+380971234567'
+                .row
+                  .col-md-12
+                    .form-group
                       = f.label :password, 'Пароль'
                       .input-group
                         %span.input-group-addon.bg-green-600

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125231223) do
+ActiveRecord::Schema.define(version: 20170130155702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,18 +32,27 @@ ActiveRecord::Schema.define(version: 20161125231223) do
     t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
   end
 
-  create_table "ahoy_messages", force: :cascade do |t|
-    t.string   "token"
-    t.text     "to"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.string   "mailer"
-    t.text     "subject"
-    t.datetime "sent_at"
-    t.datetime "opened_at"
-    t.datetime "clicked_at"
-    t.index ["token"], name: "index_ahoy_messages_on_token", using: :btree
-    t.index ["user_id", "user_type"], name: "index_ahoy_messages_on_user_id_and_user_type", using: :btree
+  create_table "attachments", force: :cascade do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "message_id"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.string   "data_fingerprint"
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
   end
 
   create_table "comments", force: :cascade do |t|
@@ -55,6 +64,21 @@ ActiveRecord::Schema.define(version: 20161125231223) do
     t.text     "body"
     t.integer  "comment_type",     default: 0
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+  end
+
+  create_table "commercial_proposals", force: :cascade do |t|
+    t.string   "project_name"
+    t.decimal  "house_kit_price",           precision: 8, scale: 2
+    t.decimal  "additional_services_price", precision: 8, scale: 2
+    t.integer  "contact_id"
+    t.integer  "user_id"
+    t.decimal  "discount",                  precision: 8, scale: 2
+    t.decimal  "dollar_exchange_rate",      precision: 5, scale: 2
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "project_url"
+    t.decimal  "house_installation_price",  precision: 8, scale: 2
+    t.decimal  "house_square",              precision: 8, scale: 2
   end
 
   create_table "competitors", force: :cascade do |t|
@@ -127,12 +151,18 @@ ActiveRecord::Schema.define(version: 20161125231223) do
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "city",                default: ""
+    t.string   "address",             default: ""
+    t.string   "facebook",            default: ""
+    t.string   "vkontakte",           default: ""
+    t.string   "website",             default: ""
+    t.string   "email",               default: ""
   end
 
   create_table "leads", force: :cascade do |t|
@@ -169,6 +199,21 @@ ActiveRecord::Schema.define(version: 20161125231223) do
     t.index ["user_id"], name: "index_memberships_on_user_id", using: :btree
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string   "from"
+    t.string   "to"
+    t.string   "subject"
+    t.string   "body",                   default: ""
+    t.string   "message_id"
+    t.datetime "delivered_at"
+    t.datetime "opened_at"
+    t.integer  "user_id"
+    t.integer  "commercial_proposal_id"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "inbound",                default: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer  "recipient_id"
     t.integer  "actor_id"
@@ -176,8 +221,9 @@ ActiveRecord::Schema.define(version: 20161125231223) do
     t.string   "action"
     t.integer  "notifiable_id"
     t.string   "notifiable_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "notification_type", default: 0
   end
 
   create_table "users", force: :cascade do |t|

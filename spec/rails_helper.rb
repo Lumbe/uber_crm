@@ -43,6 +43,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, :type => :view
   config.extend DeviseLogin, :type => :controller
   config.include ControllerMacros, :type => :controller
+  config.include ActiveJob::TestHelper, :type => :controller
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
@@ -62,6 +63,17 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # shoulda matchers for Paperclip attachments
+  config.include Paperclip::Shoulda::Matchers
+
+  # remove directory with uploaded files after each test
+  config.after(:all) do
+    if Rails.env.test?
+      test_uploads = Dir["#{Rails.root}/spec/test_uploads"]
+      FileUtils.rm_rf(test_uploads)
+    end
+  end
 end
 
 Shoulda::Matchers.configure do |config|

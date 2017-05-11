@@ -1,0 +1,18 @@
+.content
+  .row
+    .col-lg-3
+      .panel.panel-flat
+        .panel-heading
+          .mt-10
+            = link_to 'Написать', new_user_message_path, class: "btn btn-success btn-block btn-rounded"
+        .list-group.no-border.no-padding-top
+          = link_to user_messages_path, class: "list-group-item" do
+            %i.icon-folder-open
+            Входящие
+          = link_to outbound_user_messages_path, class: "list-group-item" do
+            %i.icon-paperplane
+            Отправленные
+          = link_to commercial_proposals_user_messages_path, class: "list-group-item" do
+            %i.icon-coin-dollar
+            Коммерческие предложения
+    = yield

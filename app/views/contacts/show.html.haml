@@ -1,12 +1,24 @@
 / Page header
 .page-header  
   .content-group
-    .page-header.page-header-default.page-header-lg{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+    .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
       .page-header-content
         .page-title
           %h4
-            %i.icon-user.position-left
-            %span.text-semibold Карточка контакта - #{@contact.name}
+            %i.icon-user.position-left.text-success-600
+            %span.text-semibold #{@contact.name}
+            - case @contact.status
+              - when 'newly'
+                %span.label.label-danger Новый
+              - when 'repeated'
+                %span.label.label-danger Повторно
+              - when 'proposal'
+                %span.label.label-primary Отправлено КП
+              - when 'finished'
+                %span.label.label-default Завершен
+              - when 'sended'
+                %span.label.label-info Передан
+            %small.display-block Контакт
         .heading-elements
           = link_to 'Редактировать', edit_contact_path, class: 'btn btn-success'
           = link_to 'Удалить', contact_path(@contact), method: :delete, data: {confirm: "Удалить этот контакт навсегда?"}, class: 'btn btn-danger'
@@ -34,6 +46,9 @@
                   Подробнее
               %li
                 %a{:href => "#tabs-basic-3"}
+                  Коммерческие предложения
+              %li
+                %a{:href => "#tabs-basic-4"}
                   Связанные лиды
                   - if @contact.leads.count > 0
                     %span.badge.badge-info.position-right
@@ -138,6 +153,30 @@
                           %strong Регион:
                         %td.col-md-2 #{@contact.region}
             #tabs-basic-3
+              - if @contact.commercial_proposals.present?
+                .table-responsive
+                  %table.table.table-borderless
+                    %thead
+                      %tr
+                        %th #
+                        %th Проект
+                        %th Площадь
+                        %th Создано
+                    %tbody
+                      - @contact.commercial_proposals.each_with_index do |commercial_proposal, index|
+                        %tr
+                          %td
+                            = index + 1
+                          %td
+                            = link_to commercial_proposal.project_name, contact_commercial_proposal_path(@contact.id, commercial_proposal.id)
+                          %td
+                            - if commercial_proposal.house_square.present?
+                              #{commercial_proposal.house_square} кв.м.
+                          %td
+                            = time_tag commercial_proposal.created_at
+              - else
+                Коммерческие предложения отсутствуют
+            #tabs-basic-4
               - if @contact.leads.present?
                 .table-responsive
                   %table.table.table-borderless
@@ -163,6 +202,25 @@
                 Связанные лиды отсутствуют
   .row
     .col-md-12
-      = render "comments/form"
+      .contact-buttons
+        = link_to new_contact_commercial_proposal_path(@contact), class: "btn btn-success", title: 'Создать коммерческое предложение', data: { popup: 'tooltip', placement: 'bottom' } do
+          %i.icon-coin-dollar.position-left
+          Коммерческое предложение
+          = link_to '#', class: "btn btn-success ml-20", data: { toggle: 'modal', target: '#modal_new_contact_message' } do
+            %i.icon-paperplane.position-left
+            Написать письмо
+        .btn-group.ml-20
+          %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+            Статус
+            %span.caret
+          %ul.dropdown-menu.dropdown-menu-right.bg-success
+            - Contact.statuses.keys.each do |status|
+              %li
+                = link_to change_status_path(contact_status: status), method: :post, remote: true do
+                  = t("activerecord.attributes.contact.statuses.#{status}")
+  .row
+    .col-md-12
+      = render "comments/new"
       .col-md-12
-        = render "comments/comments"
+        = render @contact.comments
+      = render 'new_contact_message'

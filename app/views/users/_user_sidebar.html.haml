@@ -35,10 +35,9 @@
             = link_to user_departments_path(@user.id), class: "list-group-item" do
               %i.icon-office
               Отделы
-            %a.list-group-item{:href => "#"}
+            = link_to user_messages_path(@user.id), class: "list-group-item" do
               %i.icon-envelop3
               Сообщения
-              %span.badge.bg-info.pull-right в разработке
             %a.list-group-item{:href => "#"}
               %i.icon-task
               Задачи

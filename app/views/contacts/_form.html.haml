@@ -55,7 +55,7 @@
           .col-md-12
             .form-group
               = f.label :question, 'Сообщение от клиента'
-              = f.text_area :question, class: 'form-control', readonly: 'readonly', size: "5x4", placeholder: 'Сообщение от клиента'
+              = f.text_area :question, class: 'form-control', readonly: 'readonly', size: "5x4", placeholder: 'Заполнять не надо, формируется автоматически на сайте'
     .col-md-9
       %fieldset
         %legend.text-semibold
@@ -156,10 +156,10 @@
                   .icon-office
                 = f.select(:floor, ['Одноэтажный дом', 'Двухэтажный дом'], { include_blank: true }, {class: 'select', data: { placeholder: 'Выберите этажность' }} )
         .row
-          .col-md-6
-            - if current_user.departments.count == 1
-              = f.hidden_field :department_id, value: current_user.departments.first.id
-            - else
+          - if current_user.departments.count == 1
+            = f.hidden_field :department_id, value: current_user.departments.first.id
+          - else
+            .col-md-6
               .form-group
                 = f.label :department_id, 'В какой отдел добавить контакт?', class: "required"
                 .input-group
@@ -172,9 +172,16 @@
               .input-group
                 %span.input-group-addon
                   .icon-versions
-                = f.select(:status, @statuses, {}, {class: 'select', data: { placeholder: 'Please select the category you want' }} )
+                = f.select(:status, contact_statuses, {}, { class: 'select' } )
         .row
           .col-md-6
+            = f.label :assigned_to, 'Ответственный'
+            .input-group
+              %span.input-group-addon
+                .icon-user
+              = f.collection_select(:assigned_to, @contact.department.users, :id, :full_name, {}, {class: 'select', data: { placeholder: 'Выберите отдел' }} )
+        .row
+          .col-md-6.mt-20
             = f.label :do_not_call, class: 'checkbox-inline' do
               = f.check_box :do_not_call, class: 'styled'
               Не звонить/не отправлять рассылки

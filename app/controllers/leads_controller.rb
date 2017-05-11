@@ -1,6 +1,5 @@
 class LeadsController < ApplicationController
   protect_from_forgery with: :exception, except: [:create]
-  before_action :load_statuses, only: [:new, :edit, :create]
   load_and_authorize_resource except: [:new, :create_delegated_lead]
   prepend_before_action :auth_user_before_action, only: [:create]
 
@@ -62,7 +61,7 @@ class LeadsController < ApplicationController
                       end
                     end +
                     view_context.content_tag(:li) do
-                      view_context.link_to(send_lead_to_email_path(lead)) do
+                      view_context.link_to(send_email_with_lead_path(lead)) do
                         view_context.content_tag(:i, '', class: 'icon-envelope') + 'Отправить почтой'
                       end
                     end
@@ -206,17 +205,17 @@ class LeadsController < ApplicationController
     end
   end
 
-  def send_lead_to_email
+  def send_email_with_lead
     @lead = Lead.find(params[:id])
     if params[:send_to_email].present?
       recipient = params[:send_to_email]
-      LeadMailer.send_lead(recipient, current_user, @lead).deliver_now
+      LeadMailer.send_lead(recipient, current_user, @lead).deliver_later
       @lead.sended!
       @lead.create_activity :send_email, owner: current_user, trackable_department_id: @lead.department_id, parameters: {send_lead_email: recipient}
       LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform if params[:convert_lead].present?
 
       flash[:notice] = "Лид #{@lead.name} успешно отправлен на почту: #{recipient}"
-      flash[:notice] = "Лид #{@lead.name} успешно конвертирован в контакт." if params[:convert_lead].present?
+      flash[:notice] << " и успешно конвертирован в контакт." if params[:convert_lead].present?
       redirect_to leads_path
     end
   end
@@ -243,11 +242,7 @@ class LeadsController < ApplicationController
                                  :come_in_office, :phone_call, :status,
                                  :user_id, :department_id, :assigned_to)
   end
-  
-  def load_statuses
-    @statuses = Lead.status_attributes_for_select
-  end
-  
+
   def load_leads(paginate=true)
     # load leads with filtered statuses and dates from datapicker
     leads = Lead.where(status: params[:statuses], department_id: @user.current_department_id).order_by_status.order(created_at: :desc)

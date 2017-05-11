@@ -15,6 +15,7 @@ FactoryGirl.define do
     online_request    { Faker::Boolean.boolean }
     come_in_office    { Faker::Boolean.boolean }
     phone_call        { Faker::Boolean.boolean }
+    department
   end
   factory :invalid_contact, class: Contact do
     name              { "" }

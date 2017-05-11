@@ -1,0 +1,8 @@
+#modal_new_contact_message.modal.fade
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+        %h5.modal-title Новое сообщение
+      .modal-body
+        = render partial: 'messages/form'

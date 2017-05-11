@@ -6,7 +6,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
+$(document).on 'turbolinks:load', ->
   # Set departments select tag without search field, fixed width & medium size
   $('.select-departments').select2
     minimumResultsForSearch: Infinity
@@ -80,4 +80,9 @@ $ ->
   $('.dataTables_length select').select2
     minimumResultsForSearch: Infinity
     width: 'auto'
+
+  $('#modal_new_contact_message #message_to').val(gon.contact_email)
+  $('#modal_new_contact_message #message_to').attr('readonly', 'readonly')
+  $('#modal_new_contact_message form#new_message').on 'submit', ->
+    $('#modal_new_contact_message').modal('hide')
   return

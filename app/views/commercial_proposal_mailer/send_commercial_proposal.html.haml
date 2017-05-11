@@ -1,0 +1,742 @@
+!!!
+%html
+  %head
+    %title *|MC:SUBJECT|*
+    %meta{:content => "exported via StampReady", :name => "sr_export"}/
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-Type"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    :css
+      .ReadMsgBody { width: 100%; background-color: #ffffff; }
+      .ExternalClass { width: 100%; background-color: #ffffff; }
+      .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }
+      html { width: 100%; }
+      body { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; margin: 0; padding: 0; }
+      table { border-spacing: 0; table-layout: fixed; margin: 0 auto; }
+      table table table { table-layout: auto; }
+      .yshortcuts a { border-bottom: none !important; }
+      img:hover { opacity: 0.9 !important; }
+      a { color: #219150; text-decoration: none; }
+      .textbutton a { font-family: 'open sans', arial, sans-serif !important; }
+      .btn-link a { color: #FFFFFF !important; }
+      
+      @media only screen and (max-width: 480px) {
+      body { width: auto !important; }
+      *[class="table-inner"] { width: 90% !important; text-align: center !important; }
+      *[class="table-full"] { width: 100% !important; text-align: center !important; }
+      img[class="img1"] { width: 100% !important; height: auto !important; }
+      }
+  %body
+    %table{:align => "center", :bgcolor => "#f8f8f8", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Header BG", "data-module" => "header", :width => "100%"}
+      %tr{:align => "center", :valign => "top"}
+        %td
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", :bgcolor => "#2ecc71", "data-bgcolor" => "Logo BG", :style => "background-color: rgb(46, 204, 113);", :valign => "top", :width => "208"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "158"}
+                  %tr
+                    %td{:height => "50"}
+                  %tr
+                    %td{:align => "center", :style => "line-height:0px;"}
+                      %a
+                        = image_tag 'commercial_proposal_mailer/servus-white-logo'
+                  %tr
+                    %td{:height => "10"}
+                  %tr
+                    %td{"data-color" => "Company Text", "data-link-color" => "Company Text", "data-link-style" => "text-decoration:none; color:#ffffff;", "data-size" => "Title", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 38px; color: rgb(255, 255, 255); line-height: 38px; font-weight: bold; text-align: center;"}
+                      СЕРВУС
+                  %tr
+                    %td{:height => "40"}
+                  %tr
+                    %td{"data-color" => "Company Text", "data-link-color" => "Company Text", "data-link-style" => "text-decoration:none; color:#ffffff;", "data-size" => "Address", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 16px; color: rgb(255, 255, 255); line-height: 22.1px; text-align: center;"}
+                      %b
+                        производственно
+                        %br/
+                        строительная
+                        %br/
+                        компания
+                  %tr
+                    %td{:height => "25"}
+              %td{:align => "center", :valign => "top", :width => "392"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "342"}
+                  %tr
+                    %td{:height => "50"}
+                  %tr
+                    %td{:align => "center", "data-color" => "Invoice", "data-link-color" => "Invoice", "data-link-style" => "text-decoration:none; color:#4a4a4a;", "data-size" => "Invoice", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 14px; color: rgb(59, 59, 59); line-height: 23.8px; text-align: center;"}
+                      %b
+                        Здравствуйте, #{@contact.name}!
+                      %br/
+                      Я рассчитал для Вас стоимость строительства энергосберегающего дома СЕРВУС. Цены приведены из расчета текущей стоимости стройматериалов и рыночной стоимости работ.
+                      %br/
+                      %b
+                        Звоните, если возникнут вопросы
+                  %tr
+                    %td{:height => "25"}
+                  %tr
+                    %td{:align => "right"}
+                      %table{:align => "right", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "50"}
+                        %tr
+                          %td{:bgcolor => "#ff646a", "data-bgcolor" => "Dash", :height => "3", :style => "line-height:0px; font-size:0px;"}
+                  %tr
+                    %td{:height => "15"}
+                  %tr
+                    %td{:align => "right", "data-color" => "Customer Text", "data-link-color" => "Customer Text", "data-link-style" => "text-decoration:none; color:#4a4a4a;", "data-size" => "Customer Title", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 16px; color: rgb(59, 59, 59); line-height: 27.2px; font-weight: bold;"}
+                      %span{:style => "font-weight: normal;"}
+                        с уважением
+                      #{@manager.first_name} #{@manager.last_name}
+                  %tr
+                    %td{:height => "5"}
+                  %tr
+                    %td{:align => "right", "data-color" => "Customer Text", "data-link-color" => "Customer Text", "data-link-style" => "text-decoration:none; color:#4a4a4a;", "data-size" => "Address", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 13px; color: rgb(127, 140, 141); line-height: 22.1px;"}
+                      %b{:style => "color:#333333;font-size:15px;"}
+                        тел.
+                        = number_to_phone @manager.phone if @manager.phone.present?
+                      %br/
+                      - if @contact.department.present? && @contact.department.city.present? && @contact.department.address.present?
+                        #{@contact.department.city}, #{@contact.department.address}
+                      %br/
+                      = link_to @contact.department.website, url_with_protocol(@contact.department.website), target: '_blank' if @contact.department.website.present?
+                  %tr
+                    %td{:height => "25"}
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "note", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:height => "50"}
+            %tr
+              %td{"data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#2ecc71;", "data-size" => "Title", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 20px; color: rgb(59, 59, 59); line-height: 5px; font-weight: bold; text-transform: uppercase; text-align: center;"}
+                = link_to "#{@commercial_proposal.project_name} #{@commercial_proposal.house_square} кв.м.", @commercial_proposal.project_url, target: '_blank'
+            %tr
+              %td{:height => "5"}
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "title", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "Title Underline", :style => "border-bottom:3px solid #bcbcbc;"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "30"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Title", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px; text-transform:uppercase;", :valign => "top", :width => "400"}
+                            %b
+                              КОМПЛЕКТАЦИЯ ДОМА "СЕРВУС"
+                          %td{:align => "right", "data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Title", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px; text-transform:uppercase;", :valign => "top", :width => "87"}
+                            %b
+                              СТОИМОСТЬ
+                  %tr
+                    %td{:height => "10"}
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "list", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "List Border", :style => "border-bottom:1px solid #ecf0f1;"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "35"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px;  font-weight: bold;", :valign => "top", :width => "400"}
+                            1. Европейский утеплённый домокомплект (сертификат ЕС) + монтаж домокомплекта специалистами Сервус
+                          %td{:align => "right", "data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px;  font-weight: bold;", :valign => "top", :width => "87"}
+                            = number_to_currency(@commercial_proposal.house_kit_price + @commercial_proposal.house_installation_price, locale: :en, precision: 0) 
+                  %tr
+                    %td{:height => "5"}
+            %tr
+              %td{:height => "5"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{"data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:12px; color:#7f8c8d; line-height:26px;"}
+                      %b
+                        План фундамента
+                        %br/
+                        Рабочий проект
+                        %br/
+                        Пакет документов для получения разрешения на строительство
+                        %br/
+                        Комплектация домокомплекта:
+                      %ul
+                        %li
+                          Комплект силового и обвязочного бруса, обработанный антисептиком
+                        %li
+                          %a{:href => "http://servus.km.ua/tehnologii/sip-paneli", :style => "text-decoration: none;", :target => "_blank"}
+                            Комплект внешних и внутренних несущих стеновых SIP-панелей 2800*1250*164 мм. OSB EGGER 12мм
+                        %li
+                          Двутавровые балки перекрытия,вибро-шумоизолицыоная подложка
+                        %li
+                          Комплект чернового пола 2-го етажа OSB-EGGER 18мм
+                        %li
+                          Тепло-звукоизоляция перекрытия мин.ватой «Технониколь» 100 мм, 30кг/м3
+                        %li
+                          %a{:href => "http://servus.km.ua/tehnologii/mitek-tehnologiya", :style => "text-decoration: none;", :target => "_blank"}
+                            Комплект готовой стропильной системы «MiTek» обработанный антисептиком
+                        %li
+                          Подшивка стропильной системы пароизоляционной пленкой
+                        %li
+                          Утепление стропильной системы мин.ватой «Технониколь» 300 мм, 30кг/м3
+                        %li
+                          Покрытие ферм гидроизоляционной супердифузионной мембраной
+                        %li
+                          Комплект обрешётки кровли — контррейка 60*30, рейка 60*40
+                        %li
+                          Комплект крепежных материалов
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "title", :style => "position: relative; opacity: 1; top: 0px; left: 0px;", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "Title Underline", :style => "border-bottom:3px solid #bcbcbc;"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "50"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Title", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px; text-transform:uppercase;", :valign => "top", :width => "400"}
+                            %b
+                              ДОПОЛНИТЕЛЬНЫЕ ВИДЫ РАБОТ
+                  %tr
+                    %td{:height => "10"}
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "list", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "List Border", :style => "border-bottom:1px solid #ecf0f1;"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "35"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px;  font-weight: bold;", :valign => "top", :width => "263"}
+                            2. Фундамент ленточный + черновая ж/б стяжка
+                  %tr
+                    %td{:height => "5"}
+            %tr
+              %td{:height => "5"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{"data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:12px; color:#7f8c8d; line-height:26px;"}
+                      Высота цоколя - 300мм ширина- 300мм глубина-1000мм(при условии ровного участка). Арматура Ø10,12мм, бетон В15 (за проектом), песчаная подсыпка, трамбовка (подготовка под утепленную чистовую стяжку)
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "list", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "List Border", :style => "border-bottom:1px solid #ecf0f1;"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "35"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px;  font-weight: bold;", :valign => "top", :width => "263"}
+                            3. Устройство крыши кровельным материалом
+                  %tr
+                    %td{:height => "5"}
+            %tr
+              %td{:height => "5"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{"data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:12px; color:#7f8c8d; line-height:26px;"}
+                      %ul
+                        %li
+                          Комплект металочерепицы толщиной 0,5мм с комплектом кровельных планок
+                        %li
+                          Комплект водосточной системы(желоба,водостоки,кронштейны)
+                        %li
+                          Комплект для подшива свесов крыши, метал 0,45мм цвет белый
+                        %li
+                          Комплект крепежных материалов для монтажа крыши
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "list", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "List Border", :style => "border-bottom:1px solid #ecf0f1;"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "35"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px;  font-weight: bold;", :valign => "top", :width => "263"}
+                            4. Внешнее оснащение фасада «короед» (материал и работа)
+                  %tr
+                    %td{:height => "5"}
+            %tr
+              %td{:height => "5"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{"data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:12px; color:#7f8c8d; line-height:26px;"}
+                      Акриловая штукатурка, грунтовка, сетка, клей, пенополистирол 80мм, декоративная штукатурка
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "list", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "List Border", :style => "border-bottom:1px solid #ecf0f1;"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "35"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px;  font-weight: bold;", :valign => "top", :width => "263"}
+                            5. Окна и двери
+                  %tr
+                    %td{:height => "5"}
+            %tr
+              %td{:height => "5"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{"data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:12px; color:#7f8c8d; line-height:26px;"}
+                      %ul
+                        %li
+                          Окна металлопластиковые 5-и камерный профиль, энергосберегающий двойной стеклопакет
+                        %li
+                          Отливы металлические
+                        %li
+                          Дверь входная, бронированная — индивидуальный дизайн
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "list", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "List Border", :style => "border-bottom:1px solid #ecf0f1;"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "35"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px;  font-weight: bold;", :valign => "top", :width => "263"}
+                            6. Вентиляция и грунтовка фасада
+                  %tr
+                    %td{:height => "5"}
+            %tr
+              %td{:height => "5"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{"data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:12px; color:#7f8c8d; line-height:26px;"}
+                      %ul
+                        %li
+                          Короб вентиляционный с прокладкой труб (110мм, 150мм) под вытяжку.
+                        %li
+                          Грунтовка фасада грунтом Ceresit ST16 (кварцевая)
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "list", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "List Border", :style => "border-bottom:1px solid #ecf0f1;"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{:height => "35"}
+                  %tr
+                    %td
+                      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                        %tr
+                          %td{:align => "left", "data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:14px; color:#3b3b3b; line-height:26px;  font-weight: bold;", :valign => "top", :width => "263"}
+                            7. Отмостка по периметру дома и отделка цоколя
+                  %tr
+                    %td{:height => "5"}
+            %tr
+              %td{:height => "5"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "550"}
+                  %tr
+                    %td{"data-color" => "list", "data-link-color" => "list", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "list", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:12px; color:#7f8c8d; line-height:26px;"}
+                      %ul
+                        %li
+                          Предварительная трамбовка щебено-песчаной подсыпки, армосетка  Ø 3мм, бетон марка-200
+                        %li
+                          Отмостка утепленная экструдированным пенополистиролом 50мм ниже уровня отмостки на 0.5м, ширина - 0.8м
+                        %li
+                          Отделка цоколя экструдированным пенополистиролом 50мм
+                        %li
+                          Перетяжка клеем с армирующей сеткой + грунтовка
+                        %li
+                          Цоколь готов к нанесению декоративного покрытия (рваный камень, кирпич)
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "total", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "Total Border", :height => "40", :style => "border-bottom:3px solid #3b3b3b;"}
+            %tr
+              %td{:height => "15"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                  %tr
+                    %td{:align => "center", :bgcolor => "#f8f8f8", "data-bgcolor" => "Texs BG", :valign => "top", :width => "416"}
+                      %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "366"}
+                        %tr
+                          %td{:height => "10"}
+                        %tr
+                          %td{:align => "left", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Texs Title", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 12px; color: rgb(59, 59, 59); text-transform: uppercase; line-height: 20.4px;", :valign => "top"}
+                        %tr
+                          %td{:align => "left", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Texs Total", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 16px; color: rgb(59, 59, 59); font-weight: bold; line-height: 27.2px; text-align: left;", :valign => "top"}
+                            1. ДОМОКОМПЛЕКТ СЕРВУС + МОНТАЖ
+                            %br/
+                            2. ДОПОЛНИТЕЛЬНЫЕ РАБОТЫ
+                        %tr
+                          %td{:align => "right", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#DD3333;", "data-size" => "Texs Total", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 14px; color: #DD3333; font-weight: bold; line-height: 27.2px;", :valign => "top"}
+                            - if @commercial_proposal.discount.present?
+                              СКИДКА
+                        %tr
+                          %td{:align => "left", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Texs Total", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 15px; color: rgb(59, 59, 59); font-weight: bold; line-height: 27.2px; text-align: right;", :valign => "top"}
+                            %hr/
+                            ИТОГО(комплектация "Наружная отделка"):
+                        %tr
+                          %td{:height => "15"}
+                    %td{:align => "center", :bgcolor => "#e1e6e7", "data-bgcolor" => "Total BG", :valign => "top", :width => "184"}
+                      %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "134"}
+                        %tr
+                          %td{:height => "10"}
+                        %tr
+                          %td{:align => "right", "data-color" => "Total Text", "data-link-color" => "Total Text", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Total Title", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 20px; color: rgb(59, 59, 59); text-transform: uppercase; line-height: 22px;", :valign => "top"}
+                            %b
+                              = number_to_currency(@commercial_proposal.house_kit_price + @commercial_proposal.house_installation_price, locale: :en, precision: 0)
+                        %tr
+                          %td{:align => "right", "data-color" => "Total Text", "data-link-color" => "Total Text", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Total Sum", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 20px; color: rgb(59, 59, 59); font-weight: bold; line-height: 29px;", :valign => "top"}
+                            %b
+                              = number_to_currency(@commercial_proposal.additional_services_price, locale: :en, precision: 0)
+                        %tr
+                          %td{:align => "right", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#DD3333;", "data-size" => "Texs Total", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 16px; color: #DD3333; font-weight: bold; line-height: 27.2px;", :valign => "top"}
+                            = number_to_currency(@commercial_proposal.discount, locale: :en, precision: 0) if @commercial_proposal.discount.present?
+                        %tr
+                          %td{:align => "right", "data-color" => "Total Text", "data-link-color" => "Total Text", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Total Sum", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 20px; color: rgb(59, 59, 59); font-weight: bold; line-height: 22px;", :valign => "top"}
+                            %hr/
+                            %b
+                              - total_price = @commercial_proposal.house_kit_price              |
+                                            + @commercial_proposal.house_installation_price     |
+                                            + @commercial_proposal.additional_services_price    |
+                              - total_price -= @commercial_proposal.discount if @commercial_proposal.discount.present?
+                              = number_to_currency(total_price, locale: :en, precision: 0)
+            %tr
+              %td{:height => "15"}
+    %table{:align => "center", :bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "total", :width => "100%"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+            %tr
+              %td{:align => "center", "data-border-bottom-color" => "Total Border", :height => "40", :style => "border-bottom:3px solid #3b3b3b;"}
+            %tr
+              %td{:height => "15"}
+            %tr
+              %td{:align => "center"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                  %tr
+                    %td{:align => "center", :bgcolor => "#f8f8f8", "data-bgcolor" => "Texs BG", :valign => "top", :width => "416"}
+                      %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "366"}
+                        %tr
+                          %td{:height => "10"}
+                        %tr
+                          %td{:align => "left", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Texs Title", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:12px; color:#3b3b3b; line-height:26px; text-transform:uppercase;line-height:24px;", :valign => "top"}
+                        %tr
+                          %td{:align => "left", "data-color" => "Texs Text", "data-link-color" => "Texs", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Texs Total", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 18px; color: rgb(59, 59, 59); font-weight: bold; line-height: 26.1px;", :valign => "top"}
+                            %br/
+                            Стоимость 1м2 данной комплектации
+                        %tr
+                          %td{:height => "15"}
+                    %td{:align => "center", :bgcolor => "#e1e6e7", "data-bgcolor" => "Total BG", :valign => "top", :width => "184"}
+                      %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "134"}
+                        %tr
+                          %td{:height => "10"}
+                        %tr
+                          %td{:align => "left", "data-color" => "Total Text", "data-link-color" => "Total Text", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Total Title", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 24px; color: rgb(59, 59, 59); text-transform: uppercase; line-height: 34.8px;", :valign => "top"}
+                            %span{:style => "color:#43A047"}
+                              %b
+                                = number_to_currency(total_price / @commercial_proposal.house_square, locale: :en, precision: 0)
+                            %span{:style => "font-family: \"Open Sans\", Arial, sans-serif; text-transform: downcase;font-size:18px;"}
+                              %b
+                                или
+                        %tr
+                          %td{:align => "left", "data-color" => "Total Text", "data-link-color" => "Total Text", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Total Sum", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:24px; color:#3b3b3b;  font-weight: bold;", :valign => "top"}
+                            %span{:style => "color:#1976D2"}
+                              = number_to_currency(total_price / @commercial_proposal.house_square * @commercial_proposal.dollar_exchange_rate, locale: :uk, precision: 0)
+                        %tr
+                          %td{:height => "15"}
+            %tr
+              %td{:height => "30"}
+            %tr
+              %td{:align => "center", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:13px; color:#3b3b3b;"}
+                *предложение не является сметной документацией и действительно в течении 5 дней
+            %tr
+              %td{:height => "25"}
+    %table{:align => "center", :bgcolor => "#EEEEEE", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "main-3_cta", :width => "100%"}
+      %tr
+        %td{:height => "20"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %tr
+              %td{:align => "center", :width => "600"}
+                %table{:align => "center", :bgcolor => "#ffffff", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Boxed Color", "data-border-bottom-color" => "Boxed Shadow", :style => "border-radius: 6px; border-bottom:3px solid #e6e6e6", :width => "95%"}
+                  %tr
+                    %td{:align => "center", :style => "text-align:center;vertical-align:top;font-size:0;"}
+                      %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "90%"}
+                        %tr
+                          %td{:align => "center"}
+                            %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "30"}
+                              %tr
+                                %td{"data-border-bottom-color" => "Dash", :height => "30", :style => "border-bottom:4px solid #db7560;"}
+                        %tr
+                          %td{:height => "15"}
+                        %tr{:align => "center"}
+                          %td{"data-color" => "Quote", "data-link-color" => "Quote", "data-link-style" => "text-decoration:none; color:#4a4a4a;", "data-size" => "Quote", :style => "font-family: \"Open Sans\", Arial, sans-serif; font-size: 14px; color: rgb(59, 59, 59); font-style: italic; line-height: 23.8px;"}
+                            Смета рассчитана максимально приближенно к фактической строительной смете и может изменяться в пределах 5-10% в меньшую или большую сторону
+                        %tr
+                          %td{:height => "20"}
+                        %tr
+                          %td{:height => "25"}
+      %tr
+        %td{:height => "20"}
+    %table{:bgcolor => "#FFFFFF", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "main-8_cta", :width => "100%"}
+      %tr
+        %td{:height => "20"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %tr
+              %td{:align => "center", :width => "600"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "border:2px solid #D36C6C;", :width => "95%"}
+                  %tr
+                    %td{:align => "center", :style => "text-align:center;vertical-align:top;font-size:0;"}
+                      %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "90%"}
+                        %tr
+                          %td{:height => "25"}
+                        %tr
+                          %td{:align => "center", "data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Title", :style => "font-family: \"Open sans\", Arial, sans-serif; color: rgb(74, 74, 74); font-size: 18px; font-weight: bold; line-height: 26.1px;"}
+                            Комплектация дома "ПОД ЧИСТОВУЮ ОТДЕЛКУ"
+                        %tr
+                          %td{:height => "15"}
+                        %tr
+                          %td{:align => "center", "data-color" => "content", "data-link-color" => "content", "data-link-style" => "text-decoration:none; color:#D36C6C;", "data-size" => "content", :style => "font-family: 'Open sans', Arial, sans-serif; color:#9B9B9B; font-size:14px;line-height: 28px;"}
+                            Рассчитывается индивидуально исходя из разработанного проекта дома и выбранных материалов. В комплектацию входит разводка электрики, водопровода, канализации, отопления, котел газовый, радиаторы, гипсокартон на стены и потолок
+                        %tr
+                          %td{:height => "15"}
+                        %tr
+                          %td{:height => "25"}
+      %tr
+        %td{:height => "20"}
+    %table{:align => "center", :bgcolor => "#ffffff", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "main-12_1-1-content", :width => "100%"}
+      %tr
+        %td{:height => "20"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %tr
+              %td{:align => "center", :width => "600"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "90%"}
+                  %tr
+                    %td{:align => "center", "data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#4A4A4A;", "data-size" => "Title", :style => "font-family: \"Open sans\", Arial, sans-serif; color: rgb(74, 74, 74); font-size: 20px; font-weight: bold; line-height: 29px;"}
+                      Как проходит оплата
+                      %br/
+                      за строительные работы
+                  %tr
+                    %td{:height => "20"}
+                  %tr
+                    %td{:align => "center"}
+                      %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+                        %tr
+                          %td{:align => "center"}
+                            %table{:align => "center", :bgcolor => "#FF6363", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Dotted", :style => "border-radius:5px;"}
+                              %tr
+                                %td{:height => "5", :style => "font-size:0px;", :width => "5"}
+                          %td{:width => "15"}
+                          %td{:align => "center"}
+                            %table{:align => "center", :bgcolor => "#FF6363", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Dotted", :style => "border-radius:5px;"}
+                              %tr
+                                %td{:height => "5", :style => "font-size:0px;", :width => "5"}
+                          %td{:width => "15"}
+                          %td{:align => "center"}
+                            %table{:align => "center", :bgcolor => "#FF6363", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Dotted", :style => "border-radius:5px;"}
+                              %tr
+                                %td{:height => "5", :style => "font-size:0px;", :width => "5"}
+                  %tr
+                    %td{:height => "15"}
+                  %tr
+                    %td{:align => "center", "data-color" => "Content", "data-link-color" => "Content", "data-link-style" => "text-decoration:none; color:#FF6363;", "data-size" => "Content", :style => "font-family: \"Open Sans\", Arial, sans-serif; color: rgb(155, 155, 155); font-size: 13px; line-height: 22.1px;"}
+                      Для начала работы над проектом и производства конструктивных элементов нужно подписать договор и внести
+                      %b{:style => "color:#666666;"}
+                        60% от стоимости домокомплекта
+                        (без учета стоимости монтажа). Остальные 40% оплачиваются когда домокомплект готов к отправке на ваш участок
+                      %br/
+                      %br/
+                      Дополнительные виды работ оплачиваются поэтапно:
+                      %b{:style => "color:#666666;"}
+                        80% перед началом
+                      (для закупки материалов) и
+                      %b{:style => "color:#666666;"}
+                        20% после окончания работ
+                      %br/
+                      %br/
+                      %b{:style => "color:#dd3333;font-size:13px;"}
+                        Расчет происходит в гривне по межбанковскому курсу на момент оплаты
+      %tr
+        %td{:height => "20"}
+    %table{:align => "center", :bgcolor => "#EEEEEE", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Main BG", "data-module" => "main-3_1-1-panel", :width => "100%"}
+      %tr
+        %td{:height => "20"}
+      %tr
+        %td{:align => "center"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %tr
+              %td{:align => "center", :width => "600"}
+                %table{:align => "center", :bgcolor => "#ffffff", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-bgcolor" => "Boxed Color", "data-border-bottom-color" => "Boxed Shadow", :style => "border-radius: 6px; border-bottom:3px solid #e6e6e6", :width => "95%"}
+                  %tr
+                    %td{:align => "center", :style => "text-align:center;vertical-align:top;font-size:0;"}
+                      %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+                        %tr
+                          %td{:align => "center", :width => "550"}
+                            %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "95%"}
+                              %tr
+                                %td{:height => "25"}
+                              %tr
+                                %td{:align => "center", :style => "line-height: 0px;"}
+                                  %a{:href => "https://www.youtube.com/watch?v=Qi0cnporjoE&list=PL1rM7N4FMIUCrw1QFGnkXOYqpjLgz1QUI", target: '_blank'}
+                                    = image_tag 'commercial_proposal_mailer/client-reviews', class: 'img1', alt: 'Отзывы клиентов Сервус', height: 'auto', width: '100%'
+                              %tr
+                                %td{:height => "30"}
+                              %tr{:align => "center"}
+                                %td{"data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#4a4a4a;", "data-size" => "Title", :style => "font-family: 'Open Sans', Arial, sans-serif; font-size:18px;color:#3b3b3b;font-weight: bold;"}
+      %tr
+        %td{:height => "20"}
+    %table{:align => "center", :bgcolor => "#F8F8F8", :border => "0", :cellpadding => "0", :cellspacing => "0", "data-module" => "main-11_footer", :width => "100%"}
+      %tr
+        %td{:height => "40"}
+      %tr
+        %td{:align => "center", :background => image_url('commercial_proposal_mailer/footer-bg-1'), :bgcolor => "#41B5B0", "data-bg" => "Footer Quote BG", "data-bgcolor" => "Footer Quote BG", :style => "background-size: cover; background-position: center center; background-image: url(#{image_url('commercial_proposal_mailer/footer-bg-1')});"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %tr
+              %td{:align => "center", :width => "600"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "90%"}
+                  %tr
+                    %td{:height => "25"}
+                  %tr
+                    %td{:align => "center", "data-color" => "Footer Quote", "data-size" => "Footer Quote", :style => "font-family: 'Century gothic', Arial, sans-serif; color:#ffffff; font-size:24px;"}
+                      “Мечты строить легко”
+                  %tr
+                    %td{:height => "25"}
+      %tr
+        %td{:align => "center", :bgcolor => "#FFFFFF", "data-bgcolor" => "Footer BG"}
+          %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %tr
+              %td{:align => "center", :width => "600"}
+                %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                  %tr
+                    %td{:height => "40"}
+                  %tr
+                    %td{:align => "center", :style => "text-align:center;vertical-align:top;font-size:0;"}
+                      %div{:style => "display:inline-block;vertical-align:top;"}
+                        %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+                          %tr
+                            %td{:align => "center", :width => "300"}
+                              %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "90%"}
+                                %tr
+                                  %td{:align => "left"}
+                                    %table{:align => "left", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+                                      %tr
+                                        %td{:align => "left", "data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Title", :style => "font-family: 'Century gothic', Arial, sans-serif; color:#4A4A4A; font-size:18px;font-weight: bold;"}
+                                          СЕРВУС
+                                %tr
+                                  %td{:height => "15"}
+                                %tr
+                                  %td{:align => "left", "data-color" => "Content", "data-link-color" => "Content", "data-link-style" => "text-decoration:none; color:#41B5B0;", "data-size" => "Content", :style => "font-family: 'Open sans', Arial, sans-serif; color:#9B9B9B; font-size:14px;line-height: 28px;"}
+                                    Строительство энергосберегающих домов "под ключ" за 3 месяца
+                                %tr
+                                  %td{:height => "10"}
+                                %tr
+                                  %td{:align => "left"}
+                                    %table{:align => "left", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+                                      %tr
+                                        %td{:align => "center", :style => "line-height: 0px;"}
+                                          - if @contact.department.facebook.present?
+                                            = link_to @contact.department.facebook, url: @contact.department.facebook, target: '_blank' do
+                                              = image_tag 'commercial_proposal_mailer/fb-5', width: '20'
+                                        %td{:width => "10"}
+                                        %td{:align => "center", :style => "line-height: 0px;"}
+                                          - if @contact.department.vkontakte.present?
+                                            = link_to @contact.department.vkontakte, url: @contact.department.vkontakte, target: '_blank' do
+                                              = image_tag 'commercial_proposal_mailer/vk-5', width: '20'
+                                        %td{:width => "10"}
+                                        %td{:align => "center", :style => "line-height: 0px;"}
+                                        %td{:width => "10"}
+                                        %td{:align => "center", :style => "line-height: 0px;"}
+                                %tr
+                                  %td{:height => "20"}
+                        </td>
+                        <td align="center" style="text-align:center;vertical-align:top;font-size:0;">
+                      %div{:style => "display:inline-block;vertical-align:top;"}
+                        %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+                          %tr
+                            %td{:align => "center", :width => "300"}
+                              %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "90%"}
+                                %tr
+                                  %td{:align => "left", "data-color" => "Title", "data-link-color" => "Title", "data-link-style" => "text-decoration:none; color:#3b3b3b;", "data-size" => "Title", :style => "font-family: 'Century gothic', Arial, sans-serif; color:#4A4A4A; font-size:18px;font-weight: bold;"}
+                                    Контакты
+                                %tr
+                                  %td{:height => "15"}
+                                %tr
+                                  %td{:align => "left"}
+                                    %table{:align => "left", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+                                      %tr
+                                        %td{:align => "center", :style => "line-height: 0px;"}
+                                          = image_tag 'commercial_proposal_mailer/phone', width: '15'
+                                        %td{:width => "10"}
+                                        %td{"data-color" => "Content", "data-link-color" => "Content", "data-link-style" => "text-decoration:none; color:#41B5B0;", "data-size" => "Content", :style => "font-family: 'Open sans', Arial, sans-serif; color:#9B9B9B; font-size:14px;"}
+                                          = number_to_phone @manager.phone
+                                %tr
+                                  %td{:height => "10"}
+                                - if @contact.department.email.present?
+                                  %tr
+                                    %td{:align => "left"}
+                                      %table{:align => "left", :border => "0", :cellpadding => "0", :cellspacing => "0"}
+                                        %tr
+                                          %td{:align => "center", :style => "line-height: 0px;"}
+                                            = image_tag 'commercial_proposal_mailer/mail', width: '15'
+                                          %td{:width => "10"}
+                                          %td{"data-color" => "Content", "data-link-color" => "Content", "data-link-style" => "text-decoration:none; color:#41B5B0;", "data-size" => "Content", :style => "font-family: 'Open sans', Arial, sans-serif; color:#9B9B9B; font-size:14px;"}
+                                            = @contact.department.email
+                                %tr
+                                  %td{:align => "left", "data-color" => "Content", "data-link-color" => "Content", "data-link-style" => "text-decoration:none; color:#41B5B0;", "data-size" => "Content", :style => "font-family: 'Open sans', Arial, sans-serif; color:#9B9B9B; font-size:14px;line-height: 28px;"}
+                                    - if @contact.department.present? && @contact.department.city.present? && @contact.department.address.present?
+                                      #{@contact.department.city}, #{@contact.department.address}
+                                    %br/
+                                    = link_to @contact.department.website, url_with_protocol(@contact.department.website), target: '_blank' if @contact.department.website.present?
+                                %tr
+                                  %td{:height => "10"}
+                                %tr
+                                  %td{:height => "10"}
+                                %tr
+                                  %td{:height => "20"}

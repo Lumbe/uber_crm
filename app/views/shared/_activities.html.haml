@@ -34,8 +34,10 @@
               = link_to activity.trackable.name, lead_path(activity.trackable)
             - elsif activity.trackable && activity.trackable.is_a?(Contact)
               = link_to activity.trackable.name, contact_path(activity.trackable)
+            - elsif activity.trackable && activity.trackable.is_a?(CommercialProposal)
+              = link_to activity.trackable.project_name, contact_commercial_proposal_path(activity.trackable.contact, activity.trackable)
             - else
-              навсегда.
+              ''
             - if activity.parameters[:department]
               в отдел
               = activity.parameters[:department]

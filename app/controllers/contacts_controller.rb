@@ -1,6 +1,5 @@
 class ContactsController < ApplicationController
   load_and_authorize_resource except: [:new]
-  before_action :load_statuses, only: [:new, :edit, :create]
   
   def index
     @user = current_user
@@ -22,17 +21,11 @@ class ContactsController < ApplicationController
           aaData: @contacts.map do |contact| 
             [
               case contact.status
-              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
-                " " +
-                (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
-              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning mb-5') +
-                " " +
-                (view_context.link_to '+ Отправить КП', send_proposal_path(contact), class: 'label label-flat text-success label-success')
+              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5')
+              when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning mb-5')
               when 'proposal' then (view_context.content_tag :span, 'Отправлено КП', class: 'label label-info mb-5') +
-                " " +
-                (view_context.link_to (view_context.content_tag :i, '', class: 'icon-phone-plus2'), phone_call_path(contact), class: 'label label-flat text-success label-success') +
-                if !contact.proposal_sent.nil?
-                  if ( Time.zone.now.to_i - contact.proposal_sent.to_i) > 86400
+                if contact.commercial_proposals.present? && contact.commercial_proposals.last.messages.present? && !contact.commercial_proposals.last.messages.last.delivered_at.blank?
+                  if ( Time.zone.now.to_i - contact.commercial_proposals.last.messages.last.delivered_at.to_i) > 86400
                     (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад", class: 'text-bold text-danger')
                   else
                     (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад")
@@ -64,10 +57,14 @@ class ContactsController < ApplicationController
 
   def show
     @contact = Contact.find(params[:id])
-    @user = @contact.user
+    @user = current_user
+    @message = Message.new
     @commentable = @contact
     @comments = @commentable.comments.order(created_at: :asc)
     @comment = Comment.new
+    gon.push({
+      contact_email: @contact.email
+    })
   end
 
   def new
@@ -120,18 +117,25 @@ class ContactsController < ApplicationController
     redirect_to contacts_path
   end
   
-  def phone_call
-    @contact = Contact.find(params[:id])
-    @user = current_user
-    @commentable = @contact
-    @comment = @commentable.comments.new
-  end
-  
-  def send_proposal
-    @contact = Contact.find(params[:id])
-    @user = current_user
-    @commentable = @contact
-    @comment = @commentable.comments.new
+  def change_status
+    contact = Contact.find(params[:id])
+    case params[:contact_status]
+    when 'newly'
+      contact.newly!
+      redirect_to contact
+    when 'repeated'
+      contact.repeated!
+      redirect_to contact
+    when 'proposal'
+      contact.proposal!
+      redirect_to contact
+    when 'finished'
+      contact.finished!
+      redirect_to contact
+    when 'sended'
+      contact.sended!
+      redirect_to contact
+    end
   end
 
   private
@@ -143,10 +147,6 @@ class ContactsController < ApplicationController
                                  :come_in_office, :phone_call, :status,
                                  :user_id, :department_id, :assigned_to,
                                  :alt_email, :do_not_call)
-  end
-
-  def load_statuses
-    @statuses = Contact.status_attributes_for_select
   end
 
   def load_contacts(paginate=true)

@@ -1,0 +1,15 @@
+= render layout: 'sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .panel-heading
+        %h5.panel-title Новое сообщение
+        .heading-elements
+          %ul.icons-list
+            %li
+              %a{"data-action" => "collapse"}
+            %li
+              %a{"data-action" => "reload"}
+            %li
+              %a{"data-action" => "close"}
+      .panel-body
+        = render 'form'

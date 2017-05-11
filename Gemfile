@@ -5,7 +5,7 @@ gem 'rails', '>= 5.0.0.1', '< 5.1'
 # fix version of sprockets to prevent deprecation warning.
 # should be updated after less-rails fixed issue https://github.com/metaskills/less-rails/issues/122
 gem "sprockets", '3.6.3'
-  
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 5.0'
 
@@ -31,6 +31,7 @@ gem 'jbuilder', '>= 2.0'
 
 # Send your data to js files
 gem 'rabl-rails'
+
 gem 'gon', '~> 6.1'
 
 # excel spreadsheets generation
@@ -44,19 +45,42 @@ gem 'hamlit'
 # fork from https://github.com/Lumbe/less-rails/tree/rails5 and merge pull request https://github.com/metaskills/less-rails/pull/123 to fix error
 # should be updated after less-rails fixed issue https://github.com/metaskills/less-rails/issues/122
 gem 'less-rails', :git => 'https://github.com/Lumbe/less-rails.git', :branch => 'rails5'
+
 gem 'pg'
+
 gem 'puma'
+
 gem 'rails-i18n', '~> 5.0', '>= 5.0.1'
+
 gem 'nokogiri'
+
 gem 'kaminari'
+
 gem 'ransack'
+
 gem 'devise'
+
 gem 'cancancan', '~> 1.15'
+
 gem 'paperclip', '~> 5.1'
+
 gem 'phony_rails'
+
 gem 'public_activity'
+
 gem 'premailer-rails'
-gem 'ahoy_email'
+
+# Action Mailer adapter for using Mailgun (https://mailgun.com)
+gem 'mailgun_rails'
+
+gem 'sidekiq'
+
+gem 'ckeditor'
+
+# ajax file uploads with remote forms
+gem 'remotipart', '~> 1.2'
+gem "sentry-raven"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -93,4 +117,5 @@ group :development do
   gem 'capistrano-rails',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano3-puma',   require: false
+  gem 'capistrano-sidekiq', require: false
 end

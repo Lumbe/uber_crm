@@ -1,0 +1,33 @@
+.page-header
+  .content-group
+    .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-envelop2.position-left
+            %span.text-semibold Сообщение
+            %small.display-block
+              От:
+              %span.text-grey-800.text-bold #{@message.from}
+            %small.display-block
+              Кому:
+              %span.text-grey-800.text-bold #{@message.to}
+              - if @message.commercial_proposal.present?
+                \ -
+                = link_to @message.commercial_proposal.contact.name, @message.commercial_proposal.contact
+            %small.display-block
+              Тема:
+              %span.text-grey-800.text-bold #{@message.subject}
+        - if @message.attachments.present?
+          .mt-20
+            - @message.attachments.each do |attachment|
+              - case attachment.attachment_content_type
+              - when /\Aimage/
+                %i.icon-file-picture.position-top
+              = link_to attachment.attachment_file_name, attachment.attachment.url, download: attachment.attachment_file_name
+.content
+  .row
+    .col-md-12
+      .panel.panel-flat
+        .panel-body
+          = @message.body.html_safe

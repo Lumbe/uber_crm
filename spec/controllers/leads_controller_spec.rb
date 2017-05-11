@@ -53,7 +53,7 @@ RSpec.describe LeadsController, type: :controller do
 
   describe "GET #new" do
     login_user('manager')
-    
+
     it "assigns a new Lead to @lead" do
       get :new
       expect(assigns(:lead)).to be_a_new(Lead)
@@ -88,12 +88,27 @@ RSpec.describe LeadsController, type: :controller do
         expect(assigns(:lead).status).to eq('repeated')
       end
 
+      it 'assigns to contact if related contact exists' do
+        user = subject.current_user
+        contact = create(:contact, email: Faker::Internet.email, department_id: user.current_department_id)
+        post :create, params: { lead: attributes_with_foreign_keys(:lead, email: contact.email, department_id: user.current_department_id) }
+        expect(assigns(:lead).contact).to eq(contact)
+      end
+
       it 'creates notification' do
         user = subject.current_user
         user2 = create(:user)
         create(:membership, user: user2, department_id: user.current_department_id, role: 'manager')
         post :create, params: { lead: attributes_with_foreign_keys(:lead, user: user, department_id: user.current_department_id) }
         expect(user2.notifications.count).to be > 0
+      end
+
+      it 'creates activity' do
+        user = subject.current_user
+        user2 = create(:user)
+        create(:membership, user: user2, department_id: user.current_department_id, role: 'manager')
+        post :create, params: { lead: attributes_with_foreign_keys(:lead, user: user, department_id: user.current_department_id) }
+        expect(PublicActivity::Activity.all.count).to be > 0
       end
 
     end
@@ -157,19 +172,39 @@ RSpec.describe LeadsController, type: :controller do
   end
 
   describe 'DELETE destroy' do
-    login_user('manager')
-    before :each do
-      @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+
+    context 'admin' do
+      login_admin
+      before :each do
+        @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+      end
+
+      it 'deletes lead' do
+        expect { delete :destroy, params: {id: @lead} }.to change{Lead.count}.by(-1)
+      end
+
+      it 'redirects to index leads' do
+        delete :destroy, params: { id: @lead }
+        expect(response).to redirect_to(leads_path)
+      end
     end
 
-    it 'deletes lead' do
-      expect { delete :destroy, params: {id: @lead} }.to change{Lead.count}.by(-1)
+    context 'user' do
+      login_user('manager')
+      before :each do
+        @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+      end
+
+      it 'deletes lead' do
+        expect { delete :destroy, params: {id: @lead} }.to_not change(Lead, :count)
+      end
+
+      it 'redirects to unauthorized' do
+        delete :destroy, params: { id: @lead }
+        expect(response).to redirect_to('/unauthorized')
+      end
     end
-    
-    it 'redirects to index leads' do
-      delete :destroy, params: { id: @lead }
-      expect(response).to redirect_to(leads_path)
-    end
+
   end
 
   describe 'GET #claim' do
@@ -297,6 +332,12 @@ RSpec.describe LeadsController, type: :controller do
       get :convert, params: { id: @lead }
       expect(flash[:notice]).to be_present
     end
+
+    it 'creates activity' do
+      create(:contact, email: @lead.email, department_id: @lead.department_id)
+      get :convert, params: { id: @lead }
+      expect(PublicActivity::Activity.all.count).to be > 0
+    end
   end
 
   describe 'GET #delegate' do
@@ -341,6 +382,11 @@ RSpec.describe LeadsController, type: :controller do
     end
 
     context "with valid attributes" do
+      it 'clears session[:delegated_lead_id]' do
+        post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes }
+        expect(session[:delegated_lead_id]).to be_nil
+      end
+
       it "creates new lead in delegated department" do
         department = create(:department)
         @lead.department_id = department.id
@@ -354,6 +400,14 @@ RSpec.describe LeadsController, type: :controller do
         @lead.department_id = department.id
         post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
         expect(department.leads.first.status).to eq('repeated')
+      end
+
+      it 'assigns to contact if related contact exists' do
+        department = create(:department)
+        contact = create(:contact, email: @lead.email, department: department)
+        @lead.department_id = department.id
+        post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
+        expect(assigns(:lead).contact).to eq(contact)
       end
 
       it "redirects to leads_path" do
@@ -378,6 +432,67 @@ RSpec.describe LeadsController, type: :controller do
         post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
         expect(user2.notifications.count).to be > 0
       end
+
+      it 'creates activity' do
+        department = create(:department)
+        user2 = create(:user)
+        create(:membership, user: user2, department: department, role: 'manager')
+        @lead.department_id = department.id
+        post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
+        expect(PublicActivity::Activity.all.count).to be > 0
+      end
+    end
+  end
+
+  describe 'GET #send_email_with_lead' do
+    login_user('manager')
+    before :each do
+      @user = subject.current_user
+      @lead = create(:lead, user: @user, department_id: @user.current_department_id)
+    end
+
+    it "assigns the requested lead to @lead" do
+      get :send_email_with_lead, params: { id: @lead.id }
+      expect(assigns(:lead)).to eq(@lead)
+    end
+
+    it "renders :send_email_with_lead" do
+      get :send_email_with_lead, params: { id: @lead.id }
+      expect(response).to render_template('send_email_with_lead')
+    end
+
+    it "changes lead status" do
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
+      expect(assigns(:lead).status).to eq('sended')
+    end
+
+    it "email is delivered with expected content" do
+      perform_enqueued_jobs do
+        recipient_email = Faker::Internet.email
+        get :send_email_with_lead, params: { id: @lead.id, send_to_email: recipient_email }
+        delivered_email = ActionMailer::Base.deliveries.last
+        assert_includes delivered_email.to, recipient_email
+      end
+    end
+
+    it 'creates activity' do
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
+      expect(PublicActivity::Activity.all.count).to eq(1)
+    end
+
+    it 'creates contact if params[:convert_lead].present?' do
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email, convert_lead: '1' }
+      expect(Contact.all.count).to eq(1)
+    end
+
+    it 'shows notice' do
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
+      expect(flash[:notice]).to be_present
+    end
+
+    it "redirects to unauthorized page" do
+      get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
+      expect(response).to redirect_to(leads_path)
     end
   end
 end

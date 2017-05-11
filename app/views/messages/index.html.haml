@@ -1,0 +1,28 @@
+= render layout: 'sidebar' do
+  .col-lg-9
+    .panel.panel-flat
+      .table-responsive
+        %table.table
+          %thead
+            %tr.bg-green
+              %th Тема
+              %th Получатель
+              %th Доставлено
+              %th Прочитано
+          %tbody
+            - if @messages.blank?
+              %tr
+                %td.text-center{colspan: 4}
+                  %span.text-semibold Входящие сообщения отсутствуют
+            - else
+              - @messages.each do |message|
+                %tr
+                  %td
+                    = link_to user_message_path(@user.id, message.id) do
+                      = message.subject
+                  %td
+                    = message.to
+                  %td
+                    = time_tag(message.delivered_at) if message.delivered_at.present?
+                  %td
+                    = time_tag(message.opened_at) if message.opened_at.present?

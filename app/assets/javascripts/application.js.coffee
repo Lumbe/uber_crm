@@ -14,6 +14,7 @@
 #= require 'limitless/plugins/loaders/pace.min.js'
 #= require jquery
 #= require jquery_ujs
+#= require jquery.remotipart
 #= require jquery.turbolinks
 #= require turbolinks
 #= require turbolinks-compatibility
@@ -46,7 +47,8 @@
 #= require notifications
 #= require limitless/plugins/visualization/echarts/theme/limitless
 #= require charts
-#= require send_lead_to_email
+#= require send_email_with_lead
+#= require ckeditor/init
 
 # pace.js - disable ajax tracking except on page navigation
 Pace.options.restartOnRequestAfter = false

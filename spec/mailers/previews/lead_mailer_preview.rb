@@ -5,6 +5,6 @@ class LeadMailerPreview < ActionMailer::Preview
   end
   
   def send_lead
-    LeadMailer.send_lead('just.me.sober@gmail.com', Lead.first)
+    LeadMailer.send_lead('just.me.sober@gmail.com', User.first, Lead.first)
   end
 end

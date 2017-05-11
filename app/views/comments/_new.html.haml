@@ -1,0 +1,23 @@
+= form_for [@commentable, Comment.new], remote: true do |f|
+  .row
+    .col-md-10
+      - if @comment.errors.any?
+        .alert.bg-danger.alert-styled-left
+          %button.close{ data: { dismiss: 'alert' } }
+            %span &times;
+            %span.sr-only Закрыть
+          %h4
+            Исправьте ошибки и попробуйте снова. Ошибок: 
+            = @comment.errors.count
+          %ul
+            - @comment.errors.full_messages.each do |msg|
+              %li= msg
+      .form-group
+        .input-group
+          %span.input-group-addon
+            .icon-pencil
+          = f.text_area :body, class: 'form-control', placeholder: 'Ваш комментарий...'
+          = f.hidden_field :user_id, value: current_user.id
+    .col-md-2
+      .text-right.pull-left
+        = f.submit 'Добавить', class: 'btn btn-info btn-float btn-float-lg'

@@ -1,0 +1,112 @@
+/ Page header
+.page-header
+  .content-group
+    .page-header.page-header-default{:style => "border-left: 1px solid #ddd; border-right: 1px solid #ddd;"}
+      .page-header-content
+        .page-title
+          %h4
+            %i.icon-coin-dollar.position-left.text-success-400
+            %span.text-semibold Коммерческое предложение для -
+            = link_to @commercial_proposal.contact.name, contact_path(@commercial_proposal.contact)
+.content
+  .row
+    .col-md-12
+      .panel.panel-flat
+        .panel-heading
+          %h5.panel-title
+            %i.icon-home2.position-left.text-success-400
+            %span.text-semibold #{@commercial_proposal.project_name}
+          .heading-elements
+            %ul.icons-list
+              %li
+                %a{"data-action" => "collapse"}
+              %li
+                %a{"data-action" => "reload"}
+              %li
+                %a{"data-action" => "close"}
+        .panel-body
+          .col-md-6
+            .table-responsive
+              %table.table.table-borderless
+                %tbody
+                  %tr
+                    %td Название проекта
+                    %td.text-bold
+                      = link_to @commercial_proposal.project_name, @commercial_proposal.project_url, target: '_blank', title: "Посмотреть в каталоге", data: {popup: "tooltip", placement: "top"}
+                  %tr
+                    %td Площадь
+                    %td.text-bold
+                      = @commercial_proposal.house_square
+                      кв.м.
+                  %tr
+                    %td Стоимость домокомплекта
+                    %td.text-bold
+                      = number_to_currency(@commercial_proposal.house_kit_price, locale: :en, precision: 0)
+                  %tr
+                    %td Стоимость монтажа домокомплекта
+                    %td.text-bold
+                      = number_to_currency(@commercial_proposal.house_installation_price, locale: :en, precision: 0)
+                  %tr
+                    %td Стоимость дополнительных работ
+                    %td.text-bold
+                      = number_to_currency(@commercial_proposal.additional_services_price, locale: :en, precision: 0)
+                  %tr
+                    %td Скидка на д/к
+                    %td.text-bold
+                      - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
+                        = number_to_currency(@commercial_proposal.discount, precision: 0, locale: :en)
+                      - else
+                        .text-bold без скидки
+                  %tr
+                    %td Курс доллара
+                    %td.text-bold
+                      = number_to_currency(@commercial_proposal.dollar_exchange_rate, locale: :uk)
+                  %tr.border-top.border-top-grey-300
+                    %td.bg-info-400.text-bold
+                      Итого по смете:
+                      - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
+                        %br
+                        .label.bg-orange-600
+                          Скидка
+                          = number_to_currency(@commercial_proposal.discount, locale: :en, precision: 0)
+                    %td.text-bold
+                      - if @commercial_proposal.discount.present? && @commercial_proposal.discount > 0
+                        .text-bold.text-success-600
+                          - total_dollar_price = @commercial_proposal.house_kit_price + @commercial_proposal.house_installation_price -  @commercial_proposal.discount + @commercial_proposal.additional_services_price
+                          = number_to_currency(total_dollar_price, locale: :en)
+                      - else
+                        .text-bold.text-success-600
+                          - total_dollar_price = @commercial_proposal.house_kit_price + @commercial_proposal.house_installation_price + @commercial_proposal.additional_services_price
+                          = number_to_currency(total_dollar_price, locale: :en)
+                      или
+                      %span.text-bold.text-info-600
+                        - total_converted_price = total_dollar_price * @commercial_proposal.dollar_exchange_rate
+                        = number_to_currency(total_converted_price, locale: :uk)
+            .row
+              .col-md-12
+                .mt-20
+                  = link_to 'Отправить почтой', contact_commercial_proposal_send_by_email_path(@commercial_proposal.contact, @commercial_proposal), class: 'btn btn-success', data: { confirm: "Коммерческое предложение для #{@commercial_proposal.contact.name} будет отправлено на почту #{@commercial_proposal.contact.email}. Вы уверены что хотите продолжить?"}
+          .col-md-6
+            .table-responsive
+              %table.table
+                %caption
+                  %h5 Отправлено почтой
+                %thead
+                  %tr.bg-grey-300
+                    %th Тема
+                    %th Доставлено
+                    %th Открыто
+                %tbody
+                  - if @commercial_proposal.messages.present?
+                    - @commercial_proposal.messages.each do |message|
+                      %tr
+                        %td
+                          = link_to user_message_path(@commercial_proposal.user.id, message.id) do
+                            = message.subject
+                        %td
+                          = time_tag(message.delivered_at) if message.delivered_at.present?
+                        %td
+                          = time_tag(message.opened_at) if message.opened_at.present?
+                  - else
+                    %tr
+                      %td{colspan: 3} Коммерческое предложение еще не отправлено

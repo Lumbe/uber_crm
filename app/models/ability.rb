@@ -2,46 +2,58 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    
+
     user ||= User.new # guest user (not logged in)
-    
+
     if user.admin?
       can :manage, :all
     elsif user.current_role == 'chief'
       can :manage, Lead do |lead|
         user.memberships.where(department: lead.department, role: 'chief').present?
       end
-      
+
       can :manage, Contact do |contact|
         user.memberships.where(department: contact.department, role: 'chief').present?
       end
+
+      cannot :destroy, [Lead, Contact]
+
     elsif user.current_role == 'marketer'
       can :manage, Lead do |lead|
         user.memberships.where(department: lead.department, role: 'marketer').present?
       end
-      
+
       can :manage, Contact do |contact|
         user.memberships.where(department: contact.department, role: 'marketer').present?
       end
+
+      cannot :destroy, [Lead, Contact]
+
     elsif user.current_role == 'senior_manager'
       can :manage, Lead do |lead|
         user.memberships.where(department: lead.department, role: 'senior_manager').present?
       end
-      
+
       can :manage, Contact do |contact|
         user.memberships.where(department: contact.department, role: 'senior_manager').present?
       end
-      
+
+      cannot :destroy, [Lead, Contact]
+
     elsif user.current_role == 'manager'
       can :manage, Lead do |lead|
         user.memberships.where(department: lead.department, role: 'manager').present?
       end
-      
+
       can :manage, Contact do |contact|
         user.memberships.where(department: contact.department, role: 'manager').present?
       end
+
+      cannot :destroy, [Lead, Contact]
+
     else
       can :delegate, Lead
+      cannot :destroy, [Lead, Contact]
     end
 
     # The first argument to `can` is the action you are giving the user
