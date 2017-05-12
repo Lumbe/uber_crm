@@ -10,9 +10,9 @@ module  ContactScenarios
 
     def perform
       contact.comments.create! user: commercial_proposal.user,
-                              commentable: contact,
-                              comment_type: 'commercial_prop',
-                              body: "Отправлено почтой #{link_to commercial_proposal.project_name, commercial_prop_url}"
+                               commentable: contact,
+                               comment_type: 'commercial_prop',
+                               body: "Отправлено почтой #{link_to commercial_proposal.project_name, commercial_prop_url}"
       contact.create_activity :send_proposal, owner: commercial_proposal.user, trackable_department_id: contact.department_id
     end
   end

@@ -20,8 +20,8 @@ class CommercialProposalMailer < ApplicationMailer
     @commercial_proposal = commercial_proposal
     @manager = manager
     mail to: contact.email,
-        from: "#{@contact.department.name} <#{@contact.department.email}>",
-        subject: 'Стоимость Вашего дома',
-        observer_args: { user: @manager, commercial_proposal: @commercial_proposal }
+         from: "#{@contact.department.name} <#{@contact.department.email}>",
+         subject: 'Стоимость Вашего дома',
+         observer_args: { user: @manager, commercial_proposal: @commercial_proposal }
   end
 end
