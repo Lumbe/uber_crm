@@ -4,7 +4,7 @@ gem 'rails', '>= 5.0.0.1', '< 5.1'
 
 # fix version of sprockets to prevent deprecation warning.
 # should be updated after less-rails fixed issue https://github.com/metaskills/less-rails/issues/122
-gem "sprockets", '3.6.3'
+gem 'sprockets', '3.6.3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 5.0'
@@ -79,7 +79,7 @@ gem 'ckeditor'
 
 # ajax file uploads with remote forms
 gem 'remotipart', '~> 1.2'
-gem "sentry-raven"
+gem 'sentry-raven'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -93,7 +93,7 @@ gem "sentry-raven"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem "faker"
+  gem 'faker'
   gem 'rspec-rails', '~> 3.5'
   gem 'rails-controller-testing'
   gem 'factory_girl_rails', '~> 4.7'
