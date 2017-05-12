@@ -48,7 +48,7 @@ class Lead < ApplicationRecord
     }
 
   def related_contacts
-    Contact.where(department: self.department).ransack(phone_cont: self.phone.chars.last(7).join).result.or(Contact.where(department: self.department, email: self.email).where.not(email: ''))
+    Contact.where(department: department).ransack(phone_cont: phone.chars.last(7).join).result.or(Contact.where(department: department, email: email).where.not(email: ''))
   end
 
 end
