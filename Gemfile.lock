@@ -52,6 +52,9 @@ GEM
     addressable (2.4.0)
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
+    annotate (2.7.1)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 12.0)
     arel (7.1.4)
     axlsx (2.0.1)
       htmlentities (~> 4.3.1)
@@ -371,6 +374,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   axlsx_rails (~> 0.5.0)
   byebug
   cancancan (~> 1.15)
