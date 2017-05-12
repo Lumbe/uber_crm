@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     @notifications_all = Notification.where(recipient: current_user).order(created_at: :desc)
 
@@ -12,13 +12,13 @@ class NotificationsController < ApplicationController
 
   def general_notifications
     @general_notifications = Notification.general.where(recipient: current_user).order(created_at: :desc).first(10)
-    
+
     respond_to do |format|
       format.html
       format.js
     end
   end
-  
+
   def message_notifications
     @message_notifications = Notification.message.where(recipient: current_user).order(created_at: :desc).first(10)
 
@@ -39,5 +39,5 @@ class NotificationsController < ApplicationController
       render json: {success: true}
     end
   end
-  
+
 end

@@ -1,16 +1,16 @@
 class UsersController < ApplicationController
   before_action :load_user
   before_action :load_memberships
-  
+
   def index
   end
-  
+
   def show
   end
-  
+
   def edit
   end
-  
+
   def update
     if @user.update(user_params)
       redirect_to @user
@@ -18,13 +18,13 @@ class UsersController < ApplicationController
       render 'settings'
     end
   end
-  
+
   def departments
   end
-  
+
   def settings
   end
-  
+
   def user_leads
     respond_to do |format|
       format.html
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
           sEcho: params[:sEcho].to_i + 1,
           iTotalRecords: total_count,
           iTotalDisplayRecords: count,
-          aaData: @leads.map do |lead| 
+          aaData: @leads.map do |lead|
             [
               case lead.status
               when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
@@ -65,7 +65,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   def user_contacts
     respond_to do |format|
       format.html
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
           sEcho: params[:sEcho].to_i + 1,
           iTotalRecords: total_count,
           iTotalDisplayRecords: count,
-          aaData: @contacts.map do |contact| 
+          aaData: @contacts.map do |contact|
             [
               view_context.link_to(contact.name, contact_path(contact)),
               contact.phone,
@@ -95,19 +95,19 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   private
-  
+
   def load_user
     @user = User.find(params[:id])
   end
-  
+
   def load_memberships
     @memberships = @user.memberships.order(created_at: :asc)
   end
-  
+
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :avatar, :phone, :skype)
   end
-  
+
 end

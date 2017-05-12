@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
   load_and_authorize_resource except: [:new]
-  
+
   def index
     @user = current_user
     if !@user.departments.any?
@@ -18,7 +18,7 @@ class ContactsController < ApplicationController
           sEcho: params[:sEcho].to_i + 1,
           iTotalRecords: total_count,
           iTotalDisplayRecords: count,
-          aaData: @contacts.map do |contact| 
+          aaData: @contacts.map do |contact|
             [
               case contact.status
               when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5')
@@ -39,7 +39,7 @@ class ContactsController < ApplicationController
                 view_context.content_tag :span, contact.phone, class: 'text-danger'
               else
                 contact.phone
-              end, 
+              end,
               if contact.do_not_call?
                 view_context.content_tag :span, contact.email, class: 'text-danger'
               else
@@ -71,7 +71,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new
     @departments = current_user.departments.uniq
   end
-  
+
   def create
     @contact = Contact.new(contact_params)
     @department = @contact.department
@@ -80,7 +80,7 @@ class ContactsController < ApplicationController
       (@department.users.uniq - [current_user]).each do |user|
         Notification.create(recipient: user, actor: current_user, action: 'добавил', notifiable: @contact)
       end
-      
+
       if session[:converted_lead_id].present?
         converted_lead = Lead.find_by(id: session[:converted_lead_id])
         converted_lead.converted!
@@ -94,7 +94,7 @@ class ContactsController < ApplicationController
       render 'new'
     end
   end
-  
+
   def edit
     @contact = Contact.find(params[:id])
     @departments = current_user.departments
@@ -116,7 +116,7 @@ class ContactsController < ApplicationController
 
     redirect_to contacts_path
   end
-  
+
   def change_status
     contact = Contact.find(params[:id])
     case params[:contact_status]

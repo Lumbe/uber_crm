@@ -20,7 +20,7 @@ class LeadsController < ApplicationController
           sEcho: params[:sEcho].to_i + 1,
           iTotalRecords: total_count,
           iTotalDisplayRecords: count,
-          aaData: @leads.map do |lead| 
+          aaData: @leads.map do |lead|
             [
               case lead.status
               when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
@@ -65,7 +65,7 @@ class LeadsController < ApplicationController
                         view_context.content_tag(:i, '', class: 'icon-envelope') + 'Отправить почтой'
                       end
                     end
-                  end 
+                  end
                 end
               end.html_safe
             ]
@@ -83,7 +83,7 @@ class LeadsController < ApplicationController
     @lead = Lead.new
     @departments = current_user.departments.uniq
   end
-  
+
   def create
     @lead = Lead.new(lead_params)
     if @lead.related_contacts.present?
@@ -104,7 +104,7 @@ class LeadsController < ApplicationController
       render 'new'
     end
   end
-  
+
   def edit
     @lead = Lead.find(params[:id])
     @departments = current_user.departments
@@ -126,17 +126,17 @@ class LeadsController < ApplicationController
 
     redirect_to leads_path
   end
-  
+
   def claim
     @lead = Lead.find(params[:id])
     @user = current_user
     @lead.claimed!
     @lead.update(assignee: @user)
     @lead.create_activity :claim, owner: current_user, trackable_department_id: @lead.department_id
-    
+
     redirect_back(fallback_location: leads_path)
   end
-  
+
   def close
     @lead = Lead.find(params[:id])
     @user = current_user
@@ -146,7 +146,7 @@ class LeadsController < ApplicationController
 
     redirect_back(fallback_location: leads_path)
   end
-  
+
   def convert
     @lead = Lead.find(params[:id])
     if @lead.related_contacts.present?
@@ -163,7 +163,7 @@ class LeadsController < ApplicationController
     contact_attributes['assigned_to'] ||= current_user.id
     @contact = Contact.new(contact_attributes)
   end
-  
+
   def delegate
     @lead = Lead.find(params[:id])
     session[:delegated_lead_id] = @lead.id

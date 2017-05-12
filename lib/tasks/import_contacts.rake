@@ -29,7 +29,7 @@ namespace :import do
                                email: row['Email'],
                                do_not_call: row['Do not call'] == 'false' ? false : true,
                                department_id: row['Cf   4'].blank? ? '1' : (row['Cf   4'].mb_chars.downcase.include?('вин') ? '2' : '1'))
-      
+
       # import comments in Contact#custom field
       if !row['Cf   12'].blank?
         com1 = Comment.create(user_id: row['Assigned to'], commentable_id: contact.id, commentable_type:'Contact', body: row['Cf   12'], created_at: contact.created_at)
@@ -56,7 +56,7 @@ namespace :import do
       end
 
       if contact.errors.any?
-        # puts "#{contact.email} - #{contact.errors.full_messages.join(",")}" 
+        # puts "#{contact.email} - #{contact.errors.full_messages.join(",")}"
         open('import_error.log', 'w') do |f|
           f << "#{contact.email} - #{contact.errors.full_messages.join(",")}\n"
         end

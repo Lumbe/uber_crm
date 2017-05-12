@@ -10,7 +10,7 @@ class CreateMessages < ActiveRecord::Migration[5.0]
       t.datetime :opened_at
       t.integer :user_id
       t.integer :commercial_proposal_id
-      
+
       t.timestamps
     end
   end

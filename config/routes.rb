@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   devise_for :users
   post '/initialize_department' => 'application#initialize_department', as: :initialize_department
   get 'unauthorized' => 'application#unauthorized', as: :unauthorized
-  
+
   resources :leads do
     member do
       get :claim
@@ -60,7 +60,7 @@ Rails.application.routes.draw do
   # Admin dashboard
   get 'admin' => 'admin/dashboard#index', :as => :admin
   get 'admin/users/become/:id' => 'admin/users#become', :as => :become_user
-  
+
   namespace :admin do
     resources :users
     resources :departments do

@@ -12,7 +12,7 @@ class Contact < ApplicationRecord
   has_many :commercial_proposals
 
   validates :name, :phone, :source, :region, presence: true
-  
+
   phony_normalize :phone, default_country_code: 'UA'
 
   scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :finished, fifth = :sended) {

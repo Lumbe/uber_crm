@@ -3,7 +3,7 @@ class LeadMailerPreview < ActionMailer::Preview
   def welcome_email
     LeadMailer.welcome_email(User.first)
   end
-  
+
   def send_lead
     LeadMailer.send_lead('just.me.sober@gmail.com', User.first, Lead.first)
   end

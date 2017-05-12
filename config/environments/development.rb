@@ -47,11 +47,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  
+
   # Whitelist IP adress just to remove warning message when running rails server
   config.web_console.whitelisted_ips = %w(188.163.33.207 94.230.198.15)
   config.web_console.whiny_requests = false
-  
+
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.

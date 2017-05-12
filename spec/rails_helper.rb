@@ -38,7 +38,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.include FactoryGirl::Syntax::Methods
-  
+
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include Devise::Test::ControllerHelpers, :type => :view
   config.extend DeviseLogin, :type => :controller

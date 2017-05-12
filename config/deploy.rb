@@ -59,7 +59,7 @@ namespace :deploy do
       end
     end
   end
-  
+
   desc 'Link shared files'
   task :symlink_config_files do
     on roles(:app) do

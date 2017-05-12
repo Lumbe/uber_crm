@@ -12,7 +12,7 @@ class Admin::DepartmentsController < ApplicationController
   def new
     @department = Department.new
   end
-  
+
   def create
     @department = Department.new(department_params)
 
@@ -43,16 +43,16 @@ class Admin::DepartmentsController < ApplicationController
 
     redirect_to admin_departments_path
   end
-  
+
   def retire_user
     @membership = Membership.find(params[:retire_membership_id])
     @membership.retired!
-    
+
     redirect_to :back
   end
-  
+
   private
-  
+
   def department_params
     params.require(:department).permit(:name, :avatar, :city, :address, :facebook, :vkontakte, :website, :email)
   end
