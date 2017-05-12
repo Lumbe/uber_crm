@@ -99,6 +99,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.7'
   gem 'capybara', '~> 2.10'
   gem 'pry-rails'
+  gem "rubocop", '~> 0.48.1', require: false
 end
 
 group :test do
