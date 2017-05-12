@@ -41,7 +41,7 @@ class LeadsController < ApplicationController
               "#{view_context.time_ago_in_words(lead.created_at)} назад",
               view_context.content_tag(:ul, class: 'icons-list') do
                 view_context.content_tag(:li, class: 'dropdown') do
-                  view_context.link_to('#', class: 'dropdown-toggle', data: {toggle: 'dropdown'}) do
+                  view_context.link_to('#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }) do
                     view_context.content_tag(:i, '', class: 'icon-menu9')
                   end +
                   view_context.content_tag(:ul, class: 'dropdown-menu dropdown-menu-right') do
@@ -211,7 +211,7 @@ class LeadsController < ApplicationController
       recipient = params[:send_to_email]
       LeadMailer.send_lead(recipient, current_user, @lead).deliver_later
       @lead.sended!
-      @lead.create_activity :send_email, owner: current_user, trackable_department_id: @lead.department_id, parameters: {send_lead_email: recipient}
+      @lead.create_activity :send_email, owner: current_user, trackable_department_id: @lead.department_id, parameters: { send_lead_email: recipient }
       LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform if params[:convert_lead].present?
 
       flash[:notice] = "Лид #{@lead.name} успешно отправлен на почту: #{recipient}"

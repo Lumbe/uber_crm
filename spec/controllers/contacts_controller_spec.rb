@@ -94,13 +94,13 @@ RSpec.describe ContactsController, type: :controller do
     context 'with invalid attributes' do
       it "don't save invalid contact to database" do
         user = subject.current_user
-        post :create, params: {contact: attributes_for(:invalid_contact, user: user, department_id: user.current_department_id) }
+        post :create, params: { contact: attributes_for(:invalid_contact, user: user, department_id: user.current_department_id) }
         expect(Contact.count).to eq(0)
       end
 
       it "redirects to the 'new' action" do
         user = subject.current_user
-        post :create, params: {contact: attributes_for(:invalid_contact, user: user, department_id: user.current_department_id) }
+        post :create, params: { contact: attributes_for(:invalid_contact, user: user, department_id: user.current_department_id) }
         expect(response).to render_template('new')
       end
     end
@@ -157,7 +157,7 @@ RSpec.describe ContactsController, type: :controller do
       end
 
       it 'destroys contact' do
-        expect { delete :destroy, params: {id: @contact} }.to change{Contact.count}.by(-1)
+        expect { delete :destroy, params: { id: @contact } }.to change{Contact.count}.by(-1)
       end
 
       it 'redirects to index contacts' do
@@ -173,7 +173,7 @@ RSpec.describe ContactsController, type: :controller do
       end
 
       it 'do not destroys contact' do
-        expect { delete :destroy, params: {id: @contact} }.to_not change(Contact, :count)
+        expect { delete :destroy, params: { id: @contact } }.to_not change(Contact, :count)
       end
 
       it 'redirects to unauthorized' do

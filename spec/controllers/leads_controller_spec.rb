@@ -20,7 +20,7 @@ RSpec.describe LeadsController, type: :controller do
       it 'populates @leads' do
         user = subject.current_user
         lead = create(:lead, user: user, department_id: user.current_department_id)
-        get :index, format: :json, params: {statuses: Lead.statuses.keys, start: 60.days.ago, end: Time.zone.now  }
+        get :index, format: :json, params: { statuses: Lead.statuses.keys, start: 60.days.ago, end: Time.zone.now  }
         expect(assigns(:leads)).to eq([lead])
       end
     end
@@ -116,13 +116,13 @@ RSpec.describe LeadsController, type: :controller do
     context 'with invalid attributes' do
       it "don't save invalid lead to database" do
         user = subject.current_user
-        post :create, params: {lead: attributes_for(:invalid_lead, user: user, department_id: user.current_department_id) }
+        post :create, params: { lead: attributes_for(:invalid_lead, user: user, department_id: user.current_department_id) }
         expect(Lead.count).to eq(0)
       end
 
       it "redirects to the 'new' action" do
         user = subject.current_user
-        post :create, params: {lead: attributes_for(:invalid_lead, user: user, department_id: user.current_department_id) }
+        post :create, params: { lead: attributes_for(:invalid_lead, user: user, department_id: user.current_department_id) }
         expect(response).to render_template('new')
       end
     end
@@ -180,7 +180,7 @@ RSpec.describe LeadsController, type: :controller do
       end
 
       it 'deletes lead' do
-        expect { delete :destroy, params: {id: @lead} }.to change{Lead.count}.by(-1)
+        expect { delete :destroy, params: { id: @lead } }.to change{Lead.count}.by(-1)
       end
 
       it 'redirects to index leads' do
@@ -196,7 +196,7 @@ RSpec.describe LeadsController, type: :controller do
       end
 
       it 'deletes lead' do
-        expect { delete :destroy, params: {id: @lead} }.to_not change(Lead, :count)
+        expect { delete :destroy, params: { id: @lead } }.to_not change(Lead, :count)
       end
 
       it 'redirects to unauthorized' do

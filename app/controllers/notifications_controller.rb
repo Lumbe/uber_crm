@@ -32,11 +32,11 @@ class NotificationsController < ApplicationController
     if params[:notification_type] == 'general'
       notifications = Notification.general.where(recipient: current_user).unread
       notifications.update_all(read_at: Time.current)
-      render json: {success: true}
+      render json: { success: true }
     elsif params[:notification_type] == 'message'
       notifications = Notification.message.where(recipient: current_user).unread
       notifications.update_all(read_at: Time.current)
-      render json: {success: true}
+      render json: { success: true }
     end
   end
 

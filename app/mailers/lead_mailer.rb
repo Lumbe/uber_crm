@@ -21,6 +21,6 @@ class LeadMailer < ApplicationMailer
     mail from: @lead.department.email,
          to: recipient_email,
          subject: 'Новый лид',
-         observer_args: {user: @user, lead: @lead}
+         observer_args: { user: @user, lead: @lead }
   end
 end
