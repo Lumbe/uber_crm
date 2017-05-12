@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
-  it "has a valid factory" do
+  it 'has a valid factory' do
     message = build(:message)
     expect(message).to be_valid
   end

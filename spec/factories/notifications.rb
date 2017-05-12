@@ -3,6 +3,6 @@ FactoryGirl.define do
     association :recipient, factory: :user
     association :actor, factory: :user
     association :notifiable, factory: [:lead, :contact].sample
-    action      "добавил"
+    action      'добавил'
   end
 end

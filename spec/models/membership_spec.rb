@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Membership, type: :model do
-  it "has a valid factory" do
+  it 'has a valid factory' do
     membership = build(:membership)
     expect(membership).to be_valid
   end

@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe MessageMailer, type: :mailer do
 
@@ -36,7 +36,7 @@ RSpec.describe MessageMailer, type: :mailer do
     end
 
     it 'send with correct sender email' do
-      expect(ActionMailer::Base.deliveries.first.from[0]).to eq("office@servus.km.ua")
+      expect(ActionMailer::Base.deliveries.first.from[0]).to eq('office@servus.km.ua')
     end
 
     it 'send with correct user for mail observer' do

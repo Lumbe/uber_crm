@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Lead, type: :model do
-  it "has a valid lead factory" do
+  it 'has a valid lead factory' do
     lead = build(:lead)
     expect(lead).to be_valid
   end

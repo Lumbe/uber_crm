@@ -8,7 +8,7 @@ RSpec.describe LeadScenarios::AssignLeadToContact do
     @lead_url = Faker::Internet.url
   end
 
-  it "initializes with given objects" do
+  it 'initializes with given objects' do
     expect(LeadScenarios::AssignLeadToContact.new(@lead, @contact, @lead_url).lead).to eq(@lead)
     expect(LeadScenarios::AssignLeadToContact.new(@lead, @contact, @lead_url).contact).to eq(@contact)
     expect(LeadScenarios::AssignLeadToContact.new(@lead, @contact, @lead_url).lead_url).to eq(@lead_url)

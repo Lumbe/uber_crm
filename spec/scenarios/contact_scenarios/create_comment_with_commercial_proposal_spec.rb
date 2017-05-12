@@ -8,7 +8,7 @@ RSpec.describe ContactScenarios::CreateCommentWithCommercialProposal do
     @commercial_prop_url = Faker::Internet.url
   end
 
-  it "initializes with given objects" do
+  it 'initializes with given objects' do
     expect(ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, @commercial_prop_url).commercial_proposal).to eq(@commercial_proposal)
     expect(ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, @commercial_prop_url).contact).to eq(@contact)
     expect(ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, @commercial_prop_url).commercial_prop_url).to eq(@commercial_prop_url)

@@ -2,7 +2,7 @@ module DeviseLogin
   
   def login_admin
     before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:admin]
+      @request.env['devise.mapping'] = Devise.mappings[:admin]
       admin = FactoryGirl.create(:admin)
       FactoryGirl.create(:membership, user: admin)
       sign_in admin
@@ -11,7 +11,7 @@ module DeviseLogin
 
   def login_user(role)
     before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
+      @request.env['devise.mapping'] = Devise.mappings[:user]
       user = FactoryGirl.create(:user)
       membership = FactoryGirl.create(:membership, user: user, role: role)
       user.update_attributes(current_department_id: membership.department.id, current_role: membership.role)

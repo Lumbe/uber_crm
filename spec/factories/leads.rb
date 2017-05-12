@@ -18,8 +18,8 @@ FactoryGirl.define do
     department
   end
   factory :invalid_lead, class: Lead do
-    name              ""
-    phone             ""
+    name              ''
+    phone             ''
     email             { Faker::Internet.email }
     location          { Faker::Address.city }
     project           { Faker::Space.galaxy }

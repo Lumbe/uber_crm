@@ -7,7 +7,7 @@ RSpec.describe LeadScenarios::CreateContactFromEmailedLead do
     @user = create :user
   end
 
-  it "initializes with given objects" do
+  it 'initializes with given objects' do
     expect(LeadScenarios::CreateContactFromEmailedLead.new(@lead, @user).lead).to eq(@lead)
   end
 

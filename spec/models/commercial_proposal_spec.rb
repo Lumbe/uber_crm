@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CommercialProposal, type: :model do
-  it "has a valid factory" do
+  it 'has a valid factory' do
     commercial_proposal = build(:commercial_proposal)
     expect(commercial_proposal).to be_valid
   end

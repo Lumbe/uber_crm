@@ -18,18 +18,18 @@ FactoryGirl.define do
     department
   end
   factory :invalid_contact, class: Contact do
-    name              { "" }
+    name              { '' }
     user
     assignee          { user }
-    phone             { "" }
+    phone             { '' }
     email             { Faker::Internet.email }
     location          { Faker::Address.city }
     project           { Faker::Space.galaxy }
     square            { Faker::Number.between(17, 333) }
     question          { Faker::Lorem.sentence }
     created_at        { Faker::Date.between(3.days.ago, Date.today) }
-    region            { "" }
-    source            { "" }
+    region            { '' }
+    source            { '' }
     online_request    { Faker::Boolean.boolean }
     come_in_office    { Faker::Boolean.boolean }
     phone_call        { Faker::Boolean.boolean }

@@ -2,22 +2,22 @@ require 'rails_helper'
 
 RSpec.describe LeadsController, type: :controller do
 
-  describe "GET #index" do
-    context "valid user" do
-      login_user("manager")
+  describe 'GET #index' do
+    context 'valid user' do
+      login_user('manager')
 
-      it "responds succesfully with an HTTP 200 status code" do
+      it 'responds succesfully with an HTTP 200 status code' do
         get :index
         expect(response).to be_success
         expect(response).to have_http_status(200)
       end
 
-      it "renders the index template" do
+      it 'renders the index template' do
         get :index
-        expect(response).to render_template("index")
+        expect(response).to render_template('index')
       end
 
-      it "populates @leads" do
+      it 'populates @leads' do
         user = subject.current_user
         lead = create(:lead, user: user, department_id: user.current_department_id)
         get :index, format: :json, params: {statuses: Lead.statuses.keys, start: 60.days.ago, end: Time.zone.now  }
@@ -25,57 +25,57 @@ RSpec.describe LeadsController, type: :controller do
       end
     end
 
-    context "invalid user" do
-      login_user("visitor")
+    context 'invalid user' do
+      login_user('visitor')
 
-      it "redirects to unauthorized page" do
+      it 'redirects to unauthorized page' do
         get :index
-        expect(response).to redirect_to("/unauthorized")
+        expect(response).to redirect_to('/unauthorized')
       end
     end
   end
 
-  describe "GET #show" do
-    login_user("manager")
+  describe 'GET #show' do
+    login_user('manager')
 
-    it "assigns the requested lead to @lead" do
+    it 'assigns the requested lead to @lead' do
       lead = create(:lead, department_id: subject.current_user.current_department_id)
       get :show, params: { id: lead.id }
       expect(assigns(:lead)).to eq(lead)
     end
 
-    it "renders :show" do
+    it 'renders :show' do
       lead = create(:lead, department_id: subject.current_user.current_department_id)
       get :show, params: { id: lead.id }
       expect(response).to render_template('show')
     end
   end
 
-  describe "GET #new" do
+  describe 'GET #new' do
     login_user('manager')
 
-    it "assigns a new Lead to @lead" do
+    it 'assigns a new Lead to @lead' do
       get :new
       expect(assigns(:lead)).to be_a_new(Lead)
     end
 
-    it "renders the :new template" do
+    it 'renders the :new template' do
       get :new
       expect(response).to render_template('new')
     end
   end
 
-  describe "POST #create" do
-    login_user("manager")
+  describe 'POST #create' do
+    login_user('manager')
 
-    context "with valid attributes" do
-      it "saves new lead to database" do
+    context 'with valid attributes' do
+      it 'saves new lead to database' do
         user = subject.current_user
         post :create, params: { lead: attributes_with_foreign_keys(:lead, user: user, department_id: user.current_department_id) }
         expect(Lead.count).to eq(1)
       end
 
-      it "redirects to created lead" do
+      it 'redirects to created lead' do
         user = subject.current_user
         post :create, params: { lead: attributes_with_foreign_keys(:lead, user: user, department_id: user.current_department_id) }
         expect(response).to redirect_to(leads_path)
@@ -113,7 +113,7 @@ RSpec.describe LeadsController, type: :controller do
 
     end
 
-    context "with invalid attributes" do
+    context 'with invalid attributes' do
       it "don't save invalid lead to database" do
         user = subject.current_user
         post :create, params: {lead: attributes_for(:invalid_lead, user: user, department_id: user.current_department_id) }
@@ -131,7 +131,7 @@ RSpec.describe LeadsController, type: :controller do
   describe 'PUT update' do
     login_user('manager')
     before :each do
-      @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+      @lead = create(:lead, name: 'Lawrence', department_id: subject.current_user.current_department_id)
     end
 
     context 'valid attributes' do
@@ -159,12 +159,12 @@ RSpec.describe LeadsController, type: :controller do
       end
 
       it "does not change @lead's attributes"  do
-        put :update, params: { id: @lead, lead: attributes_for(:lead, name: "")  }
+        put :update, params: { id: @lead, lead: attributes_for(:lead, name: '')  }
         @lead.reload
         expect(@lead.name).not_to eq('')
       end
 
-      it "re-renders edit" do
+      it 're-renders edit' do
         put :update, params: { id: @lead, lead: attributes_for(:invalid_lead) }
         expect(response).to render_template('edit')
       end
@@ -176,7 +176,7 @@ RSpec.describe LeadsController, type: :controller do
     context 'admin' do
       login_admin
       before :each do
-        @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+        @lead = create(:lead, name: 'Lawrence', department_id: subject.current_user.current_department_id)
       end
 
       it 'deletes lead' do
@@ -192,7 +192,7 @@ RSpec.describe LeadsController, type: :controller do
     context 'user' do
       login_user('manager')
       before :each do
-        @lead = create(:lead, name: "Lawrence", department_id: subject.current_user.current_department_id)
+        @lead = create(:lead, name: 'Lawrence', department_id: subject.current_user.current_department_id)
       end
 
       it 'deletes lead' do
@@ -381,13 +381,13 @@ RSpec.describe LeadsController, type: :controller do
       session[:delegated_lead_id] = @lead.id
     end
 
-    context "with valid attributes" do
+    context 'with valid attributes' do
       it 'clears session[:delegated_lead_id]' do
         post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes }
         expect(session[:delegated_lead_id]).to be_nil
       end
 
-      it "creates new lead in delegated department" do
+      it 'creates new lead in delegated department' do
         department = create(:department)
         @lead.department_id = department.id
         post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes }
@@ -410,14 +410,14 @@ RSpec.describe LeadsController, type: :controller do
         expect(assigns(:lead).contact).to eq(contact)
       end
 
-      it "redirects to leads_path" do
+      it 'redirects to leads_path' do
         department = create(:department)
         @lead.department_id = department.id
         post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
         expect(response).to redirect_to(leads_path)
       end
 
-      it "shows flash[:notice] " do
+      it 'shows flash[:notice] ' do
         department = create(:department)
         @lead.department_id = department.id
         post :create_delegated_lead, params: { id: @lead, lead: @lead.attributes.except('id') }
@@ -451,22 +451,22 @@ RSpec.describe LeadsController, type: :controller do
       @lead = create(:lead, user: @user, department_id: @user.current_department_id)
     end
 
-    it "assigns the requested lead to @lead" do
+    it 'assigns the requested lead to @lead' do
       get :send_email_with_lead, params: { id: @lead.id }
       expect(assigns(:lead)).to eq(@lead)
     end
 
-    it "renders :send_email_with_lead" do
+    it 'renders :send_email_with_lead' do
       get :send_email_with_lead, params: { id: @lead.id }
       expect(response).to render_template('send_email_with_lead')
     end
 
-    it "changes lead status" do
+    it 'changes lead status' do
       get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
       expect(assigns(:lead).status).to eq('sended')
     end
 
-    it "email is delivered with expected content" do
+    it 'email is delivered with expected content' do
       perform_enqueued_jobs do
         recipient_email = Faker::Internet.email
         get :send_email_with_lead, params: { id: @lead.id, send_to_email: recipient_email }
@@ -490,7 +490,7 @@ RSpec.describe LeadsController, type: :controller do
       expect(flash[:notice]).to be_present
     end
 
-    it "redirects to unauthorized page" do
+    it 'redirects to unauthorized page' do
       get :send_email_with_lead, params: { id: @lead.id, send_to_email: Faker::Internet.email }
       expect(response).to redirect_to(leads_path)
     end
