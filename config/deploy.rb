@@ -49,24 +49,24 @@ namespace :puma do
 end
 
 namespace :deploy do
-  desc "Make sure local git is in sync with remote."
+  desc 'Make sure local git is in sync with remote.'
   task :check_revision do
     on roles(:app) do
       unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
-        puts "Run `git push` to sync changes."
+        puts 'WARNING: HEAD is not the same as origin/master'
+        puts 'Run `git push` to sync changes.'
         exit
       end
     end
   end
   
-  desc "Link shared files"
+  desc 'Link shared files'
   task :symlink_config_files do
     on roles(:app) do
       symlinks = {
         "#{shared_path}/config/local_env.yml" => "#{release_path}/config/local_env.yml"
       }
-      execute symlinks.map{|from, to| "ln -nfs #{from} #{to}"}.join(" && ")
+      execute symlinks.map{|from, to| "ln -nfs #{from} #{to}"}.join(' && ')
     end
   end
 
@@ -74,8 +74,8 @@ namespace :deploy do
   task :upload_yml do
     on roles(:app) do
       execute "mkdir #{shared_path}/config -p"
-      upload! StringIO.new(File.read("config/database.yml")), "#{shared_path}/config/database.yml"
-      upload! StringIO.new(File.read("config/secrets.yml")), "#{shared_path}/config/secrets.yml"
+      upload! StringIO.new(File.read('config/database.yml')), "#{shared_path}/config/database.yml"
+      upload! StringIO.new(File.read('config/secrets.yml')), "#{shared_path}/config/secrets.yml"
     end
   end
 

@@ -4,7 +4,7 @@ class Contact < ApplicationRecord
   enum status: [:newly, :repeated, :proposal, :finished, :sended]
 
   belongs_to :user
-  belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true
+  belongs_to :assignee, class_name: 'User', foreign_key: :assigned_to, optional: true
   belongs_to :customer, optional: true
   belongs_to :department
   has_many :leads
@@ -20,7 +20,7 @@ class Contact < ApplicationRecord
     }
 
   def self.top_repeated_leads
-    joins(:leads).group("contacts.id").order("count(leads.id) DESC")
+    joins(:leads).group('contacts.id').order('count(leads.id) DESC')
   end
 
 end

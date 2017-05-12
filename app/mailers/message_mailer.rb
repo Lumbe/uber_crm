@@ -1,5 +1,5 @@
 class MessageMailer < ApplicationMailer
-  default from: "Сервус Поділля <office@servus.km.ua>"
+  default from: 'Сервус Поділля <office@servus.km.ua>'
   add_template_helper ApplicationHelper
 
   def mail(headers = {}, &block)

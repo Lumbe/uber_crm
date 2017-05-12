@@ -1,5 +1,5 @@
 class LeadMailer < ApplicationMailer
-  default from: "Сервус <office@servus.km.ua>"
+  default from: 'Сервус <office@servus.km.ua>'
   add_template_helper ApplicationHelper
 
   def mail(headers = {}, &block)
@@ -20,7 +20,7 @@ class LeadMailer < ApplicationMailer
     @user = sender
     mail from: @lead.department.email,
         to: recipient_email,
-        subject: "Новый лид",
+        subject: 'Новый лид',
         observer_args: {user: @user, lead: @lead}
   end
 end

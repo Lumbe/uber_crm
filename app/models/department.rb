@@ -6,7 +6,7 @@ class Department < ApplicationRecord
   has_many :customers
   has_many :competitors
   
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/missing_avatar.png"
+  has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/assets/missing_avatar.png'
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   validates :name, :city, :address, :email, presence: true

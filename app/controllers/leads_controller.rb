@@ -6,7 +6,7 @@ class LeadsController < ApplicationController
   def index
     @user = current_user
     if !@user.departments.any?
-      flash[:alert] = "У Вас нет доступа ни к одному отделу. Запросите доступ у администратора"
+      flash[:alert] = 'У Вас нет доступа ни к одному отделу. Запросите доступ у администратора'
     end
     respond_to do |format|
       format.html
@@ -24,10 +24,10 @@ class LeadsController < ApplicationController
             [
               case lead.status
               when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
-                " " +
+                ' ' +
                 (view_context.link_to '+ В работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
               when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning') +
-                " " +
+                ' ' +
                 (view_context.link_to '+ В работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
               when 'closed' then view_context.content_tag :span, 'Закрыт', class: 'label label-default'
               when 'converted' then view_context.content_tag :span, 'Конвертирован', class: 'label label-success'
@@ -95,7 +95,7 @@ class LeadsController < ApplicationController
     if @lead.save
       # Create the notifications
       (@department.users.uniq - [current_user]).each do |user|
-        Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @lead)
+        Notification.create(recipient: user, actor: current_user, action: 'добавил', notifiable: @lead)
       end
       @lead.create_activity :create, owner: current_user, trackable_department_id: @lead.department_id
 
@@ -186,7 +186,7 @@ class LeadsController < ApplicationController
     if @lead.save
       # Create the notifications
       (@department.users.uniq - [current_user]).each do |user|
-        Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @lead)
+        Notification.create(recipient: user, actor: current_user, action: 'добавил', notifiable: @lead)
       end
 
       # change status of delegated lead and create :delegate activity
@@ -215,7 +215,7 @@ class LeadsController < ApplicationController
       LeadScenarios::CreateContactFromEmailedLead.new(@lead, current_user).perform if params[:convert_lead].present?
 
       flash[:notice] = "Лид #{@lead.name} успешно отправлен на почту: #{recipient}"
-      flash[:notice] << " и успешно конвертирован в контакт." if params[:convert_lead].present?
+      flash[:notice] << ' и успешно конвертирован в контакт.' if params[:convert_lead].present?
       redirect_to leads_path
     end
   end
@@ -231,7 +231,7 @@ class LeadsController < ApplicationController
       # Implant @current_user so that :require_user filter becomes a noop.
       params[:lead][:user_id] ||= user.id.to_s
       # instance_variable_set("@current_user", user)
-      logger.info(">>> web-to-lead: creating lead for user " + user.inspect)
+      logger.info('>>> web-to-lead: creating lead for user ' + user.inspect)
     end
   end
 

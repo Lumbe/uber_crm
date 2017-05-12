@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new(comment_params)
 
     if @comment.save
-      redirect_to @commentable, notice: "Комментарий добавлен"
+      redirect_to @commentable, notice: 'Комментарий добавлен'
     else
       render 'new'
     end

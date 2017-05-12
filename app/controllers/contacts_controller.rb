@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
   def index
     @user = current_user
     if !@user.departments.any?
-      flash[:alert] = "У Вас нет доступа ни к одному отделу. Запросите доступ у администратора"
+      flash[:alert] = 'У Вас нет доступа ни к одному отделу. Запросите доступ у администратора'
     end
     respond_to do |format|
       format.html
@@ -78,7 +78,7 @@ class ContactsController < ApplicationController
     if @contact.save
       # Create the notifications
       (@department.users.uniq - [current_user]).each do |user|
-        Notification.create(recipient: user, actor: current_user, action: "добавил", notifiable: @contact)
+        Notification.create(recipient: user, actor: current_user, action: 'добавил', notifiable: @contact)
       end
       
       if session[:converted_lead_id].present?
