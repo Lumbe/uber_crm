@@ -290,7 +290,7 @@ RSpec.describe LeadsController, type: :controller do
     end
 
     it 'locates the requested lead' do
-        get :convert, params: { id: @lead }
+      get :convert, params: { id: @lead }
         expect(assigns(:lead)).to eq(@lead)
     end
 

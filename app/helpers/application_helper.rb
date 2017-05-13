@@ -1,9 +1,9 @@
 module ApplicationHelper
 
     # helpers for Devise gem
-    def resource_name
-      :user
-    end
+  def resource_name
+    :user
+  end
 
     def resource
       @user ||= User.new

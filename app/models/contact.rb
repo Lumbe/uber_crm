@@ -47,7 +47,7 @@ class Contact < ApplicationRecord
 
   scope :order_by_status, -> (first = :proposal, second = :repeated, third = :newly, fourth = :finished, fifth = :sended) {
     order("status = #{Contact.statuses[first]} DESC, status = #{Contact.statuses[second]} DESC, status = #{Contact.statuses[third]} DESC, status = #{Contact.statuses[fourth]} DESC")
-    }
+  }
 
   def self.top_repeated_leads
     joins(:leads).group('contacts.id').order('count(leads.id) DESC')
