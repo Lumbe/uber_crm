@@ -1,6 +1,5 @@
 require 'csv'
 namespace :export do
-
   desc 'Export Servus Khmelnitsky comments'
   task :km_comments => :environment do
     CSV.open('km_comments.csv','w') do |csv|
@@ -24,5 +23,4 @@ namespace :export do
       end
     end
   end
-
 end

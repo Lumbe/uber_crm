@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe LeadMailer, type: :mailer do
-
   describe 'Send lead information to email' do
     before :each do
       ActionMailer::Base.delivery_method = :test
@@ -41,5 +40,4 @@ RSpec.describe LeadMailer, type: :mailer do
       expect(ActionMailer::Base.deliveries.first.observer_args[:lead]).to eq(@lead)
     end
   end
-
 end

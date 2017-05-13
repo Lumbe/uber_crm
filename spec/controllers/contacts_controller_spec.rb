@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ContactsController, type: :controller do
-
   describe 'GET #index' do
     context 'valid user' do
       login_user('manager')
@@ -88,7 +87,6 @@ RSpec.describe ContactsController, type: :controller do
         post :create, params: { contact: attributes_with_foreign_keys(:contact, user: user, department_id: user.current_department_id) }
         expect(user2.notifications.count).to be > 0
       end
-
     end
 
     context 'with invalid attributes' do
@@ -181,9 +179,5 @@ RSpec.describe ContactsController, type: :controller do
         expect(response).to redirect_to('/unauthorized')
       end
     end
-
   end
-
-
-
 end

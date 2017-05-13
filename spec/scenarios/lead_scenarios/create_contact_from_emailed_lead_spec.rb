@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe LeadScenarios::CreateContactFromEmailedLead do
-
   before :each do
     @lead = create :lead
     @user = create :user
@@ -28,5 +27,4 @@ RSpec.describe LeadScenarios::CreateContactFromEmailedLead do
   it 'creates activity for assigned contact' do
     expect{LeadScenarios::CreateContactFromEmailedLead.new(@lead, @user).perform}.to change{PublicActivity::Activity.all.count}.by(1)
   end
-
 end

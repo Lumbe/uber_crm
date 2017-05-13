@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe MessagesController, type: :controller do
-
-
   describe 'GET #index' do
     login_user('manager')
     before :each do
@@ -158,7 +156,6 @@ RSpec.describe MessagesController, type: :controller do
         post :send_mail, format: :js, params: { message: attributes_with_foreign_keys(:message), user_id: @user.id }
         expect(enqueued_jobs.size).to eq(1)
       end
-
     end
 
     context 'with invalid attributes' do
@@ -251,7 +248,5 @@ RSpec.describe MessagesController, type: :controller do
         expect(Message.first.user.notifications.count).to be 0
       end
     end
-
   end
-
 end

@@ -25,7 +25,6 @@ RSpec.describe CommercialProposalsController, type: :controller do
   end
 
   describe 'POST #create' do
-
     context 'with valid attributes' do
       it 'saves new commercial_proposal to database' do
         post :create, params: { contact_id: @contact.id, user_id: @user.id, commercial_proposal: attributes_for(:commercial_proposal) }
@@ -36,7 +35,6 @@ RSpec.describe CommercialProposalsController, type: :controller do
         post :create, params: { contact_id: @contact.id, user_id: @user.id, commercial_proposal: attributes_for(:commercial_proposal) }
         expect(response).to redirect_to contact_commercial_proposal_path(assigns(:contact), assigns(:commercial_proposal))
       end
-
     end
 
     context 'with invalid attributes' do
@@ -50,7 +48,6 @@ RSpec.describe CommercialProposalsController, type: :controller do
         expect(response).to render_template(:new)
       end
     end
-
   end
 
   describe 'GET #show' do
@@ -108,5 +105,4 @@ RSpec.describe CommercialProposalsController, type: :controller do
       expect(@contact.comments.size).to be >= 0
     end
   end
-
 end

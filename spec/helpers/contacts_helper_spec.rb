@@ -11,7 +11,6 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe ContactsHelper, type: :helper do
-
   describe '#contact_statuses' do
     it 'returns two-dimensional array of translated and original contact statuses' do
       statuses = Contact.statuses.keys

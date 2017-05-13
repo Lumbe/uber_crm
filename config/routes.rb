@@ -69,5 +69,4 @@ Rails.application.routes.draw do
     end
     get 'departments/:id/membership/:retire_membership_id' => 'departments#retire_user', :as => :retire_user
   end
-
 end

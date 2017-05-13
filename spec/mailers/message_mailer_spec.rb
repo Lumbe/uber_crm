@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe MessageMailer, type: :mailer do
-
   describe 'Send message' do
     before :each do
       ActionMailer::Base.delivery_method = :test

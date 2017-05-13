@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ContactScenarios::CreateCommentWithCommercialProposal do
-
   before :each do
     @commercial_proposal = create :commercial_proposal
     @contact = create :contact
@@ -23,5 +22,4 @@ RSpec.describe ContactScenarios::CreateCommentWithCommercialProposal do
     expect{ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, @commercial_prop_url).perform}
       .to change{PublicActivity::Activity.all.count}.by(1)
   end
-
 end

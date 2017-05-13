@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe CommercialProposalMailer, type: :mailer do
-
   describe 'Send lead information to email' do
     before :each do
       ActionMailer::Base.delivery_method = :test

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe LeadsController, type: :controller do
-
   describe 'GET #index' do
     context 'valid user' do
       login_user('manager')
@@ -110,7 +109,6 @@ RSpec.describe LeadsController, type: :controller do
         post :create, params: { lead: attributes_with_foreign_keys(:lead, user: user, department_id: user.current_department_id) }
         expect(PublicActivity::Activity.all.count).to be > 0
       end
-
     end
 
     context 'with invalid attributes' do
@@ -172,7 +170,6 @@ RSpec.describe LeadsController, type: :controller do
   end
 
   describe 'DELETE destroy' do
-
     context 'admin' do
       login_admin
       before :each do
@@ -204,7 +201,6 @@ RSpec.describe LeadsController, type: :controller do
         expect(response).to redirect_to('/unauthorized')
       end
     end
-
   end
 
   describe 'GET #claim' do
