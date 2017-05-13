@@ -25,7 +25,7 @@ class ContactsController < ApplicationController
               when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning mb-5')
               when 'proposal' then (view_context.content_tag :span, 'Отправлено КП', class: 'label label-info mb-5') +
                 if contact.commercial_proposals.present? && contact.commercial_proposals.last.messages.present? && !contact.commercial_proposals.last.messages.last.delivered_at.blank?
-                  if ( Time.zone.now.to_i - contact.commercial_proposals.last.messages.last.delivered_at.to_i) > 86400
+                  if (Time.zone.now.to_i - contact.commercial_proposals.last.messages.last.delivered_at.to_i) > 86400
                     (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад", class: 'text-bold text-danger')
                   else
                     (view_context.content_tag :div, "#{view_context.time_ago_in_words(contact.proposal_sent)} назад")

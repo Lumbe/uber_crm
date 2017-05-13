@@ -9,7 +9,7 @@ RSpec.describe LeadMailer, type: :mailer do
       @user = create(:user)
       @lead = create(:lead)
       @email = Faker::Internet.email
-      LeadMailer.send_lead(@email, @user, @lead ).deliver
+      LeadMailer.send_lead(@email, @user, @lead).deliver
     end
 
     after(:each) do
