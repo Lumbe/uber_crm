@@ -24,6 +24,6 @@ RSpec.describe LeadScenarios::AssignLeadToContact do
   end
 
   it 'creates activity for assigned contact' do
-    expect{ LeadScenarios::AssignLeadToContact.new(@lead, @contact, @lead_url).perform }.to change{ PublicActivity::Activity.all.count }.by(1)
+    expect { LeadScenarios::AssignLeadToContact.new(@lead, @contact, @lead_url).perform }.to change { PublicActivity::Activity.all.count }.by(1)
   end
 end

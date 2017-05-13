@@ -16,7 +16,7 @@ RSpec.describe LeadScenarios::CreateContactFromEmailedLead do
   end
 
   it 'creates new contact from given lead' do
-    expect{ LeadScenarios::CreateContactFromEmailedLead.new(@lead, @user).perform }.to change{ Contact.all.count }.by(1)
+    expect { LeadScenarios::CreateContactFromEmailedLead.new(@lead, @user).perform }.to change { Contact.all.count }.by(1)
   end
 
   it "creates new contact from given lead with 'sended' status" do
@@ -25,6 +25,6 @@ RSpec.describe LeadScenarios::CreateContactFromEmailedLead do
   end
 
   it 'creates activity for assigned contact' do
-    expect{ LeadScenarios::CreateContactFromEmailedLead.new(@lead, @user).perform }.to change{ PublicActivity::Activity.all.count }.by(1)
+    expect { LeadScenarios::CreateContactFromEmailedLead.new(@lead, @user).perform }.to change { PublicActivity::Activity.all.count }.by(1)
   end
 end

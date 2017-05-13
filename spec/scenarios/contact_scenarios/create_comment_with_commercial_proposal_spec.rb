@@ -14,12 +14,12 @@ RSpec.describe ContactScenarios::CreateCommentWithCommercialProposal do
   end
 
   it 'creates comment for contact' do
-    expect{ ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, @commercial_prop_url).perform }
-      .to change{ @contact.comments.count }.by(1)
+    expect { ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, @commercial_prop_url).perform }
+      .to change { @contact.comments.count }.by(1)
   end
 
   it 'creates activity for contact' do
-    expect{ ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, @commercial_prop_url).perform }
-      .to change{ PublicActivity::Activity.all.count }.by(1)
+    expect { ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, @commercial_prop_url).perform }
+      .to change { PublicActivity::Activity.all.count }.by(1)
   end
 end

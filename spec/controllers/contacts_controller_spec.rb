@@ -155,7 +155,7 @@ RSpec.describe ContactsController, type: :controller do
       end
 
       it 'destroys contact' do
-        expect { delete :destroy, params: { id: @contact } }.to change{ Contact.count }.by(-1)
+        expect { delete :destroy, params: { id: @contact } }.to change { Contact.count }.by(-1)
       end
 
       it 'redirects to index contacts' do
