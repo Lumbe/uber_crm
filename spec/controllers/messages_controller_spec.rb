@@ -200,7 +200,7 @@ RSpec.describe MessagesController, type: :controller do
 
     context 'with invalid params' do
       it 'do not update Message#delivered_at attribute on POST request' do
-        post :delivered, params: { 'Message-Id' => (Faker::Internet.email).to_s }
+        post :delivered, params: { 'Message-Id' => Faker::Internet.email }
         expect(Message.first.delivered_at).to be_nil
       end
     end
@@ -239,12 +239,12 @@ RSpec.describe MessagesController, type: :controller do
 
     context 'with invalid params' do
       it 'do not update Message#opened_at attribute on POST request' do
-        post :opened, params: { 'message-id' => (Faker::Internet.email).to_s }
+        post :opened, params: { 'message-id' => Faker::Internet.email }
         expect(Message.first.opened_at).to be_nil
       end
 
       it 'do not create notification on Message#opened_at POST request' do
-        post :opened, params: { 'message-id' => (Faker::Internet.email).to_s }
+        post :opened, params: { 'message-id' => Faker::Internet.email }
         expect(Message.first.user.notifications.count).to be 0
       end
     end
