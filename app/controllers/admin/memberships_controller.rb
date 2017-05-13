@@ -6,7 +6,7 @@ class Admin::MembershipsController < ApplicationController
 
   def new
     @membership = @department.memberships.new
-    @users = User.all.collect {|p| [ p.first_name + ' ' + p.last_name, p.id ] }
+    @users = User.all.collect { |p| [ p.first_name + ' ' + p.last_name, p.id ] }
   end
 
   def create

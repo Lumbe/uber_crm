@@ -177,7 +177,7 @@ RSpec.describe LeadsController, type: :controller do
       end
 
       it 'deletes lead' do
-        expect { delete :destroy, params: { id: @lead } }.to change{Lead.count}.by(-1)
+        expect { delete :destroy, params: { id: @lead } }.to change{ Lead.count }.by(-1)
       end
 
       it 'redirects to index leads' do

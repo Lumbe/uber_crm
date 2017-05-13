@@ -5,7 +5,7 @@ RSpec.describe MessagesController, type: :controller do
     login_user('manager')
     before :each do
       @user = subject.current_user
-      3.times { create :message, user: @user, inbound: true}
+      3.times { create :message, user: @user, inbound: true }
       @messages = Message.all
     end
 
@@ -71,7 +71,7 @@ RSpec.describe MessagesController, type: :controller do
     before :each do
       @user = subject.current_user
       commercial_proposal = create :commercial_proposal
-      3.times { create :message, user: @user, inbound: false, commercial_proposal: commercial_proposal}
+      3.times { create :message, user: @user, inbound: false, commercial_proposal: commercial_proposal }
       @messages = Message.all
     end
 
@@ -101,7 +101,7 @@ RSpec.describe MessagesController, type: :controller do
     login_user('manager')
     before :each do
       @user = subject.current_user
-      3.times { create :message, user: @user}
+      3.times { create :message, user: @user }
       @messages = Message.all
     end
 
