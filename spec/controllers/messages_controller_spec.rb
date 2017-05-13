@@ -188,19 +188,19 @@ RSpec.describe MessagesController, type: :controller do
 
     context 'with valid params' do
       it 'ensures user is authenticated' do
-        post :delivered, params: { 'Message-Id'=>"<#{@message_id}>" }
+        post :delivered, params: { 'Message-Id' => "<#{@message_id}>" }
         expect(subject.current_user).to be_present
       end
 
       it 'updates Message#delivered_at attribute on POST request' do
-        post :delivered, params: { 'Message-Id'=>"<#{@message_id}>" }
+        post :delivered, params: { 'Message-Id' => "<#{@message_id}>" }
         expect(Message.first.delivered_at).to_not be_nil
       end
     end
 
     context 'with invalid params' do
       it 'do not update Message#delivered_at attribute on POST request' do
-        post :delivered, params: { 'Message-Id'=>"#{Faker::Internet.email}" }
+        post :delivered, params: { 'Message-Id' => (Faker::Internet.email).to_s }
         expect(Message.first.delivered_at).to be_nil
       end
     end
@@ -222,29 +222,29 @@ RSpec.describe MessagesController, type: :controller do
 
     context 'with valid params' do
       it 'ensures user is authenticated' do
-        post :delivered, params: { 'message-id'=>"#{@message_id}" }
+        post :delivered, params: { 'message-id' => @message_id.to_s }
         expect(subject.current_user).to be_present
       end
 
       it 'updates Message#opened_at attribute on POST request' do
-        post :opened, params: { 'message-id'=>"#{@message_id}" }
+        post :opened, params: { 'message-id' => @message_id.to_s }
         expect(Message.first.opened_at).to_not be_nil
       end
 
       it 'creates notification on Message#opened_at POST request' do
-        post :opened, params: { 'message-id'=>"#{@message_id}" }
+        post :opened, params: { 'message-id' => @message_id.to_s }
         expect(Message.first.user.notifications.count).to be > 0
       end
     end
 
     context 'with invalid params' do
       it 'do not update Message#opened_at attribute on POST request' do
-        post :opened, params: { 'message-id'=>"#{Faker::Internet.email}" }
+        post :opened, params: { 'message-id' => (Faker::Internet.email).to_s }
         expect(Message.first.opened_at).to be_nil
       end
 
       it 'do not create notification on Message#opened_at POST request' do
-        post :opened, params: { 'message-id'=>"#{Faker::Internet.email}" }
+        post :opened, params: { 'message-id' => (Faker::Internet.email).to_s }
         expect(Message.first.user.notifications.count).to be 0
       end
     end

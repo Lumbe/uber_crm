@@ -68,7 +68,7 @@ class MessagesController < ApplicationController
         format.html { render 'new' }
         format.js do
           @message.attachments.each do |attachment|
-            attachment.errors.full_messages.each { |msg| flash.now[:alert] =  "Письмо не отправлено. #{msg}" }
+            attachment.errors.full_messages.each { |msg| flash.now[:alert] = "Письмо не отправлено. #{msg}" }
           end
         end
       end
