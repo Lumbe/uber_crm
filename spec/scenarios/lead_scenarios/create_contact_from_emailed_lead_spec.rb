@@ -21,7 +21,7 @@ RSpec.describe LeadScenarios::CreateContactFromEmailedLead do
 
   it "creates new contact from given lead with 'sended' status" do
     LeadScenarios::CreateContactFromEmailedLead.new(@lead, @user).perform
-    expect(Contact.all.first.status).to eq ('sended')
+    expect(Contact.all.first.status).to eq 'sended'
   end
 
   it 'creates activity for assigned contact' do

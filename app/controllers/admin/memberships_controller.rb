@@ -1,6 +1,6 @@
 class Admin::MembershipsController < ApplicationController
   before_action :load_department
-  before_action :load_membership, :except => [:new, :create, :index, :edit]
+  before_action :load_membership, except: [:new, :create, :index, :edit]
   before_action :load_roles
   load_and_authorize_resource
 

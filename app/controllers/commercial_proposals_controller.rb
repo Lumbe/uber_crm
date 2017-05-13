@@ -24,7 +24,7 @@ class CommercialProposalsController < ApplicationController
     @contact = Contact.find(params[:contact_id])
     @user = current_user
     CommercialProposalMailer.send_commercial_proposal(@contact, @user, @commercial_proposal).deliver_later
-    commercial_prop_url = url_for(:controller => 'commercial_proposals', :action => 'show', :contact_id => @contact.id, :id => @commercial_proposal.id, host: request.host)
+    commercial_prop_url = url_for(controller: 'commercial_proposals', action: 'show', contact_id: @contact.id, id: @commercial_proposal.id, host: request.host)
     ContactScenarios::CreateCommentWithCommercialProposal.new(@commercial_proposal, @contact, commercial_prop_url).perform
 
     flash[:notice] = "Коммерческое предложение для #{@commercial_proposal.project_name} отправлено на почту: #{@contact.email}"

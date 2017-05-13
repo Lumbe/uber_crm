@@ -39,11 +39,11 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 
-  config.include Devise::Test::ControllerHelpers, :type => :controller
-  config.include Devise::Test::ControllerHelpers, :type => :view
-  config.extend DeviseLogin, :type => :controller
-  config.include ControllerMacros, :type => :controller
-  config.include ActiveJob::TestHelper, :type => :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.extend DeviseLogin, type: :controller
+  config.include ControllerMacros, type: :controller
+  config.include ActiveJob::TestHelper, type: :controller
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.

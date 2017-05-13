@@ -88,7 +88,7 @@ class LeadsController < ApplicationController
     @lead = Lead.new(lead_params)
     if @lead.related_contacts.present?
       @lead.repeated!
-      lead_url = url_for(:controller => 'leads', :action => 'show', :id => @lead.id, host: request.host)
+      lead_url = url_for(controller: 'leads', action: 'show', id: @lead.id, host: request.host)
       LeadScenarios::AssignLeadToContact.new(@lead, @lead.related_contacts.first, lead_url).perform
     end
     @department = @lead.department
@@ -179,7 +179,7 @@ class LeadsController < ApplicationController
     @lead = Lead.new(lead_params)
     if @lead.related_contacts.present?
       @lead.repeated!
-      lead_url = url_for(:controller => 'leads', :action => 'show', :id => @lead.id, host: request.host)
+      lead_url = url_for(controller: 'leads', action: 'show', id: @lead.id, host: request.host)
       LeadScenarios::AssignLeadToContact.new(@lead, @lead.related_contacts.first, lead_url).perform
     end
     @department = @lead.department

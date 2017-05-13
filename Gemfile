@@ -44,7 +44,7 @@ gem 'hamlit'
 
 # fork from https://github.com/Lumbe/less-rails/tree/rails5 and merge pull request https://github.com/metaskills/less-rails/pull/123 to fix error
 # should be updated after less-rails fixed issue https://github.com/metaskills/less-rails/issues/122
-gem 'less-rails', :git => 'https://github.com/Lumbe/less-rails.git', :branch => 'rails5'
+gem 'less-rails', git: 'https://github.com/Lumbe/less-rails.git', branch: 'rails5'
 
 gem 'pg'
 
@@ -105,7 +105,7 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner', '~> 1.5'
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
 end
 
 group :development do

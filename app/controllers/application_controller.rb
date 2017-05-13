@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :initialize_department
   before_action :set_raven_context
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to :unauthorized, :alert => exception.message
+    redirect_to :unauthorized, alert: exception.message
   end
 
   def initialize_department
