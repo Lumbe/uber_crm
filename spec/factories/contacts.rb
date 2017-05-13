@@ -30,7 +30,7 @@
 
 FactoryGirl.define do
   factory :contact, class: Contact do
-    name              { Faker::Name.name }
+    name { Faker::Name.name }
     user
     assignee          { user }
     phone             { Faker::PhoneNumber.phone_number }
@@ -48,7 +48,7 @@ FactoryGirl.define do
     department
   end
   factory :invalid_contact, class: Contact do
-    name              { '' }
+    name { '' }
     user
     assignee          { user }
     phone             { '' }

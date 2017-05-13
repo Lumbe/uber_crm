@@ -134,8 +134,8 @@ RSpec.describe ContactsController, type: :controller do
         expect(assigns(:contact)).to eq(@contact)
       end
 
-      it "does not change @contact's attributes"  do
-        put :update, params: { id: @contact, contact: attributes_for(:contact, name: '')  }
+      it "does not change @contact's attributes" do
+        put :update, params: { id: @contact, contact: attributes_for(:contact, name: '') }
         @contact.reload
         expect(@contact.name).not_to eq('')
       end

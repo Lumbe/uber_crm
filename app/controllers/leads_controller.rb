@@ -23,7 +23,7 @@ class LeadsController < ApplicationController
           aaData: @leads.map do |lead|
             [
               case lead.status
-              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
+              when 'newly' then (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5') +
                 ' ' +
                 (view_context.link_to '+ В работу', claim_lead_path(lead), class: 'label label-flat text-success label-success')
               when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning') +

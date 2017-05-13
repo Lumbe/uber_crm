@@ -21,7 +21,7 @@ class ContactsController < ApplicationController
           aaData: @contacts.map do |contact|
             [
               case contact.status
-              when 'newly' then  (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5')
+              when 'newly' then (view_context.content_tag :span, 'Новый', class: 'label label-warning mb-5')
               when 'repeated' then (view_context.content_tag :span, 'Повторно', class: 'label label-warning mb-5')
               when 'proposal' then (view_context.content_tag :span, 'Отправлено КП', class: 'label label-info mb-5') +
                 if contact.commercial_proposals.present? && contact.commercial_proposals.last.messages.present? && !contact.commercial_proposals.last.messages.last.delivered_at.blank?

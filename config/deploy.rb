@@ -22,7 +22,7 @@ set :puma_error_log,  "#{release_path}/log/puma.access.log"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
-set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+set :puma_init_active_record, true # Change to false when not using ActiveRecord
 
 ## Defaults:
 # set :scm,           :git
@@ -94,7 +94,7 @@ namespace :deploy do
     end
   end
 
-  before :starting,     :check_revision
+  before :starting, :check_revision
   before 'deploy:assets:precompile', :symlink_config_files
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup

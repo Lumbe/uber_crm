@@ -19,7 +19,7 @@ RSpec.describe LeadsController, type: :controller do
       it 'populates @leads' do
         user = subject.current_user
         lead = create(:lead, user: user, department_id: user.current_department_id)
-        get :index, format: :json, params: { statuses: Lead.statuses.keys, start: 60.days.ago, end: Time.zone.now  }
+        get :index, format: :json, params: { statuses: Lead.statuses.keys, start: 60.days.ago, end: Time.zone.now }
         expect(assigns(:leads)).to eq([lead])
       end
     end
@@ -156,8 +156,8 @@ RSpec.describe LeadsController, type: :controller do
         expect(assigns(:lead)).to eq(@lead)
       end
 
-      it "does not change @lead's attributes"  do
-        put :update, params: { id: @lead, lead: attributes_for(:lead, name: '')  }
+      it "does not change @lead's attributes" do
+        put :update, params: { id: @lead, lead: attributes_for(:lead, name: '') }
         @lead.reload
         expect(@lead.name).not_to eq('')
       end

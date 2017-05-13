@@ -40,7 +40,7 @@ class User < ApplicationRecord
   has_many :contacts
   has_many :customers
   has_many :competitors
-  has_many :comments, as: :commentable      # As owner who created a comment.
+  has_many :comments, as: :commentable # As owner who created a comment.
   has_many :notifications, foreign_key: :recipient_id
   has_many :commercial_proposals
   has_many :messages
