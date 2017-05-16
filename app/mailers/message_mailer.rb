@@ -24,7 +24,7 @@ class MessageMailer < ApplicationMailer
       end
     end
     mail to: @message.to,
-        # from: "#{@user.first_name} #{@user.last_name} <#{@user.email}>",
+         # from: "#{@user.first_name} #{@user.last_name} <#{@user.email}>",
          subject: @message.subject,
          observer_args: { user: @user, message: @message }
   end

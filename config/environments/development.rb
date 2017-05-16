@@ -82,6 +82,6 @@ Rails.application.configure do
   config.action_mailer.mailgun_settings = {
           api_key: 'key-a59abbc67d0dca5f43905227e9cf42ba',
           domain: 'mg.servus.vn.ua'
-          # domain: 'sandbox6c18ff9554cc49aeab97c7fad99c0440.mailgun.org'
+    # domain: 'sandbox6c18ff9554cc49aeab97c7fad99c0440.mailgun.org'
   }
 end

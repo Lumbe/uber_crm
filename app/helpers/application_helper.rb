@@ -1,5 +1,5 @@
 module ApplicationHelper
-    # helpers for Devise gem
+  # helpers for Devise gem
   def resource_name
     :user
   end
@@ -12,12 +12,12 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-    # for current department object access in view
+  # for current department object access in view
   def current_department
     Department.find(current_user.current_department_id)
   end
 
-    # for use with link_to in mailers
+  # for use with link_to in mailers
   def url_with_protocol(url)
     /^http/i.match(url) ? url : "http://#{url}"
   end
