@@ -149,7 +149,7 @@ class ContactsController < ApplicationController
                                  :alt_email, :do_not_call)
   end
 
-  def load_contacts(paginate=true)
+  def load_contacts(paginate = true)
     # load contacts with filtered statuses and dates from datapicker
     contacts =  Contact.where(department: @user.current_department_id).order_by_status.order(created_at: :desc)
     # total count for datatable view

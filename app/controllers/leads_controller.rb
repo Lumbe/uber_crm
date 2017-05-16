@@ -243,7 +243,7 @@ class LeadsController < ApplicationController
                                  :user_id, :department_id, :assigned_to)
   end
 
-  def load_leads(paginate=true)
+  def load_leads(paginate = true)
     # load leads with filtered statuses and dates from datapicker
     leads = Lead.where(status: params[:statuses], department_id: @user.current_department_id).order_by_status.order(created_at: :desc)
     total_count = Lead.where(department_id: @user.current_department_id).count
