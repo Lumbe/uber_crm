@@ -44,28 +44,28 @@ class LeadsController < ApplicationController
                   view_context.link_to('#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }) do
                     view_context.content_tag(:i, '', class: 'icon-menu9')
                   end +
-                  view_context.content_tag(:ul, class: 'dropdown-menu dropdown-menu-right') do
-                    view_context.content_tag(:li) do
-                      view_context.link_to(convert_lead_path(lead.id)) do
-                        view_context.content_tag(:i, '', class: 'icon-spinner11') + 'Конвертировать'
-                      end
-                    end +
-                    view_context.content_tag(:li) do
-                      view_context.link_to(close_lead_path(lead.id)) do
-                        view_context.content_tag(:i, '', class: 'icon-cross2') + 'Закрыть'
-                      end
-                    end +
-                    view_context.content_tag(:li) do
-                      view_context.link_to(delegate_lead_path(lead.id)) do
-                        view_context.content_tag(:i, '', class: 'icon-users2') + 'Делегировать'
-                      end
-                    end +
-                    view_context.content_tag(:li) do
-                      view_context.link_to(send_email_with_lead_path(lead)) do
-                        view_context.content_tag(:i, '', class: 'icon-envelope') + 'Отправить почтой'
-                      end
+                    view_context.content_tag(:ul, class: 'dropdown-menu dropdown-menu-right') do
+                      view_context.content_tag(:li) do
+                        view_context.link_to(convert_lead_path(lead.id)) do
+                          view_context.content_tag(:i, '', class: 'icon-spinner11') + 'Конвертировать'
+                        end
+                      end +
+                        view_context.content_tag(:li) do
+                          view_context.link_to(close_lead_path(lead.id)) do
+                            view_context.content_tag(:i, '', class: 'icon-cross2') + 'Закрыть'
+                          end
+                        end +
+                        view_context.content_tag(:li) do
+                          view_context.link_to(delegate_lead_path(lead.id)) do
+                            view_context.content_tag(:i, '', class: 'icon-users2') + 'Делегировать'
+                          end
+                        end +
+                        view_context.content_tag(:li) do
+                          view_context.link_to(send_email_with_lead_path(lead)) do
+                            view_context.content_tag(:i, '', class: 'icon-envelope') + 'Отправить почтой'
+                          end
+                        end
                     end
-                  end
                 end
               end.html_safe
             ]
