@@ -26,7 +26,7 @@ RSpec.describe Attachment, type: :model do
     end
 
     context 'with invalid file format' do
-      unallowed_formats = %w(exe bat msi js cmd application)
+      unallowed_formats = %w[exe bat msi js cmd application]
       unallowed_formats.each do |format|
         it { is_expected.to_not allow_value("file.#{format}").for(:attachment_file_name) }
       end
