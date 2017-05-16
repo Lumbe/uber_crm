@@ -291,7 +291,7 @@ RSpec.describe LeadsController, type: :controller do
 
     it 'locates the requested lead' do
       get :convert, params: { id: @lead }
-        expect(assigns(:lead)).to eq(@lead)
+      expect(assigns(:lead)).to eq(@lead)
     end
 
     it 'store session[:converted_lead_id]' do
