@@ -151,7 +151,7 @@ class LeadsController < ApplicationController
     @lead = Lead.find(params[:id])
     if @lead.related_contacts.present?
       @lead.converted!
-      @lead.related_contacts.each { |contact| contact.repeated! }
+      @lead.related_contacts.each(&:repeated!)
       @lead.create_activity :convert, owner: current_user, trackable_department_id: @lead.department_id
 
       redirect_to contacts_path, notice: "Контакт с номером телефона или email лида #{@lead.name} уже существует. Его статус изменен на 'Повторно'"
