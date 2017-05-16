@@ -1,5 +1,4 @@
 module ControllerMacros
-
   # include associations into attributes - https://github.com/thoughtbot/factory_girl/issues/359#issuecomment-135890010
   def attributes_with_foreign_keys(*args)
     inst = FactoryGirl.build(*args)
@@ -10,5 +9,4 @@ module ControllerMacros
     inst.class.defined_enums.each { |k, v| attrs[k] = inst.send(k) }
     attrs
   end
-
 end

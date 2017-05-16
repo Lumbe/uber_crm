@@ -1,5 +1,4 @@
 module ApplicationHelper
-
     # helpers for Devise gem
   def resource_name
     :user
@@ -22,5 +21,4 @@ module ApplicationHelper
   def url_with_protocol(url)
     /^http/i.match(url) ? url : "http://#{url}"
   end
-
 end
