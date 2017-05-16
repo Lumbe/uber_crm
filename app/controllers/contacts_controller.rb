@@ -62,9 +62,7 @@ class ContactsController < ApplicationController
     @commentable = @contact
     @comments = @commentable.comments.order(created_at: :asc)
     @comment = Comment.new
-    gon.push({
-               contact_email: @contact.email
-             })
+    gon.push(contact_email: @contact.email)
   end
 
   def new
