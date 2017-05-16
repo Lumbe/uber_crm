@@ -142,11 +142,11 @@ class ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:name, :phone, :email, :location,
-                                 :project, :square, :floor, :question,
-                                 :region, :source, :online_request,
-                                 :come_in_office, :phone_call, :status,
-                                 :user_id, :department_id, :assigned_to,
-                                 :alt_email, :do_not_call)
+                                    :project, :square, :floor, :question,
+                                    :region, :source, :online_request,
+                                    :come_in_office, :phone_call, :status,
+                                    :user_id, :department_id, :assigned_to,
+                                    :alt_email, :do_not_call)
   end
 
   def load_contacts(paginate = true)
