@@ -31,7 +31,8 @@ RSpec.describe Department, type: :model do
   it { is_expected.to have_many(:leads) }
   it { is_expected.to have_many(:contacts) }
   it { is_expected.to have_attached_file(:avatar) }
-  it { is_expected.to validate_attachment_content_type(:avatar)
+  it {
+    is_expected.to validate_attachment_content_type(:avatar)
     .allowing('image/png', 'image/jpg', 'image/jpeg')
     .rejecting('text/html', 'text/xml', 'application/octet-stream', 'application/exe')
   }
