@@ -3,7 +3,7 @@ class ContactsController < ApplicationController
 
   def index
     @user = current_user
-    if !@user.departments.any?
+    if @user.departments.none?
       flash[:alert] = 'У Вас нет доступа ни к одному отделу. Запросите доступ у администратора'
     end
     respond_to do |format|
