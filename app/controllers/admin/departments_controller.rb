@@ -56,5 +56,4 @@ class Admin::DepartmentsController < ApplicationController
   def department_params
     params.require(:department).permit(:name, :avatar, :city, :address, :facebook, :vkontakte, :website, :email)
   end
-
 end

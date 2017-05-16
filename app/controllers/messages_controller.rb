@@ -92,5 +92,4 @@ class MessagesController < ApplicationController
   def message_params
     params.require(:message).permit(:to, :from, :subject, :body, :user_id, attachments_attributes: [:attachment])
   end
-
 end

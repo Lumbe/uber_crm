@@ -41,5 +41,4 @@ class ApplicationController < ActionController::Base
     # Raven.user_context(id: session["warden.user.user.key"][0][0])
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
-
 end

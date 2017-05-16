@@ -20,5 +20,4 @@ class Attachment < ApplicationRecord
 
   validates_attachment_file_name :attachment, matches: /\.(#{ALLOWED_FORMATS.join('|')})\z/i,
                                               message: "Данный тип файла не поддерживается. Можно вложить только файлы формата: #{ALLOWED_FORMATS.join(', ')}."
-
 end

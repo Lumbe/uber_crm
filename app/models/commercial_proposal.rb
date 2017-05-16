@@ -28,5 +28,4 @@ class CommercialProposal < ApplicationRecord
             :house_installation_price, :additional_services_price,
             :dollar_exchange_rate,
             presence: true
-
 end

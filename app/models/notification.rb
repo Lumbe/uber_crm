@@ -15,7 +15,6 @@
 #
 
 class Notification < ApplicationRecord
-
   enum notification_type: [:general, :message]
 
   belongs_to :recipient, class_name: 'User'

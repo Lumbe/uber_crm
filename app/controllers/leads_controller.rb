@@ -266,5 +266,4 @@ class LeadsController < ApplicationController
       [leads, count, total_count]
     end
   end
-
 end

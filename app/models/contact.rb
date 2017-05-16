@@ -52,5 +52,4 @@ class Contact < ApplicationRecord
   def self.top_repeated_leads
     joins(:leads).group('contacts.id').order('count(leads.id) DESC')
   end
-
 end

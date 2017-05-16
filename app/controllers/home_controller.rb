@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-
   def index
     @activities = PublicActivity::Activity.where(trackable_department_id: current_user.departments.ids).order(created_at: :desc).first(100)
     respond_to do |format|
@@ -24,5 +23,4 @@ class HomeController < ApplicationController
       end
     end
   end
-
 end

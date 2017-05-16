@@ -39,5 +39,4 @@ class NotificationsController < ApplicationController
       render json: { success: true }
     end
   end
-
 end
