@@ -7,7 +7,7 @@ namespace :import do
     filename = File.join Rails.root, 'contacts.csv'
     counter = 0
     comments_counter = 0
-    CSV.foreach(filename, headers:true) do |row|
+    CSV.foreach(filename, headers: true) do |row|
       comments_arrays = CSV.read(File.join Rails.root, 'comments.csv')
       contact = Contact.create(created_at: Date.parse(row['Created at']),
                                region: row['Cf   4'].blank? ? 'Неизвестно' : row['Cf   4'],
@@ -31,7 +31,7 @@ namespace :import do
 
       # import comments in Contact#custom field
       if !row['Cf   12'].blank?
-        com1 = Comment.create(user_id: row['Assigned to'], commentable_id: contact.id, commentable_type:'Contact', body: row['Cf   12'], created_at: contact.created_at)
+        com1 = Comment.create(user_id: row['Assigned to'], commentable_id: contact.id, commentable_type: 'Contact', body: row['Cf   12'], created_at: contact.created_at)
         if com1.errors.any?
           open('import_error.log', 'w') do |f|
             f << "Comment for contact id - #{com1.commentable_id} have error - #{com1.errors.full_messages.join(",")}\n"

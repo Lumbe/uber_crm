@@ -84,7 +84,7 @@ class MessagesController < ApplicationController
 
   def auth_user_before_action
     if request.post? && !params['Message-Id'].blank? || !params['message-id'].blank?
-      user = User.where(admin:true).first
+      user = User.where(admin: true).first
       sign_in user, store: false
     end
   end
