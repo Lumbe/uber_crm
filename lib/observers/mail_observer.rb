@@ -4,11 +4,11 @@ module Observers
       return unless message.respond_to?(:observer_args)
       if message.observer_args[:commercial_proposal].present? || message.observer_args[:lead].present?
         sent_email = ::Message.new(
-           from: message.from.join(','),
-           to: message.to.join(','),
-           subject: message.subject,
-           message_id: message.message_id,
-           user_id: message.observer_args[:user].id
+          from: message.from.join(','),
+          to: message.to.join(','),
+          subject: message.subject,
+          message_id: message.message_id,
+          user_id: message.observer_args[:user].id
         )
         sent_email.commercial_proposal_id = message.observer_args[:commercial_proposal].id if message.observer_args[:commercial_proposal].present?
 

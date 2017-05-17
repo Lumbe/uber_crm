@@ -1,6 +1,8 @@
 AllCops:
   Exclude:
-    - db/**
+    - db/**/*
+    - lib/tasks/**/*
+    - config/**/*
 Rails:
   Enabled: true
 Style/Documentation:
