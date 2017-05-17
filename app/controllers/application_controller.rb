@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
         current_user.update_attributes(current_department_id: @user_departments.first.id)
         current_user.update_attributes(current_role: Membership.where(department_id: @user_departments.first.id, user_id: current_user.id).first.role)
       end
-      if params.has_key?(:current_department_id)
+      if params.key?(:current_department_id)
         current_user.update_attributes(current_department_id: params[:current_department_id])
         current_user.update_attributes(current_role: Membership.where(department_id: current_user.current_department_id, user_id: current_user.id).first.role)
         redirect_to root_path
