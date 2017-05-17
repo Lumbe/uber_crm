@@ -11,7 +11,7 @@ module  LeadScenarios
       if lead.related_contacts.present?
         lead.update contact: lead.related_contacts.first
       else
-        attributes_for_contact = @lead.attributes.select { |key, value| Lead.new.attributes.except('id', 'created_at', 'updated_at', 'status', 'contact_id').keys.include? key }
+        attributes_for_contact = @lead.attributes.select { |key, _value| Lead.new.attributes.except('id', 'created_at', 'updated_at', 'status', 'contact_id').keys.include? key }
         contact = Contact.new(attributes_for_contact)
         lead.update(contact: contact)
         contact.update(assigned_to: @user.id)

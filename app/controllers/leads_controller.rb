@@ -158,7 +158,7 @@ class LeadsController < ApplicationController
     end
     session[:converted_lead_id] = @lead.id
     @departments = current_user.departments.uniq
-    contact_attributes = Lead.find(params[:id]).attributes.select { |key, value| Contact.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
+    contact_attributes = Lead.find(params[:id]).attributes.select { |key, _value| Contact.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
     contact_attributes['user_id'] ||= current_user.id
     contact_attributes['assigned_to'] ||= current_user.id
     @contact = Contact.new(contact_attributes)
@@ -168,7 +168,7 @@ class LeadsController < ApplicationController
     @lead = Lead.find(params[:id])
     session[:delegated_lead_id] = @lead.id
     @departments = Department.all.collect { |department| [department.name, department.id] }
-    lead_attributes = Lead.find(params[:id]).attributes.select { |key, value| Lead.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
+    lead_attributes = Lead.find(params[:id]).attributes.select { |key, _value| Lead.new.attributes.except('id', 'created_at', 'updated_at', 'status').keys.include? key }
     lead_attributes['user_id'] = current_user.id
     lead_attributes['status'] = 'newly'
     lead_attributes['source'] = "Передан из #{@lead.department.name}"

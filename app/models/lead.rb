@@ -42,7 +42,7 @@ class Lead < ApplicationRecord
 
   phony_normalize :phone, default_country_code: 'UA'
 
-  scope :order_by_status, ->(first = :claimed, second = :repeated, third = :newly, fourth = :converted, fifth = :sended, sixth = :closed) {
+  scope :order_by_status, (->(first = :claimed, second = :repeated, third = :newly, fourth = :converted, fifth = :sended, sixth = :closed) {
     order("status = #{Lead.statuses[first]} DESC,
            status = #{Lead.statuses[second]} DESC,
            status = #{Lead.statuses[third]} DESC,
@@ -50,7 +50,7 @@ class Lead < ApplicationRecord
            status = #{Lead.statuses[fifth]} DESC,
            status = #{Lead.statuses[sixth]} DESC
           ")
-  }
+  })
 
   def related_contacts
     Contact.where(department: department).ransack(phone_cont: phone.chars.last(7).join).result.or(Contact.where(department: department, email: email).where.not(email: ''))

@@ -3,10 +3,10 @@ module ControllerMacros
   def attributes_with_foreign_keys(*args)
     inst = FactoryGirl.build(*args)
     attrs = inst.attributes
-    attrs.delete_if do |k, v|
+    attrs.delete_if do |k, _v|
       ['id', 'type', 'created_at', 'updated_at'].member?(k)
     end
-    inst.class.defined_enums.each { |k, v| attrs[k] = inst.send(k) }
+    inst.class.defined_enums.each { |k, _v| attrs[k] = inst.send(k) }
     attrs
   end
 end
