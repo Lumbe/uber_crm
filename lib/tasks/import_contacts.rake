@@ -34,7 +34,7 @@ namespace :import do
         com1 = Comment.create(user_id: row['Assigned to'], commentable_id: contact.id, commentable_type: 'Contact', body: row['Cf   12'], created_at: contact.created_at)
         if com1.errors.any?
           open('import_error.log', 'w') do |f|
-            f << "Comment for contact id - #{com1.commentable_id} have error - #{com1.errors.full_messages.join(",")}\n"
+            f << "Comment for contact id - #{com1.commentable_id} have error - #{com1.errors.full_messages.join(',')}\n"
           end
         end
         comments_counter += 1 if com1.persisted?
@@ -47,7 +47,7 @@ namespace :import do
           # Comment.create(user_id: comment[1], commentable_id: comment[2], commentable_type: 'Contact', body: comment[4], created_at: comment[5])
           if com2.errors.any?
             open('import_error.log', 'w') do |f|
-              f << "Comment for contact id - #{com2.commentable_id} have error - #{com2.errors.full_messages.join(",")}\n"
+              f << "Comment for contact id - #{com2.commentable_id} have error - #{com2.errors.full_messages.join(',')}\n"
             end
           end
           comments_counter += 1 if com2.persisted?
@@ -57,7 +57,7 @@ namespace :import do
       if contact.errors.any?
         # puts "#{contact.email} - #{contact.errors.full_messages.join(",")}"
         open('import_error.log', 'w') do |f|
-          f << "#{contact.email} - #{contact.errors.full_messages.join(",")}\n"
+          f << "#{contact.email} - #{contact.errors.full_messages.join(',')}\n"
         end
       end
       counter += 1 if contact.persisted?
