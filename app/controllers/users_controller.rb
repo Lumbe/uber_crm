@@ -2,14 +2,11 @@ class UsersController < ApplicationController
   before_action :load_user
   before_action :load_memberships
 
-  def index
-  end
+  def index; end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
@@ -19,11 +16,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def departments
-  end
+  def departments; end
 
-  def settings
-  end
+  def settings; end
 
   def user_leads
     respond_to do |format|

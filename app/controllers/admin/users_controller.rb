@@ -9,8 +9,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @user = User.new(user_params)
@@ -22,8 +21,7 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  def update
-  end
+  def update; end
 
   def destroy
     @user = User.find(params[:id])
